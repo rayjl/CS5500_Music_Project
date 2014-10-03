@@ -16,7 +16,7 @@ Due: Wednesday, 15 October 2014
 
 -----------------------------------------------------------
 
-Last revised: 1 October 2014
+Last revised: 3 October 2014
 
 About:
 This program is a rapid prototype that can compare two .wav
@@ -44,7 +44,16 @@ References:
 Search Algorithm". PDF website:
 www.ee.columbia.edu/~dpwe/papers/Wang03-shazam.pdf
 
+[2] Richard G. Baldwin, "How and Why Spectral Analysis
+Works". Article website:
+http://www.developer.com/java/other/article.php/3374611/
+Fun-with-Java-How-and-Why-Spectral-Analysis-Works.htm
 
+[3] Richard G. Baldwin, "Understanding the Fast Fourier
+Transform". Article website:
+http://www.developer.com/java/other/article.php/3457251/
+Fun-with-Java-Understanding-the-Fast-Fourier-Transform-FFT
+-Algorithm.htm
 
 -----------------------------------------------------------
 
