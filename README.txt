@@ -34,4 +34,13 @@ following form:
 
 ./dam -f <pathname> -f <pathname>
 
+Note: "dam" abbreviates "detect audio misappropriations".
+
 -----------------------------------------------------------
+
+References:
+
+
+-----------------------------------------------------------
+
+
