@@ -40,6 +40,11 @@ Note: "dam" abbreviates "detect audio misappropriations".
 
 References:
 
+[1] Avery Li-Chun Wang, "An Industrial-Strength Audio
+Search Algorithm". PDF website:
+www.ee.columbia.edu/~dpwe/papers/Wang03-shazam.pdf
+
+
 
 -----------------------------------------------------------
 
