@@ -49,14 +49,23 @@ Works". Article website:
 http://www.developer.com/java/other/article.php/3374611/
 Fun-with-Java-How-and-Why-Spectral-Analysis-Works.htm
 
-[3] "Acoustic Fingerprint". Article Website:
+[3] Richard G. Baldwin, "Understanding the Fast Fourier
+Transform". Article website:
+http://www.developer.com/java/other/article.php/3457251/
+Fun-with-Java-Understanding-the-Fast-Fourier-Transform-FFT
+-Algorithm.htm
+
+[4] "Acoustic Fingerprint". Article Website:
 http://en.wikipedia.org/wiki/Acoustic_fingerprint
 
-[4] "Digital Signal Processing". Article Website:
+[5] "Digital Signal Processing". Article Website:
 http://en.wikipedia.org/wiki/Digital_signal_processing
 
-[5] "Discrete Fourier Transform". Article Website:
+[6] "Discrete Fourier Transform". Article Website:
 http://en.wikipedia.org/wiki/Discrete_Fourier_transform
+
+[7] "Fast Fourier Transform". Article Website:
+http://en.wikipedia.org/wiki/Fast_Fourier_transform
 
 
 -----------------------------------------------------------
