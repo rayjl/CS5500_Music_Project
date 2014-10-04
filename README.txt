@@ -44,27 +44,31 @@ References:
 Search Algorithm". PDF website:
 www.ee.columbia.edu/~dpwe/papers/Wang03-shazam.pdf
 
-[2] Richard G. Baldwin, "How and Why Spectral Analysis
+[2] Cheng Yang, "Music Audio Characteristic Sequence
+Indexing For Similarity Retrieval". PDF website:
+infolabs.stanford.edu/~yangc/pub/cy-waspaa01.pdf
+
+[3] Richard G. Baldwin, "How and Why Spectral Analysis
 Works". Article website:
 http://www.developer.com/java/other/article.php/3374611/
 Fun-with-Java-How-and-Why-Spectral-Analysis-Works.htm
 
-[3] Richard G. Baldwin, "Understanding the Fast Fourier
+[4] Richard G. Baldwin, "Understanding the Fast Fourier
 Transform". Article website:
 http://www.developer.com/java/other/article.php/3457251/
 Fun-with-Java-Understanding-the-Fast-Fourier-Transform-FFT
 -Algorithm.htm
 
-[4] "Acoustic Fingerprint". Article Website:
+[5] "Acoustic Fingerprint". Article Website:
 http://en.wikipedia.org/wiki/Acoustic_fingerprint
 
-[5] "Digital Signal Processing". Article Website:
+[6] "Digital Signal Processing". Article Website:
 http://en.wikipedia.org/wiki/Digital_signal_processing
 
-[6] "Discrete Fourier Transform". Article Website:
+[7] "Discrete Fourier Transform". Article Website:
 http://en.wikipedia.org/wiki/Discrete_Fourier_transform
 
-[7] "Fast Fourier Transform". Article Website:
+[8] "Fast Fourier Transform". Article Website:
 http://en.wikipedia.org/wiki/Fast_Fourier_transform
 
 
