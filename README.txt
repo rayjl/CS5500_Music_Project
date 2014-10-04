@@ -71,6 +71,9 @@ http://en.wikipedia.org/wiki/Discrete_Fourier_transform
 [8] "Fast Fourier Transform". Article Website:
 http://en.wikipedia.org/wiki/Fast_Fourier_transform
 
+[9] "Frequency Spectrum". Article Website:
+http://en.wikipedia.org/wiki/Frequency_spectrum
+
 
 -----------------------------------------------------------
 
