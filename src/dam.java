@@ -10,12 +10,6 @@ import java.io.IOException;
 public class dam {
 
 	public static void main(String[] args) {
-
-		// FileInputStream, get songs to compare header
-		// use header to check if both songs are wave file format
-		// --what is the input data format in?
-		// --endianness of header?
-		// WAVE -> 0x57415645 <- HEX
 		
 		// Read wave files in to File objects
 		// This section needs to be modified so that it can read/load \
@@ -27,46 +21,54 @@ public class dam {
 				+ "CS5500/Team Unicorn/Music Project/"
 				+ "wayfaring2.mp3");
 		
-		FileInputStream fis1 = null;
-		FileInputStream fis2 = null;
-		
+		// Read files into byte arrays and compare to WAVE format
 		try {
-			fis1 = new FileInputStream(file1);
-			System.out.println("File 1 size read in bytes : "
-					+ fis1.available());
-			
-			fis2 = new FileInputStream(file2);
-			System.out.println("File 2 size read in bytes : "
-					+ fis2.available());
-		} 
-		catch (IOException e) {
+			byte[] b1 = getByteStream(file1);
+			boolean waveCheck1 = fileFormatCheck(b1);
+			System.out.println("File is in WAVE format : "
+					+ waveCheck1);
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		
-		
-		// Time similarity? 2-3 sec precision
-		// Fingerprinting to match frequencies
+		try {
+			byte[] b2 = getByteStream(file2);
+			boolean waveCheck2 = fileFormatCheck(b2);
+			System.out.println("File is in Wave format : "
+					+ waveCheck2);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		
 	}
 	
-	/* FingerPrint FingerPrint -> boolean
-	 * Given: 2 FingerPrints to compare
-	 * Returns: true if the FingerPrints match
+	/* byte[] -> boolean
+	 * Given: a byte array to check its format
+	 * Returns: true if data is in wave format
+	 * Note: this function will need to be modified for final
 	 */
-//	public static boolean compareFingerPrints(FingerPrint f1,
-//			FingerPrint f2) {		
-		//TO DO
-//	}
+	private static boolean fileFormatCheck(byte[] b) {
+		
+	}
 	
-	// This method may be removed
-	// Check use of FileInputStream in main method
-	/* bitstream -> int[]
-	 * Given: the bit stream of an audio file
-	 * Returns: the bitstream represented as an int array
+	/* File -> byte[]
+	 * Given: a file that is read 
+	 * Returns: the byte stream representation of the file
 	 */
-//	public static int[] getBitStream(...) {
-		//TO DO	
-//	}
+	private static byte[] getByteStream(File file) throws IOException {
+		// Create FileInputStream from file argument
+		FileInputStream fis = null;
+		fis = new FileInputStream(file);
+		System.out.println("File size read in bytes : "
+				+ fis.available());
+		
+		// Read FileInputStream into byte array
+		byte[] b = new byte[fis.available()];
+		fis.read(b);
+		fis.close();
+
+		return b;
+	}
 	
 }
