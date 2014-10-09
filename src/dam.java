@@ -1,8 +1,9 @@
-/**
+/* 
  * Rapid Prototype
- *
+ * 
  */
-public class main {
+
+public class dam {
 
 	public static void main(String[] args) {
 
@@ -37,6 +38,5 @@ public class main {
 	public static int[] getBitStream(...) {
 		//TO DO	
 	}
-
 	
 }
