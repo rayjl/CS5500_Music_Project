@@ -54,6 +54,8 @@ public class AudioFile {
 					 	break;
 		case "MP3": 	this.format = "MP3";
 						break;
+		case "MIDI":	this.format = "MIDI";
+						break;
 		default: 		this.format = null;
 				 		break;
 		}
