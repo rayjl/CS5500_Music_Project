@@ -68,6 +68,8 @@ public class dam {
 	 * what type of file this is. We will only check if it
 	 * is in WAVE format for Assignment 5 and set the
 	 * fields in the AudioFile object accordingly.
+	 * Values in the conditionals were manually looked up
+	 * via an ascii table. May need to fix that.
 	 * 
 	 * This method will need to be fixed for the final. 
 	 */
