@@ -74,6 +74,9 @@ http://en.wikipedia.org/wiki/Fast_Fourier_transform
 [9] "Frequency Spectrum". Article Website:
 http://en.wikipedia.org/wiki/Frequency_spectrum
 
+[10] "WAVE PCM Soundfile Format". Documentation Website:
+https://ccrma.stanford.edu/courses/422/projects/WaveFormat/
+
 
 -----------------------------------------------------------
 
