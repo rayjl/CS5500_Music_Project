@@ -18,26 +18,34 @@ public class dam {
 		// WAVE -> 0x57415645 <- HEX
 		
 		// Read wave files in to File objects
-		// This section needs to be modified so that it can read the
-		// path name from the unix command
-		File file1 = new File("/Users/Ray/Documents/Programming Work"
-				+ "/CS5500/Music Project/CS5500_Music_Project"
-				+ "/wayfaring1.wav");
+		// This section needs to be modified so that it can read/load \
+		// the path name from the unix command
+		File file1 = new File("/Users/Ray/Dropbox/Programming/"
+				+ "CS5500/Team Unicorn/Music Project/"
+				+ "wayfaring2.wav");
+		File file2 = new File("/Users/Ray/Dropbox/Programming/"
+				+ "CS5500/Team Unicorn/Music Project/"
+				+ "wayfaring2.mp3");
 		
 		FileInputStream fis1 = null;
 		FileInputStream fis2 = null;
 		
 		try {
 			fis1 = new FileInputStream(file1);
-			System.out.println("File size read in bytes : "
+			System.out.println("File 1 size read in bytes : "
 					+ fis1.available());
+			
+			fis2 = new FileInputStream(file2);
+			System.out.println("File 2 size read in bytes : "
+					+ fis2.available());
 		} 
 		catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		// Time similarity? 2-3 sec precision
 		
+		
+		// Time similarity? 2-3 sec precision
 		// Fingerprinting to match frequencies
 		
 	}
