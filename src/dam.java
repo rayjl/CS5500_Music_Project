@@ -18,6 +18,8 @@ public class dam {
 		// WAVE -> 0x57415645 <- HEX
 		
 		// Read wave files in to File objects
+		// This section needs to be modified so that it can read the
+		// path name from the unix command
 		File file1 = new File("/Users/Ray/Documents/Programming Work"
 				+ "/CS5500/Music Project/CS5500_Music_Project"
 				+ "/wayfaring1.wav");
@@ -29,6 +31,9 @@ public class dam {
 			fis1 = new FileInputStream(file1);
 			System.out.println("File size read in bytes : "
 					+ fis1.available());
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
 		}
 		
 		// Time similarity? 2-3 sec precision
