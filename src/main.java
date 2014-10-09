@@ -10,7 +10,7 @@ public class main {
 		// use header to check if both songs are wave file format
 		// --what is the input data format in?
 		// --endianness of header?
-		// WAVE -> 0x57415645 
+		// WAVE -> 0x57415645 <- HEX
 		
 		
 		// Time similarity? 2-3 sec precision
