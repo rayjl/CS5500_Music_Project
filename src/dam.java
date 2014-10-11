@@ -12,7 +12,7 @@ public class dam {
 	public static void main(String[] args) {
 		
 		// Read wave files in to File objects
-		// This section needs to be modified so that it can read/load \
+		// This section needs to be modified so that it can read/load
 		// the path name from the unix command
 		File file1 = new File("/Users/Ray/Dropbox/Programming/"
 				+ "CS5500/Team Unicorn/Music Project/"
@@ -99,10 +99,13 @@ public class dam {
 		
 		// Sample Rate - offset 24 size 4
 		// TODO - why does data[25] return a negative?
-		System.out.println(data[24]);
-		System.out.println(data[25]);
-		System.out.println(data[26]);
-		System.out.println(data[27]);
+
+		
+		for (int i = 0; i < 45; i++) {
+			System.out.print((char)data[i] + " ");
+			System.out.print(i + " ");
+			System.out.println(data[i]);
+		}
 	}
 	
 	/* AudioFile -> boolean
