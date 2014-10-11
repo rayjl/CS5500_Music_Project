@@ -22,10 +22,10 @@ About:
 This program is a rapid prototype that can compare two .wav
 files and checks to see if they "match". 
 
-Include files ________ 
-in the same directory and compile with the command:
+Compilation:		javac __________
+Execution:			java ___________
+Dependencies:		________________
 
-javac _________
 
 Prototype's build process will result in software that can
 be invoked by cd'ing to the directory containing the
