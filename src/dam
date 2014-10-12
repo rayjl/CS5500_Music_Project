@@ -1,0 +1,7 @@
+#!/bin/bash
+
+input1 = $1
+input2 = $2
+
+javac AudioMatching.java
+java AudioMatching $input1 $input2

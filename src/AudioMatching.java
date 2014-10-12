@@ -7,19 +7,22 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-public class dam {
+public class AudioMatching {
 
 	public static void main(String[] args) {
 		
 		// Read wave files in to File objects
-		// This section needs to be modified so that it can read/load
-		// the path name from the unix command
-		File file1 = new File("/Users/Ray/Dropbox/Programming/"
-				+ "CS5500/Team Unicorn/Music Project/"
-				+ "wayfaring2.wav");
-		File file2 = new File("/Users/Ray/Dropbox/Programming/"
-				+ "CS5500/Team Unicorn/Music Project/"
-				+ "wayfaring2.mp3");
+		// 2 Arguments should be passed in from shell script
+		if (args.length != 2) {
+			System.err.println("ERROR");
+			System.exit(1);
+		}
+		
+		String path1 = args[0];
+		String path2 = args[1];
+		
+		File file1 = new File(path1);
+		File file2 = new File(path2);
 		
 		// Read files into byte arrays and compare to WAVE format
 		// Each index contains decimal value stored in corresponding
