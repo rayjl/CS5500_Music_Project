@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 
-input1 = $1
-input2 = $2
+# Script used to execute AudioMatching.java application
+# Arguments passed in command line will be passed into application
 
 javac AudioMatching.java
-java AudioMatching $input1 $input2
+java AudioMatching "$@"	
