@@ -3,5 +3,8 @@
 # Script used to execute AudioMatching.java application
 # Arguments passed in command line will be passed into application
 
+echo Compiling...
 javac AudioMatching.java
+echo Done.
+echo Executing...
 java AudioMatching "$@"	

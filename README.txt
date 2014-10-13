@@ -22,10 +22,8 @@ About:
 This program is a rapid prototype that can compare two .wav
 files and checks to see if they "match". 
 
-Compilation:		javac __________
-Execution:			java ___________
-Dependencies:		________________
-
+Dependencies:		AudioMatching.java
+                    AudioFile.java
 
 Prototype's build process will result in software that can
 be invoked by cd'ing to the directory containing the
@@ -76,7 +74,6 @@ http://en.wikipedia.org/wiki/Frequency_spectrum
 
 [10] "WAVE PCM Soundfile Format". Documentation Website:
 https://ccrma.stanford.edu/courses/422/projects/WaveFormat/
-
 
 -----------------------------------------------------------
 
