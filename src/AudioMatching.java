@@ -89,13 +89,17 @@ public class AudioMatching {
 		byte[] data = af.getData();
 		
 		// RIFF scan - offset 0 size 4
-		if ((char)data[0] == 'R' && (char)data[1] == 'I'
-				&& (char)data[2] == 'F' && (char)data[3] == 'F')
+		if ((char)data[0] == 'R' 
+				&& (char)data[1] == 'I'
+				&& (char)data[2] == 'F' 
+				&& (char)data[3] == 'F')
 			af.setRIFFval(true);
 		
 		// File Format - offset 8 size 4
-		if ((char)data[8] == 'W' && (char)data[9] == 'A'
-				&& (char)data[10] == 'V' && (char)data[11] == 'E')
+		if ((char)data[8] == 'W' 
+				&& (char)data[9] == 'A'
+				&& (char)data[10] == 'V' 
+				&& (char)data[11] == 'E')
 			af.setFormat("WAVE");
 		
 		// Audio Format - offset 20 size 2
