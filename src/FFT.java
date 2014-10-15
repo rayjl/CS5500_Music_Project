@@ -21,6 +21,9 @@
  */ 
 
 public class FFT {
+	
+	// n is the length of the FFT (power of 2)
+	// which equates to the number of samples; resolution
 	int n, m; 
 	
 	// Lookup tables. Only need to recompute when size of FFT changes. 
