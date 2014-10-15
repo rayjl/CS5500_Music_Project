@@ -6,13 +6,15 @@ public class DFT{
 		int N = input.length;
 		ComplexNumber[] output = new ComplexNumber[N];
 		
-		for(int k=0; k<N; k++){
+		for(int k = 0; k < N; k++){
 			ComplexNumber c = new ComplexNumber(0,0);
 			output[k] = c;
-			for(int n=0; n<N; n++){
+			for(int n = 0; n < N; n++){
 				double real = Math.cos(-2*Math.PI*n*k/N);
 				double imaginary = Math.sin(-2*Math.PI*n*k/N);
-				output[k] = output[k].add(input[n].multiply(new ComplexNumber(real,imaginary)));
+				output[k] = 
+						output[k].add(input[n].multiply(
+								new ComplexNumber(real,imaginary)));
 			}
 		}
 		

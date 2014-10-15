@@ -13,13 +13,16 @@ public class ComplexNumber {
 	}
 	
 	public ComplexNumber multiply(ComplexNumber c2){
-		return new ComplexNumber(this.r*c2.r - this.i*c2.i, this.r*c2.i + this.i*c2.r);
+		return new ComplexNumber(this.r*c2.r - this.i*c2.i, 
+				this.r*c2.i + this.i*c2.r);
 	}
 	
 	public ComplexNumber divide(ComplexNumber c2){
 		return new
-		 ComplexNumber((this.r*c2.r+this.i*c2.i)/(Math.pow(c2.r,2)+Math.pow(c2.i,2)),
-		 			(this.i*c2.r - this.r*c2.i)/(Math.pow(c2.r,2)+Math.pow(c2.i,2)));
+		 ComplexNumber((this.r*c2.r + this.i*c2.i) 
+				 			/ (Math.pow(c2.r,2) + Math.pow(c2.i,2)),
+				 		(this.i*c2.r - this.r*c2.i) 
+				 			/ (Math.pow(c2.r,2) + Math.pow(c2.i,2)));
 	}
 	
 	public String toString(){
