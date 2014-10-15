@@ -8,10 +8,12 @@ javac AudioMatching.java
 echo Done.
 echo Executing...
 
+# Check if both arguments are files
 if [ -f "$1" -a -f "$2" ]
 	then
 	java AudioMatching "$1" "$2"
 else
+	# Write to stderr if it is not a file and exit
 	echo 'ERROR : NOT A FILE.' >&2
 	exit 1
 fi

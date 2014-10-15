@@ -9,6 +9,9 @@ import java.io.IOException;
 
 public class AudioMatching {
 
+	static String file_name1;
+	static String file_name2;
+	
 	public static void main(String[] args) {
 		
 		// Leave this here for now as a sanity check for shell
@@ -17,9 +20,9 @@ public class AudioMatching {
 		System.out.println(args.length);
 		
 		// Read wave files in to File objects
-		// 4 Arguments should be passed in from shell script
+		// 2 Arguments should be passed in from shell script
 		// -f <pathname> -f <pathname>
-		if (args.length != 4) {
+		if (args.length != 2) {
 			System.err.println("ERROR");
 			System.exit(1);
 		}
@@ -27,6 +30,9 @@ public class AudioMatching {
 		// Grab the paths from respective indexes
 		String path1 = args[0];
 		String path2 = args[1];
+		
+		file_name1 = shortFileName(path1);
+		file_name2 = shortFileName(path2);
 		
 		File file1 = new File(path1);
 		File file2 = new File(path2);
