@@ -1,5 +1,9 @@
 -----------------------------------------------------------
 
+Last Revised: 14 October 2014
+
+-----------------------------------------------------------
+
 Team Name: 
 Unicorn
 
@@ -16,19 +20,19 @@ Due: Wednesday, 15 October 2014
 
 -----------------------------------------------------------
 
-Last revised: 14 October 2014
-
 About:
 This program is a rapid prototype that can compare two .wav
 files and checks to see if they "match". 
 
 Dependencies:		AudioMatching.java
                     AudioFile.java
+                    ComplexNumber.java
+                    DFT.java
                     FingerPrint.java
                     Format.java
                     dam
 
-Permissions:       chmod 755 dam
+Permissions:        chmod 755 dam
 
 Prototype's build process will result in software that can
 be invoked by cd'ing to the directory containing the

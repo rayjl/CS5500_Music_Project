@@ -5,7 +5,7 @@ import java.math.*;
 
 /* 
  * Rapid Prototype
- * Last Edited: 14 Oct 2014
+ * Last Edited: 14 October 2014
  */
 
 public class AudioMatching {
