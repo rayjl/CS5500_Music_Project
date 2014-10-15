@@ -34,7 +34,11 @@ public class ComplexNumber {
 	}
 	
 	public double getFreq(){
-		return Math.atan(i/r);
+		if(r<0){
+			return Math.PI + Math.atan(i/r);
+		} else {
+			return Math.atan(i/r);
+		}
 	}
 
 }
