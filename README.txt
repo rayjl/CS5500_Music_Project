@@ -16,7 +16,7 @@ Due: Wednesday, 15 October 2014
 
 -----------------------------------------------------------
 
-Last revised: 3 October 2014
+Last revised: 14 October 2014
 
 About:
 This program is a rapid prototype that can compare two .wav
