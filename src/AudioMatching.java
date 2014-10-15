@@ -14,26 +14,27 @@ public class AudioMatching {
 	
 	public static void main(String[] args) {
 		
-		// Leave this here for now as a sanity check for shell
-		System.out.println(args[0]);
-		System.out.println(args[1]);
-		System.out.println(args.length);
-		
 		// Read wave files in to File objects
-		// 2 Arguments should be passed in from shell script
+		// 4 Arguments should be passed in from shell script
+		// Format: 
 		// -f <pathname> -f <pathname>
-		if (args.length != 2) {
+		if (args.length != 4) {
 			System.err.println("ERROR");
 			System.exit(1);
 		}
 		
 		// Grab the paths from respective indexes
-		String path1 = args[0];
-		String path2 = args[1];
+		String path1 = args[1];
+		String path2 = args[3];
 		
+		// Grab file names from paths
 		file_name1 = shortFileName(path1);
 		file_name2 = shortFileName(path2);
 		
+		System.out.println(file_name1);
+		System.out.println(file_name2);
+		
+		// Create file objects from file paths
 		File file1 = new File(path1);
 		File file2 = new File(path2);
 		
@@ -42,7 +43,7 @@ public class AudioMatching {
 		// byte offset
 		try {
 			
-			byte[] b1 = getByteStream(file1);
+			byte[] b1 = getByteArray(file1);
 			AudioFile af1 = new AudioFile(b1);
 			
 			// Set parameters for AudioFile
@@ -59,7 +60,7 @@ public class AudioMatching {
 		
 		try {
 			
-			byte[] b2 = getByteStream(file2);
+			byte[] b2 = getByteArray(file2);
 			AudioFile af2 = new AudioFile(b2);
 			
 			// Set parameters for AudioFile
@@ -77,6 +78,29 @@ public class AudioMatching {
 		
 	}
 	
+	/* String -> String
+	 * Given: the path name of a file
+	 * Returns: the short name of the file
+	 * Note: the name of the file is contained in the path name
+	 */
+	private static String shortFileName(String s) {
+		// temp string to concatenate file name to
+		String temp = "";
+		
+		// Loop through path from end until '/' is detected
+		for (int i = temp.length() - 1; i >= 0; i--) {
+			char c = s.charAt(i);
+			if (c == '/')
+				break;
+			else
+				temp = c + temp;
+		}
+		
+		// Return the concatenated string representing
+		// the file name
+		return temp;	
+	}
+	
 	/* AudioFile -> Void
 	 * Given: an AudioFile object to have its fields set
 	 * Returns: Void
@@ -84,8 +108,6 @@ public class AudioMatching {
 	 * what type of file this is. We will only check if it
 	 * is in WAVE format for Assignment 5 and set the
 	 * fields in the AudioFile object accordingly.
-	 * Values in the conditionals were manually looked up
-	 * via an ascii table. May need to fix that.
 	 * 
 	 * This method will need to be fixed for the final. 
 	 */
@@ -145,7 +167,7 @@ public class AudioMatching {
 	 * Given: a file that is read 
 	 * Returns: the byte stream representation of the file
 	 */
-	private static byte[] getByteStream(File file) throws IOException {
+	private static byte[] getByteArray(File file) throws IOException {
 		// Create FileInputStream from file argument
 		FileInputStream fis = null;
 		fis = new FileInputStream(file);

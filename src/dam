@@ -9,7 +9,7 @@ echo Done.
 echo Executing...
 
 # Check if both arguments are files
-if [ -f "$1" -a -f "$2" ]
+if [ "$1" == "-f" -a "$3" == "-f" -a -f "$2" -a -f "$4" ]
 	then
 	java AudioMatching "$1" "$2"
 else
