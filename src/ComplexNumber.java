@@ -21,5 +21,9 @@ public class ComplexNumber{
 		 ComplexNumber((this.r*c2.r+this.i*c2.i)/(Math.pow(c2.r,2)+Math.pow(c2.i,2)),
 		 			(this.i*c2.r - this.r*c2.i)/(Math.pow(c2.r,2)+Math.pow(c2.i,2)));
 	}
+	
+	public String toString(){
+		return this.r + " + " + this.i + "i";
+	}
 
 }
