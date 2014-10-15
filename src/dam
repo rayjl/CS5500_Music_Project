@@ -8,7 +8,7 @@ javac AudioMatching.java
 echo Done.
 echo Executing...
 
-if [-f "$1" && -f "$3"]
+if [ -f "$1" -a -f "$2" ]
 	then
 	java AudioMatching "$1" "$2" "$3" "$4"
 else
