@@ -22,6 +22,10 @@ public class FingerPrint {
 	// Given: compares this FingerPrint to the given FingerPrint
 	// Returns: true if the FingerPrints are "similar"
 	public boolean similarTo(FingerPrint f) {
+		
+		System.out.print(magnitude + " " + f.getMagnitude() + "  ");
+		System.out.println(freq + " " + f.getFreq());
+		
 		// Check thresholds
 		if (Math.abs(magnitude - f.getMagnitude()) < this.MAG_THRESHOLD
 				&& Math.abs(freq - f.getFreq()) < this.FREQ_THRESHOLD)	

@@ -1,6 +1,6 @@
 -----------------------------------------------------------
 
-Last Revised: 14 October 2014
+Last Revised: 15 October 2014
 
 -----------------------------------------------------------
 
@@ -34,12 +34,14 @@ Dependencies:		AudioMatching.java
 
 Permissions:        chmod 755 dam
 
-Prototype's build process will result in software that can
-be invoked by cd'ing to the directory containing the
-software's executable and executing a command of the
-following form:
+Compilation and 
+Execution:          Prototype's build process will result in 
+                    software that can be invoked by cd'ing to 
+                    the directory containing the software's 
+                    executable and executing a command of the 
+                    following form:
 
-./dam -f <pathname> -f <pathname>
+                    ./dam -f <pathname> -f <pathname>
 
 Note: "dam" abbreviates "detect audio misappropriations".
 

@@ -61,11 +61,16 @@ public class AudioMatching {
 			ComplexNumber[] cn2 =
 					convertToComplexNumber(b2);
 			
+			// Transform ComplexNumbers
+			// Need to fix this, operation time is too slow
+			ComplexNumber[] dft1 = DFT.dft(cn1);
+			ComplexNumber[] dft2 = DFT.dft(cn2);
+			
 			// Convert to FingerPrints
 			FingerPrint[] fp1 =
-					makeFingerPrints(cn1);
+					makeFingerPrints(dft1);
 			FingerPrint[] fp2 =
-					makeFingerPrints(cn2);
+					makeFingerPrints(dft2);
 			
 			// Compare FingerPrints
 			compareFingerPrints(fp1, fp2);
@@ -95,7 +100,7 @@ public class AudioMatching {
 	 * Given: array of bytes
 	 * Returns: corresponding array of complex numbers
 	 */
-	private static ComplexNumber[] convertToComplexNumber(byte[] a){
+	private static ComplexNumber[] convertToComplexNumber(byte[] a) {
 		int N = a.length;
 		
 		ComplexNumber[] complexArray = new ComplexNumber[N];
@@ -108,11 +113,14 @@ public class AudioMatching {
 	}
 
 	/* ComplexNumber[] -> FingerPrint[]
-	 * Given: ComplexNumber[] that contains the data transformed by the DFT
-	 * Returns: a FingerPrint[] that contains the FingerPrints of the samples
+	 * Given: ComplexNumber[] that contains the data 
+	 * transformed by the DFT
+	 * Returns: a FingerPrint[] that contains the FingerPrints 
+	 * of the samples
 	 */
-	private static FingerPrint[] makeFingerPrints(ComplexNumber[] ca){
+	private static FingerPrint[] makeFingerPrints(ComplexNumber[] ca) {
 		FingerPrint[] fa = new FingerPrint[ca.length];
+		
 		for(int i = 0; i < ca.length; i++){
 			fa[i] = new FingerPrint(ca[i]);
 		}
@@ -128,6 +136,7 @@ public class AudioMatching {
 			FingerPrint[] b) {
 	
 		// trivial case, different song lengths = different songs
+		// return; default match = false
 		if (a.length != b.length)
 			return;
 		
