@@ -28,7 +28,7 @@ Dependencies:		AudioMatching.java
                     Format.java
                     dam
 
-Permmissions:       chmod 755 dam
+Permissions:       chmod 755 dam
 
 Prototype's build process will result in software that can
 be invoked by cd'ing to the directory containing the
