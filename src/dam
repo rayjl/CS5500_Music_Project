@@ -3,12 +3,7 @@
 # Script used to execute AudioMatching.java application
 # Arguments passed in command line will be passed into application
 
-echo Compiling...
 javac AudioMatching.java
-echo Done.
-echo
-echo Executing...
-echo
 
 # Check if 4 arguments
 if [ "$#" == 4 ]
@@ -37,6 +32,4 @@ else
     exit 1
 fi
 
-echo
-echo Done.
 exit 0

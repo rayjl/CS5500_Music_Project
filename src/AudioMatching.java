@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.math.*;
 
 /* 
  * Rapid Prototype
@@ -52,9 +51,24 @@ public class AudioMatching {
 			setAudioFileParams(af1);
 			setAudioFileParams(af2);
 			
-			// Assignment 5 Check
+			// Assignment 5 Format Check
 			fileFormatCheck(af1, file_name1);
 			fileFormatCheck(af2, file_name2);
+			
+			// Convert data to complex numbers
+			ComplexNumber[] cn1 = 
+					convertToComplexNumber(b1);
+			ComplexNumber[] cn2 =
+					convertToComplexNumber(b2);
+			
+			// Convert to FingerPrints
+			FingerPrint[] fp1 =
+					makeFingerPrints(cn1);
+			FingerPrint[] fp2 =
+					makeFingerPrints(cn2);
+			
+			// Compare FingerPrints
+			compareFingerPrints(fp1, fp2);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -63,6 +77,18 @@ public class AudioMatching {
 		// Report results and exit program
 		summaryReport(match);
 		System.exit(0);
+	}
+	
+	/* boolean -> Void
+	 * Given: true if the files match, false otherwise
+	 * Returns: Void
+	 */
+	private static void summaryReport(boolean b) {
+		if (b)
+			System.out.println("MATCH" + " " 
+					+ file_name1 + " " + file_name2);
+		else
+			System.out.println("NO MATCH");
 	}
 	
 	/* byte[] -> ComplexNumber[]
@@ -99,7 +125,7 @@ public class AudioMatching {
 	 * Note: function can set the variable match to be true
 	 */
 	private static void compareFingerPrints(FingerPrint[] a,
-			FingerPrint[] b, int threshold) {
+			FingerPrint[] b) {
 	
 		// trivial case, different song lengths = different songs
 		if (a.length != b.length)
@@ -118,18 +144,6 @@ public class AudioMatching {
 		if (counter >= goal)
 			match = true;
 		
-	}
-	
-	/* boolean -> Void
-	 * Given: true if the files match, false otherwise
-	 * Returns: Void
-	 */
-	private static void summaryReport(boolean b) {
-		if (b)
-			System.out.println("MATCH" + " " 
-					+ file_name1 + " " + file_name2);
-		else
-			System.out.println("NO MATCH");
 	}
 
 	/* String -> String
@@ -218,8 +232,6 @@ public class AudioMatching {
 		// Create FileInputStream from file argument
 		FileInputStream fis = null;
 		fis = new FileInputStream(file);
-		System.out.println("File size read in bytes : "
-				+ fis.available());
 		
 		// Read bytes from buffer
 		byte[] b = new byte[fis.available()];

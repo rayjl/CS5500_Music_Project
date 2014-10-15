@@ -6,25 +6,22 @@
 
 public class FingerPrint {
 
-	private double FREQ_THRESHOLD;
-	private double MAG_THRESHOLD;
+	// TODO - fix dummy threshold values of 5
+	private double FREQ_THRESHOLD = 5;
+	private double MAG_THRESHOLD = 5;
 	private double magnitude;
 	private double freq;
 	
 	
 	public FingerPrint(ComplexNumber c){
 		this.magnitude = c.getMagnitude();
-		this.freq = c.getFreq();
-		
+		this.freq = c.getFreq();	
 	}
 	
 	public boolean similarTo(FingerPrint f){
-		if (magnitude - f.getMagnitude() < this.MAG_THRESHOLD
-				&& freq - f.getFreq() < this.FREQ_THRESHOLD){
-			
+		if (Math.abs(magnitude - f.getMagnitude()) < this.MAG_THRESHOLD
+				&& Math.abs(freq - f.getFreq()) < this.FREQ_THRESHOLD)	
 			return true;
-		}
-		
 		return false;
 	}
 	
