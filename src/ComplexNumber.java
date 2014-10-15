@@ -28,5 +28,13 @@ public class ComplexNumber {
 	public String toString(){
 		return this.r + " + " + this.i + "i";
 	}
+	
+	public double getMagnitude(){
+		return Math.sqrt(i*i + r*r);
+	}
+	
+	public double getFreq(){
+		return Math.atan(i/r);
+	}
 
 }
