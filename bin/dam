@@ -6,6 +6,7 @@
 echo Compiling...
 javac AudioMatching.java
 echo Done.
+echo
 echo Executing...
 echo
 
@@ -13,17 +14,25 @@ echo
 if [ "$#" == 4 ]
     then 
     # Check if arguments are files
-    if [ "$1" == "-f" -a "$3" == "-f" -a -f "$2" -a -f "$4" ]
+    if [ "$1" == "-f" -a "$3" == "-f" ]
         then
-        # Pass file paths as arguments to Java Application
-        java AudioMatching "$2" "$4"
+        # Check the paths
+        if [ -f "$2" -a -f "$4" ]
+            then
+            # Pass file paths as arguments to Java Application
+            java AudioMatching "$2" "$4"
+        else
+            # Write to stderr if non files
+            echo 'ERROR : Paths are not files.' >&2
+            exit 1
+        fi
     else
-        # Write to stderr if non files
-        echo 'ERROR : Paths are not files.' >&2
+        # Write to stderr if incorrect command line
+        echo 'ERROR : Incorrect command line.' >&2
         exit 1
     fi
 else
-	# Write to stderr if in correct command
+	# Write to stderr if incorrect command line
     echo 'ERROR : Incorrect command line.' >&2
     exit 1
 fi
