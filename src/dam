@@ -11,11 +11,13 @@ echo Executing...
 # Check if both arguments are files
 if [ "$1" == "-f" -a "$3" == "-f" -a -f "$2" -a -f "$4" ]
 	then
-	java AudioMatching "$1" "$2"
+	# Pass file paths as arguments to Java Application
+	java AudioMatching "$2" "$4"
 else
-	# Write to stderr if it is not a file and exit
+	# Write to stderr if non files
 	echo 'ERROR : NOT A FILE.' >&2
 	exit 1
 fi
 
+echo Done.
 exit 0

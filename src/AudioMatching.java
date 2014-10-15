@@ -9,30 +9,28 @@ import java.io.IOException;
 
 public class AudioMatching {
 
+	// Global variables for File names
 	static String file_name1;
 	static String file_name2;
 	
 	public static void main(String[] args) {
 		
 		// Read wave files in to File objects
-		// 4 Arguments should be passed in from shell script
+		// 2 Arguments should be passed in from shell script
 		// Format: 
 		// -f <pathname> -f <pathname>
-		if (args.length != 4) {
+		if (args.length != 2) {
 			System.err.println("ERROR");
 			System.exit(1);
 		}
 		
 		// Grab the paths from respective indexes
-		String path1 = args[1];
-		String path2 = args[3];
-		
+		String path1 = args[0];
+		String path2 = args[1];
+
 		// Grab file names from paths
 		file_name1 = shortFileName(path1);
 		file_name2 = shortFileName(path2);
-		
-		System.out.println(file_name1);
-		System.out.println(file_name2);
 		
 		// Create file objects from file paths
 		File file1 = new File(path1);
@@ -88,7 +86,7 @@ public class AudioMatching {
 		String temp = "";
 		
 		// Loop through path from end until '/' is detected
-		for (int i = temp.length() - 1; i >= 0; i--) {
+		for (int i = s.length() - 1; i >= 0; i--) {
 			char c = s.charAt(i);
 			if (c == '/')
 				break;
