@@ -63,14 +63,14 @@ public class AudioMatching {
 			
 			// Transform ComplexNumbers
 			// Need to fix this, operation time is too slow
-			ComplexNumber[] dft1 = DFT.dft(cn1);
-			ComplexNumber[] dft2 = DFT.dft(cn2);
+//			ComplexNumber[] dft1 = DFT.dft(cn1);
+//			ComplexNumber[] dft2 = DFT.dft(cn2);
 			
 			// Convert to FingerPrints
 			FingerPrint[] fp1 =
-					makeFingerPrints(dft1);
+					makeFingerPrints(cn1);
 			FingerPrint[] fp2 =
-					makeFingerPrints(dft2);
+					makeFingerPrints(cn2);
 			
 			// Compare FingerPrints
 			compareFingerPrints(fp1, fp2);
