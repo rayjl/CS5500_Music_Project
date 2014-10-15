@@ -64,6 +64,22 @@ public class AudioMatching {
 		summaryReport(match);
 		System.exit(0);
 	}
+	
+	/* byte[] -> ComplexNumber[]
+	 * Given: array of bytes
+	 * Returns: corresponding array of complex numbers
+	 */
+	private static ComplexNumber[] convertToComplexNumber(byte[] a){
+		int N = a.length;
+		
+		ComplexNumber[] complexArray = new ComplexNumber[N];
+		
+		for(int i=0; i<N; i++){
+			complexArray[i] = new ComplexNumber((double) a[i], 0);
+		}
+		
+		return complexArray;	
+	}
 
 	/* ComplexNumber[] -> FingerPrint[]
 	 * Given: ComplexNumber[] that contains the data transformed by the DFT
@@ -177,9 +193,6 @@ public class AudioMatching {
 		// Bits per Sample - offset 34 size 2
 		af.setBPS(data[34]);
 		
-		// Sample Rate - offset 24 size 4
-		// TODO - why does data[25] return a negative?
-
 	}
 	
 	/* AudioFile String -> Void
@@ -214,23 +227,6 @@ public class AudioMatching {
 		fis.close();
 
 		return b;
-	}
-	
-	/* byte[] -> ComplexNumber[]
-	 * Given: array of bytes
-	 * Returns: corresponding array of complex numbers
-	 */
-	private static ComplexNumber[] convertToComplexNumber(byte[] a){
-		int N = a.length;
-		
-		ComplexNumber[] complexArray = new ComplexNumber[N];
-		
-		for(int i=0; i<N; i++){
-			complexArray[i] = new ComplexNumber((double) a[i], 0);
-		}
-		
-		return complexArray;
-		
 	}
 	
 	
