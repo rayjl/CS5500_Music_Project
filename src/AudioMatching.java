@@ -216,4 +216,22 @@ public class AudioMatching {
 		return b;
 	}
 	
+	/* byte[] -> ComplexNumber[]
+	 * Given: array of bytes
+	 * Returns: corresponding array of complex numbers
+	 */
+	private static ComplexNumber[] convertToComplexNumber(byte[] a){
+		int N = a.length;
+		
+		ComplexNumber[] complexArray = new ComplexNumber[N];
+		
+		for(int i=0; i<N; i++){
+			complexArray[i] = new ComplexNumber((double) a[i], 0);
+		}
+		
+		return complexArray;
+		
+	}
+	
+	
 }
