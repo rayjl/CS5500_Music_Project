@@ -140,11 +140,11 @@ public class AudioMatching {
 		// TODO - why does data[25] return a negative?
 
 		
-		for (int i = 0; i < 45; i++) {
-			System.out.print((char)data[i] + " ");
-			System.out.print(i + " ");
-			System.out.println(data[i]);
-		}
+//		for (int i = 0; i < 45; i++) {
+//			System.out.print((char)data[i] + " ");
+//			System.out.print(i + " ");
+//			System.out.println(data[i]);
+//		}
 	}
 	
 	/* AudioFile -> boolean
