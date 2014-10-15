@@ -1,6 +1,9 @@
 public class DFT{
 
-	//compute DFT
+	/* ComplexNumber[] -> ComplexNumber[]
+	 * Given: a sequence of complex numbers
+	 * Returns: a sequence of complex numbers that is the DFT of input
+	*/
 	public static ComplexNumber[] dft(ComplexNumber[] input){
 	
 		int N = input.length;
