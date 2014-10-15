@@ -10,10 +10,10 @@ echo Executing...
 
 if [ -f "$1" -a -f "$2" ]
 	then
-	java AudioMatching "$1" "$2" "$3" "$4"
+	java AudioMatching "$1" "$2"
 else
 	echo 'ERROR : NOT A FILE.' >&2
-	echo
+	exit 1
 fi
 
 exit 0
