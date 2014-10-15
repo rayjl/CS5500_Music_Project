@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.math.*;
 
 /* 
  * Rapid Prototype
@@ -62,6 +63,33 @@ public class AudioMatching {
 		// Report results and exit program
 		summaryReport(match);
 		System.exit(0);
+	}
+	
+	/* FingerPrint[] FingerPrint[] int -> Void
+	 * Given: 2 FingerPrint arrays to compare and a threshold
+	 * Returns: Void
+	 * Note: function will set the variable match to be true or false
+	 */
+	private static void compareFingerPrints(FingerPrint[] a,
+			FingerPrint[] b, int threshold) {
+	
+		// trivial case, different song lengths = different songs
+		if (a.length != b.length)
+			return;
+		
+		// If 90% of the array is similar, match found
+		int counter = 0;
+		int goal = (int) Math.floor(a.length * 0.90);
+		
+		for (int i = 0; i < a.length; i++) {
+			if (a[i].similarTo(b[i]))
+				counter++;
+		}
+		
+		// threshold met
+		if (counter >= goal)
+			match = true;
+		
 	}
 	
 	/* boolean -> Void
