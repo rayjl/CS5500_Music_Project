@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /*
  * Audio File object to hold details of Input file
  */
@@ -105,6 +107,21 @@ public class AudioFile {
 	
 	public byte[] getData() {
 		return this.data;
+	}
+	
+	// Other Methods --------------------------------------
+	
+	public byte[] getAudioData() {
+		if (this.format.equals("WAVE")){
+			return Arrays.copyOfRange(data, 36, data.length);
+		} else if (this.format.equals("MP3")){
+			System.err.print("audio format not yet supported");
+		} else if (this.format.equals("MIDI")){
+			System.err.print("audio format not yet supported");
+		} else if (this.format == null) {
+			System.err.print("audio format not supported");
+		}
+		return null;
 	}
 
 }
