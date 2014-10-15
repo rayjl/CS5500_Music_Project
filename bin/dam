@@ -7,7 +7,6 @@ echo Compiling...
 javac AudioMatching.java
 echo Done.
 echo Executing...
-echo
 
 # Check if 4 arguments
 if [ "$#" == 4 ]
@@ -24,10 +23,9 @@ if [ "$#" == 4 ]
     fi
 else
 	# Write to stderr if in correct command
-    echo 'ERROR : Incorrect command line.' >&2
+    echo 'ERROR : Incorrect command.' >&2
     exit 1
 fi
 
-echo
 echo Done.
 exit 0

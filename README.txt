@@ -25,6 +25,7 @@ files and checks to see if they "match".
 Dependencies:		AudioMatching.java
                     AudioFile.java
                     FingerPrint.java
+                    Format.java
                     dam
 
 Permmissions:       chmod 755 dam

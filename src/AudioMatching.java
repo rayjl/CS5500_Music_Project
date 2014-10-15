@@ -9,9 +9,10 @@ import java.io.IOException;
 
 public class AudioMatching {
 
-	// Global variables for File names
+	// Global variables
 	static String file_name1;
 	static String file_name2;
+	static boolean match;
 	
 	public static void main(String[] args) {
 		
@@ -42,39 +43,39 @@ public class AudioMatching {
 		try {
 			
 			byte[] b1 = getByteArray(file1);
+			byte[] b2 = getByteArray(file2);
 			AudioFile af1 = new AudioFile(b1);
+			AudioFile af2 = new AudioFile(b2);
 			
 			// Set parameters for AudioFile
 			setAudioFileParams(af1);
+			setAudioFileParams(af2);
 			
 			// Assignment 5 Check
-			boolean waveCheck1 = fileFormatCheck(af1);
-			System.out.println("File is in WAVE format : "
-					+ waveCheck1);
+			fileFormatCheck(af1, file_name1);
+			fileFormatCheck(af2, file_name2);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		try {
-			
-			byte[] b2 = getByteArray(file2);
-			AudioFile af2 = new AudioFile(b2);
-			
-			// Set parameters for AudioFile
-			setAudioFileParams(af2);
-			
-			// Assignment 5 Check
-			boolean waveCheck2 = fileFormatCheck(af2);
-			System.out.println("File is in Wave format : "
-					+ waveCheck2);
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	
+		// Report results and exit program
+		summaryReport(match);
+		System.exit(0);
 	}
 	
+	/* boolean -> Void
+	 * Given: true if the files match, false otherwise
+	 * Returns: Void
+	 */
+	private static void summaryReport(boolean b) {
+		if (b)
+			System.out.println("MATCH" + " " 
+					+ file_name1 + " " + file_name2);
+		else
+			System.out.println("NO MATCH");
+	}
+
 	/* String -> String
 	 * Given: the path name of a file
 	 * Returns: the short name of the file
@@ -139,25 +140,21 @@ public class AudioMatching {
 		// Sample Rate - offset 24 size 4
 		// TODO - why does data[25] return a negative?
 
-		
-//		for (int i = 0; i < 45; i++) {
-//			System.out.print((char)data[i] + " ");
-//			System.out.print(i + " ");
-//			System.out.println(data[i]);
-//		}
 	}
 	
-	/* AudioFile -> boolean
-	 * Given: an AudioFile object to check its format
-	 * Returns: true if data is in wave format
+	/* AudioFile String -> Void
+	 * Given: an AudioFile object to check its format and the name
+	 * of the respective file
+	 * Returns: Void
 	 * 
 	 * Note: this method will need to be modified for final
 	 */
-	private static boolean fileFormatCheck(AudioFile af) {
-		if (af.getFormat() == Format.WAVE)
-			return true;
-		else
-			return false;
+	private static void fileFormatCheck(AudioFile af, String s) {
+		if (af.getFormat() != Format.WAVE) {
+			System.err.println("ERROR : " + s + " " 
+					+ "is not a supported format.");
+			System.exit(1);
+		}
 	}
 	
 	/* File -> byte[]
