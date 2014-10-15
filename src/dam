@@ -6,6 +6,7 @@
 echo Compiling...
 javac AudioMatching.java
 echo Done.
+echo
 echo Executing...
 echo
 
@@ -16,7 +17,7 @@ if [ "$#" == 4 ]
     if [ "$1" == "-f" -a "$3" == "-f" ]
         then
         # Check the paths
-        if [ -a -f "$2" -a -f "$4" ]
+        if [ -f "$2" -a -f "$4" ]
             then
             # Pass file paths as arguments to Java Application
             java AudioMatching "$2" "$4"
