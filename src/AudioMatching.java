@@ -5,7 +5,7 @@ import java.math.*;
 
 /* 
  * Rapid Prototype
- * Last Edited: 14 Oct 2014
+ * Last Edited: 14 October 2014
  */
 
 public class AudioMatching {
@@ -65,13 +65,13 @@ public class AudioMatching {
 		System.exit(0);
 	}
 	
-	/* FingerPrint[] FingerPrint[] int -> Void
+	/* FingerPrint[] FingerPrint[] -> Void
 	 * Given: 2 FingerPrint arrays to compare and a threshold
 	 * Returns: Void
 	 * Note: function can set the variable match to be true
 	 */
 	private static void compareFingerPrints(FingerPrint[] a,
-			FingerPrint[] b, int threshold) {
+			FingerPrint[] b) {
 	
 		// trivial case, different song lengths = different songs
 		if (a.length != b.length)
