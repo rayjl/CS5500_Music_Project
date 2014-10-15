@@ -5,7 +5,7 @@ import java.math.*;
 
 /* 
  * Rapid Prototype
- * Last Edited: 14 October 2014
+ * Last Edited: 14 Oct 2014
  */
 
 public class AudioMatching {
@@ -64,14 +64,26 @@ public class AudioMatching {
 		summaryReport(match);
 		System.exit(0);
 	}
+
+	/* ComplexNumber[] -> FingerPrint[]
+	 * Given: ComplexNumber[] that contains the data transformed by the DFT
+	 * Returns: a FingerPrint[] that contains the FingerPrints of the samples
+	 */
+	private static FingerPrint[] makeFingerPrints(ComplexNumber[] ca){
+		FingerPrint[] fa = new FingerPrint[ca.length];
+		for(int i = 0; i < ca.length; i++){
+			fa[i] = new FingerPrint(ca[i]);
+		}
+		return fa;
+	}
 	
-	/* FingerPrint[] FingerPrint[] -> Void
+	/* FingerPrint[] FingerPrint[] int -> Void
 	 * Given: 2 FingerPrint arrays to compare and a threshold
 	 * Returns: Void
 	 * Note: function can set the variable match to be true
 	 */
 	private static void compareFingerPrints(FingerPrint[] a,
-			FingerPrint[] b) {
+			FingerPrint[] b, int threshold) {
 	
 		// trivial case, different song lengths = different songs
 		if (a.length != b.length)
