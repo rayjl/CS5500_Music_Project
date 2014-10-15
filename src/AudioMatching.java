@@ -72,8 +72,7 @@ public class AudioMatching {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		
+	
 	}
 	
 	/* String -> String
