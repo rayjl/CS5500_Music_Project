@@ -36,9 +36,6 @@ following form:
 
 ./dam -f <pathname> -f <pathname>
 
-e.g.
-./dam wayfaring2.wav wayfaring2.mp3
-
 Note: "dam" abbreviates "detect audio misappropriations".
 
 -----------------------------------------------------------
