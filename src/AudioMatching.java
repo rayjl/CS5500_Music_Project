@@ -1,11 +1,11 @@
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+
 /* 
  * Rapid Prototype
  * 
  */
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 
 public class AudioMatching {
 
