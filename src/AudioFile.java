@@ -16,7 +16,7 @@ public class AudioFile {
 	
 	// Audio File Format
 	// MP3, WAVE, etc.
-	private String format;
+	private Format format;
 	
 	// Audio Format = 1 (PCM)
 	// Values other than 1 indicate compression of some type
@@ -52,11 +52,11 @@ public class AudioFile {
 	
 	public void setFormat(String format) {
 		switch (format) {
-		case "WAVE": 	this.format = "WAVE";
+		case "WAVE": 	this.format = Format.WAVE;
 					 	break;
-		case "MP3": 	this.format = "MP3";
+		case "MP3": 	this.format = Format.MP3;
 						break;
-		case "MIDI":	this.format = "MIDI";
+		case "MIDI":	this.format = Format.MIDI;
 						break;
 		default: 		this.format = null;
 				 		break;
@@ -85,7 +85,7 @@ public class AudioFile {
 		return this.RIFFval;
 	}
 	
-	public String getFormat() {
+	public Format getFormat() {
 		return this.format;
 	}
 
@@ -112,11 +112,11 @@ public class AudioFile {
 	// Other Methods --------------------------------------
 	
 	public byte[] getAudioData() {
-		if (this.format.equals("WAVE")){
+		if (this.format == Format.WAVE){
 			return Arrays.copyOfRange(data, 36, data.length);
-		} else if (this.format.equals("MP3")){
+		} else if (this.format == Format.MP3){
 			System.err.print("audio format not yet supported");
-		} else if (this.format.equals("MIDI")){
+		} else if (this.format == Format.MIDI){
 			System.err.print("audio format not yet supported");
 		} else if (this.format == null) {
 			System.err.print("audio format not supported");

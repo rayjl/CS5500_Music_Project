@@ -154,7 +154,7 @@ public class AudioMatching {
 	 * Note: this method will need to be modified for final
 	 */
 	private static boolean fileFormatCheck(AudioFile af) {
-		if (af.getFormat() == "WAVE")
+		if (af.getFormat() == Format.WAVE)
 			return true;
 		else
 			return false;
