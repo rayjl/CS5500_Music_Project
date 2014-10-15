@@ -26,7 +26,7 @@ Dependencies:		AudioMatching.java
                     AudioFile.java
                     FingerPrint.java
                     dam
-                    
+
 Permmissions:       chmod 755 dam
 
 Prototype's build process will result in software that can
@@ -35,6 +35,9 @@ software's executable and executing a command of the
 following form:
 
 ./dam -f <pathname> -f <pathname>
+
+e.g.
+./dam wayfaring2.wav wayfaring2.mp3
 
 Note: "dam" abbreviates "detect audio misappropriations".
 

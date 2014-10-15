@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Script used to execute AudioMatching.java application
 # Arguments passed in command line will be passed into application
@@ -7,4 +7,13 @@ echo Compiling...
 javac AudioMatching.java
 echo Done.
 echo Executing...
-java AudioMatching "$@"	
+
+if [-f "$1" && -f "$3"]
+	then
+	java AudioMatching "$1" "$2" "$3" "$4"
+else
+	echo 'ERROR : NOT A FILE.' >&2
+	echo
+fi
+
+exit 0
