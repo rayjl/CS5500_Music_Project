@@ -18,10 +18,6 @@ public class FingerPrint {
 		
 	}
 	
-	/* FingerPrint f -> boolean
-	 * Given: a FingerPrint to compare to this FingerPrint
-	 * Returns: true if the two FingerPrints are withing the matching threshold
-	 */
 	public boolean similarTo(FingerPrint f){
 		if (magnitude - f.getMagnitude() < this.MAG_THRESHOLD
 				&& freq - f.getFreq() < this.FREQ_THRESHOLD){

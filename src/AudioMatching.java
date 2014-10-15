@@ -64,18 +64,6 @@ public class AudioMatching {
 		summaryReport(match);
 		System.exit(0);
 	}
-
-	/* ComplexNumber[] -> FingerPrint[]
-	 * Given: ComplexNumber[] that contains the data transformed by the DFT
-	 * Returns: a FingerPrint[] that contains the FingerPrints of the samples
-	 */
-	private static FingerPrint[] makeFingerPrints(ComplexNumber[] ca){
-		FingerPrint[] fa = new FingerPrint[ca.length];
-		for(int i = 0; i < ca.length; i++){
-			fa[i] = new FingerPrint(ca[i]);
-		}
-		return fa;
-	}
 	
 	/* FingerPrint[] FingerPrint[] int -> Void
 	 * Given: 2 FingerPrint arrays to compare and a threshold
