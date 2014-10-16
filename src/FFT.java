@@ -96,7 +96,7 @@ public class FFT {
  * Permission to copy and use this program is granted 
  * as long as this header is included. 
  ****************************************************************/
-	public void fft(double[] x, double[] y) {
+	public ComplexNumber[] fft(double[] x, double[] y) {
 		int i,j,k,n1,n2,a; 
 		double c,s,e,t1,t2;
   
@@ -145,6 +145,14 @@ public class FFT {
 				} 
 			} 
 		}
+		
+		
+		ComplexNumber[] ans = new ComplexNumber[this.n];
+		for(int z=0; z<this.n; z++){
+			ans[z] = new ComplexNumber(x[z],y[z]);
+		}
+		
+		return ans;
 	}
 	
 	// Test the FFT to make sure it's working 

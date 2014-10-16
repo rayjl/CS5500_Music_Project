@@ -68,5 +68,13 @@ public class ComplexNumber {
 			return Math.atan(i/r);
 		}
 	}
+	
+	public double getReal() {
+		return this.r;
+	}
+	
+	public double getImag() {
+		return this.i;
+	}
 
 }

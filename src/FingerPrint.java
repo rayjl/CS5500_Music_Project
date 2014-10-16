@@ -8,7 +8,7 @@ public class FingerPrint {
 
 	// TODO - fix dummy threshold values of 5
 	private double FREQ_THRESHOLD = 1;
-	private double MAG_THRESHOLD = 5;
+	private double MAG_THRESHOLD = 1;
 	private double magnitude;
 	private double freq;
 	

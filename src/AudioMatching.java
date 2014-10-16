@@ -25,63 +25,99 @@ public class AudioMatching {
 			System.exit(1);
 		}
 		
-		// Grab the paths from respective indexes
-		String path1 = args[0];
-		String path2 = args[1];
-
+		// Compare songs
+		CompareFiles(args[0], args[1]);
+		
+		// Report results and exit program
+		summaryReport(match);
+		System.exit(0);
+	}
+	
+	/* String String -> Void
+	 * Given: 2 file paths passed into Java application
+	 * Returns: Void
+	 * Note: this function is the main operation
+	 */
+	private static void CompareFiles(String path1, String path2) {
+		
 		// Grab file names from paths
 		file_name1 = shortFileName(path1);
 		file_name2 = shortFileName(path2);
-		
+				
 		// Create file objects from file paths
 		File file1 = new File(path1);
 		File file2 = new File(path2);
-		
+				
 		// Read files into byte arrays and compare to WAVE format
 		// Each index contains decimal value stored in corresponding
 		// byte offset
 		try {
-			
+					
 			byte[] b1 = getByteArray(file1);
 			byte[] b2 = getByteArray(file2);
 			AudioFile af1 = new AudioFile(b1);
 			AudioFile af2 = new AudioFile(b2);
-			
+					
 			// Set parameters for AudioFile
 			setAudioFileParams(af1);
 			setAudioFileParams(af2);
-			
+					
 			// Assignment 5 Format Check
 			fileFormatCheck(af1, file_name1);
 			fileFormatCheck(af2, file_name2);
-			
+					
+			// Convert data to Little-Endian Form
+			long[] sample1 = getLittleEndianForm(b1);
+			long[] sample2 = getLittleEndianForm(b2);
+		
 			// Convert data to complex numbers
 			ComplexNumber[] cn1 = 
 					convertToComplexNumber(b1);
 			ComplexNumber[] cn2 =
 					convertToComplexNumber(b2);
-			
+					
 			// Transform ComplexNumbers
-			// Need to fix this, operation time is too slow
+			// DFT operation time is too slow
 //			ComplexNumber[] dft1 = DFT.dft(cn1);
 //			ComplexNumber[] dft2 = DFT.dft(cn2);
-			
+					
+			// Use FFT Implementation
+//			FFT temp = new FFT(cn1.length);
+					
+			double[] real1 = new double[cn1.length];
+			double[] imag1 = new double[cn1.length];
+					
+			double[] real2 = new double[cn2.length];
+			double[] imag2 = new double[cn2.length];
+					
+			for (int i = 0; i < cn1.length; i++) {
+				real1[i] = cn1[i].getReal();
+				imag1[i] = cn1[i].getImag();
+			}
+					
+			for (int i = 0; i < cn2.length; i++) {
+				real2[i] = cn2[i].getReal();
+				imag2[i] = cn2[i].getImag();
+			}
+					
+//			ComplexNumber[] transformed1 = 
+//					temp.fft(real1, imag1);
+//			ComplexNumber[] transformed2 = 
+//					temp.fft(real2,imag2);
+					
 			// Convert to FingerPrints
 			FingerPrint[] fp1 =
 					makeFingerPrints(cn1);
 			FingerPrint[] fp2 =
 					makeFingerPrints(cn2);
-			
+					
 			// Compare FingerPrints
 			compareFingerPrints(fp1, fp2);
-			
+					
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		// Report results and exit program
-		summaryReport(match);
-		System.exit(0);
 	}
 	
 	/* boolean -> Void
@@ -215,7 +251,7 @@ public class AudioMatching {
 		
 		// Bits per Sample - offset 34 size 2
 		af.setBPS(data[34]);
-		
+
 	}
 	
 	/* AudioFile String -> Void
