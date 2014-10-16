@@ -4,7 +4,7 @@ import java.io.IOException;
 
 /* 
  * Rapid Prototype
- * Last Edited: 15 October 2014
+ * Last Edited: 16 October 2014
  */
 
 public class AudioMatching {
@@ -82,8 +82,8 @@ public class AudioMatching {
 			System.out.println(convertToLittleEndian(b1,24,4));
 			
 			// Convert data to Little-Endian Form
-			int[] sample1 = getLittleEndianForm(b1);
-			int[] sample2 = getLittleEndianForm(b2);
+			int[] audio_data1 = getLittleEndianForm(b1);
+			int[] audio_data2 = getLittleEndianForm(b2);
 			
 			// Convert data to complex numbers
 			ComplexNumber[] cn1 = 
