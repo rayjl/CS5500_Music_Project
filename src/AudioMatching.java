@@ -33,6 +33,18 @@ public class AudioMatching {
 		System.exit(0);
 	}
 	
+	/* boolean -> Void
+	 * Given: true if the files match, false otherwise
+	 * Returns: Void
+	 */
+	private static void summaryReport(boolean b) {
+		if (b)
+			System.out.println("MATCH" + " " 
+					+ file_name1 + " " + file_name2);
+		else
+			System.out.println("NO MATCH");
+	}
+	
 	/* String String -> Void
 	 * Given: 2 file paths passed into Java application
 	 * Returns: Void
@@ -66,10 +78,13 @@ public class AudioMatching {
 			fileFormatCheck(af1, file_name1);
 			fileFormatCheck(af2, file_name2);
 					
+			// Test - Sample Rate output - 44100
+			System.out.println(convertToLittleEndian(b1,24,4));
+			
 			// Convert data to Little-Endian Form
-			long[] sample1 = getLittleEndianForm(b1);
-			long[] sample2 = getLittleEndianForm(b2);
-		
+			int[] sample1 = getLittleEndianForm(b1);
+			int[] sample2 = getLittleEndianForm(b2);
+			
 			// Convert data to complex numbers
 			ComplexNumber[] cn1 = 
 					convertToComplexNumber(b1);
@@ -120,16 +135,71 @@ public class AudioMatching {
 		
 	}
 	
-	/* boolean -> Void
-	 * Given: true if the files match, false otherwise
-	 * Returns: Void
+	/* byte[] -> int[]
+	 * Given: the byte stream data of an audio file
+	 * Returns: the little-endian int form of the file
+	 * Note: The entire byte stream stream is passed in but
+	 * only the left channel of the data chunk will be returned
 	 */
-	private static void summaryReport(boolean b) {
-		if (b)
-			System.out.println("MATCH" + " " 
-					+ file_name1 + " " + file_name2);
-		else
-			System.out.println("NO MATCH");
+	private static int[] getLittleEndianForm(byte[] b) {
+		// First data sample begins at offset 44
+		// Sample size is 4 bytes
+		// Left channel is first 2 bytes of 4
+		int dataLength = (b.length - 44) / 4 / 2;
+		
+		int[] sample = new int[dataLength];
+		
+		// Counter to iterate across byte[]
+		int offset = 44;
+		
+		// add converted data to sample[]
+		for (int i = 0; i < sample.length; i++) {
+			sample[i] = convertToLittleEndian(b, offset, 2);
+			offset += 4;
+		}
+		
+		return sample;
+	}
+	
+	/* byte[] int int -> int
+	 * Given: the byte array, the offset location, size of the chunk
+	 * Returns: the little-endian long value form of the chunk
+	 * Note: helper function for getLittleEndianForm
+	 */
+	private static int convertToLittleEndian(byte[] b,
+			int offset, int size) {
+		// value to return
+		// will add to it based on bitwise operations
+		int sample = 0;
+		
+		for (int i = 0; i < size; i++) {
+			// temp value for each byte of data
+			int val = 0;
+			
+			// 2's complement value is negative
+			// Use bitwise operations to convert to binary
+			if (b[offset + i] < 0) {
+				// remove negative value
+				val = b[offset + i] * -1;
+				
+				// reverse bits
+				val = val ^ 0xFF;
+				
+				// add 1 to bits
+				val = val + 1;
+			}
+			else {
+				// set value to current byte
+				val = b[offset + i] & 0xFF;
+			}
+			
+			// add sample shifted i bytes to the left
+			// accordingly
+			sample = (val << 8*i) + sample;
+		}
+		
+		// Return little-endian int value
+		return sample;
 	}
 	
 	/* byte[] -> ComplexNumber[]
