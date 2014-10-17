@@ -4,7 +4,7 @@ import java.io.IOException;
 
 /* 
  * Rapid Prototype
- * Last Edited: 16 October 2014
+ * Last Edited: 17 October 2014
  */
 
 public class AudioMatching {
@@ -12,7 +12,6 @@ public class AudioMatching {
 	// Global variables
 	private static String file_name1;
 	private static String file_name2;
-	private static int hannWindow_width = 2;
 	private static boolean match;
 	
 	public static void main(String[] args) {
@@ -86,10 +85,10 @@ public class AudioMatching {
 			int[] audio_data1 = getLittleEndianForm(b1);
 			int[] audio_data2 = getLittleEndianForm(b2);
 			
-			// TODO - Hanning Window before application of FFT
+			// Hanning Window before application of FFT
 			// In-place mutator
-			hanningWindow(audio_data1, hannWindow_width);
-			hanningWindow(audio_data2, hannWindow_width);
+			hanningWindow(audio_data1);
+			hanningWindow(audio_data2);
 			
 			// TODO - Do we even need this part anymore?
 			// Convert data to complex numbers
@@ -129,7 +128,6 @@ public class AudioMatching {
 //					temp.fft(real2,imag2);
 					
 			
-			
 			// TODO - need to create a fingerprinting routine
 			// WHAT DO YOU WANT TO DO HERE?
 			// Convert to FingerPrints
@@ -152,13 +150,12 @@ public class AudioMatching {
 	 * Returns: Void
 	 * Note: in-place mutator
 	 */
-	private static void hanningWindow(int[] sample, int size) {
+	private static void hanningWindow(int[] sample) {
 		// Iterate through the sample with the hanning window function
-		
-		// TODO - this needs to be fixed, argument passed in also needs to be fixed
+		// Needs to be tested. Perhaps plotting the data would be helpful
 		for (int i = 0; i < sample.length; i++)
 			sample[i] = (int) (sample[i] * 0.5 
-					* (1.0 - Math.cos(2.0 * i) / sample.length));
+					* (1.0 - Math.cos(2.0 * Math.PI * i) / sample.length));
 	}
 	
 	/* byte[] -> int[]
