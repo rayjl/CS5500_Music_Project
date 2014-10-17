@@ -86,6 +86,12 @@ http://en.wikipedia.org/wiki/Frequency_spectrum
 [10] "WAVE PCM Soundfile Format". Documentation Website:
 https://ccrma.stanford.edu/courses/422/projects/WaveFormat/
 
+[11] Columbia University (2006-2007). FFT.java [Software]. 
+Source Code Website: 
+https://www.ee.columbia.edu/~ronw/code/MEAPsoft
+/doc/html/FFT_8java-source.html.
+Authorized by William Clinger on October 15, 2014.
+
 -----------------------------------------------------------
 
 

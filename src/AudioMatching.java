@@ -85,20 +85,24 @@ public class AudioMatching {
 			int[] audio_data1 = getLittleEndianForm(b1);
 			int[] audio_data2 = getLittleEndianForm(b2);
 			
+			// TODO - Hanning Window before application of FFT
+			
+			// TODO - Do we even need this part anymore?
 			// Convert data to complex numbers
 			ComplexNumber[] cn1 = 
 					convertToComplexNumber(b1);
 			ComplexNumber[] cn2 =
 					convertToComplexNumber(b2);
-					
-			// Transform ComplexNumbers
-			// DFT operation time is too slow
-//			ComplexNumber[] dft1 = DFT.dft(cn1);
-//			ComplexNumber[] dft2 = DFT.dft(cn2);
-					
+			
+			// TODO - check if this is usable (args to pass in etc...)
 			// Use FFT Implementation
 //			FFT temp = new FFT(cn1.length);
-					
+			
+			
+			// TODO - do we need this part? 
+			// Based on our discussion this part should be reflected by
+			// our extracted sample data in little endian form
+			// imag array will be equated to 0s
 			double[] real1 = new double[cn1.length];
 			double[] imag1 = new double[cn1.length];
 					
@@ -120,6 +124,10 @@ public class AudioMatching {
 //			ComplexNumber[] transformed2 = 
 //					temp.fft(real2,imag2);
 					
+			
+			
+			// TODO - need to create a fingerprinting routine
+			// WHAT DO YOU WANT TO DO HERE?
 			// Convert to FingerPrints
 			FingerPrint[] fp1 =
 					makeFingerPrints(cn1);
