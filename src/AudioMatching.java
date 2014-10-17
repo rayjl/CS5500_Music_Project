@@ -154,6 +154,8 @@ public class AudioMatching {
 	 */
 	private static void hanningWindow(int[] sample, int size) {
 		// Iterate through the sample with the hanning window function
+		
+		// TODO - this needs to be fixed, argument passed in also needs to be fixed
 		for (int i = 0; i < sample.length; i++)
 			sample[i] = (int) (sample[i] * 0.5 
 					* (1.0 - Math.cos(2.0 * i) / sample.length));
