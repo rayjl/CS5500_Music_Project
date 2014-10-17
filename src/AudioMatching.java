@@ -10,9 +10,10 @@ import java.io.IOException;
 public class AudioMatching {
 
 	// Global variables
-	static String file_name1;
-	static String file_name2;
-	static boolean match;
+	private static String file_name1;
+	private static String file_name2;
+	private static int hannWindow_width = 2;
+	private static boolean match;
 	
 	public static void main(String[] args) {
 		
@@ -86,6 +87,9 @@ public class AudioMatching {
 			int[] audio_data2 = getLittleEndianForm(b2);
 			
 			// TODO - Hanning Window before application of FFT
+			// In-place mutator
+			hanningWindow(audio_data1, hannWindow_width);
+			hanningWindow(audio_data2, hannWindow_width);
 			
 			// TODO - Do we even need this part anymore?
 			// Convert data to complex numbers
@@ -141,6 +145,18 @@ public class AudioMatching {
 			e.printStackTrace();
 		}
 		
+	}
+
+	/* int[] int -> Void
+	 * Given: sample array and an int representing the sample window
+	 * Returns: Void
+	 * Note: in-place mutator
+	 */
+	private static void hanningWindow(int[] sample, int size) {
+		// Iterate through the sample with the hanning window function
+		for (int i = 0; i < sample.length; i++)
+			sample[i] = (int) (sample[i] * 0.5 
+					* (1.0 - Math.cos(2.0 * i) / sample.length));
 	}
 	
 	/* byte[] -> int[]

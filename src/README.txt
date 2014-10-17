@@ -1,6 +1,6 @@
 -----------------------------------------------------------
 
-Last Revised: 15 October 2014
+Last Revised: 17 October 2014
 
 -----------------------------------------------------------
 
@@ -27,9 +27,9 @@ files and checks to see if they "match".
 Dependencies:		AudioMatching.java
                     AudioFile.java
                     ComplexNumber.java
-                    DFT.java
                     FingerPrint.java
                     Format.java
+                    FFT.java
                     dam
 
 Permissions:        chmod 755 dam
@@ -68,29 +68,35 @@ http://www.developer.com/java/other/article.php/3457251/
 Fun-with-Java-Understanding-the-Fast-Fourier-Transform-FFT
 -Algorithm.htm
 
-[5] "Acoustic Fingerprint". Article Website:
-http://en.wikipedia.org/wiki/Acoustic_fingerprint
-
-[6] "Digital Signal Processing". Article Website:
-http://en.wikipedia.org/wiki/Digital_signal_processing
-
-[7] "Discrete Fourier Transform". Article Website:
-http://en.wikipedia.org/wiki/Discrete_Fourier_transform
-
-[8] "Fast Fourier Transform". Article Website:
-http://en.wikipedia.org/wiki/Fast_Fourier_transform
-
-[9] "Frequency Spectrum". Article Website:
-http://en.wikipedia.org/wiki/Frequency_spectrum
-
-[10] "WAVE PCM Soundfile Format". Documentation Website:
-https://ccrma.stanford.edu/courses/422/projects/WaveFormat/
-
-[11] Columbia University (2006-2007). FFT.java [Software]. 
+[5] Columbia University (2006-2007). FFT.java [Software]. 
 Source Code Website: 
 https://www.ee.columbia.edu/~ronw/code/MEAPsoft
 /doc/html/FFT_8java-source.html.
 Authorized by William Clinger on October 15, 2014.
+
+[6] "Acoustic Fingerprint". Article Website:
+http://en.wikipedia.org/wiki/Acoustic_fingerprint
+
+[7] "Digital Signal Processing". Article Website:
+http://en.wikipedia.org/wiki/Digital_signal_processing
+
+[8] "Discrete Fourier Transform". Article Website:
+http://en.wikipedia.org/wiki/Discrete_Fourier_transform
+
+[9] "Fast Fourier Transform". Article Website:
+http://en.wikipedia.org/wiki/Fast_Fourier_transform
+
+[10] "Frequency Spectrum". Article Website:
+http://en.wikipedia.org/wiki/Frequency_spectrum
+
+[11] "Hann Function". Article Website:
+http://en.wikipedia.org/wiki/Hann_function
+
+[12] "Window Function". Article Website:
+http://en.wikipedia.org/wiki/Window_function
+
+[13] "WAVE PCM Soundfile Format". Documentation Website:
+https://ccrma.stanford.edu/courses/422/projects/WaveFormat/
 
 -----------------------------------------------------------
 
