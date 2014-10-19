@@ -4,7 +4,7 @@ import java.io.IOException;
 
 /* 
  * Rapid Prototype
- * Last Edited: 17 October 2014
+ * Last Edited: 18 October 2014
  */
 
 public class AudioMatching {
@@ -79,11 +79,11 @@ public class AudioMatching {
 			fileFormatCheck(af2, file_name2);
 					
 			// Test - Sample Rate output - 44100
-			System.out.println(convertToLittleEndian(b1,24,4));
+			System.out.println(convertLittleEndian(b1,24,4));
 			
 			// Convert data to Little-Endian Form
-			int[] audio_data1 = getLittleEndianForm(b1);
-			int[] audio_data2 = getLittleEndianForm(b2);
+			int[] audio_data1 = littleEndianToInt(b1);
+			int[] audio_data2 = littleEndianToInt(b2);
 			
 			// Hanning Window before application of FFT
 			// In-place mutator
@@ -145,8 +145,8 @@ public class AudioMatching {
 		
 	}
 
-	/* int[] int -> Void
-	 * Given: sample array and an int representing the sample window
+	/* int[] -> Void
+	 * Given: sample array
 	 * Returns: Void
 	 * Note: in-place mutator
 	 */
@@ -160,11 +160,11 @@ public class AudioMatching {
 	
 	/* byte[] -> int[]
 	 * Given: the byte stream data of an audio file
-	 * Returns: the little-endian int form of the file
+	 * Returns: the int form of the file 
 	 * Note: The entire byte stream stream is passed in but
 	 * only the left channel of the data chunk will be returned
 	 */
-	private static int[] getLittleEndianForm(byte[] b) {
+	private static int[] littleEndianToInt(byte[] b) {
 		// First data sample begins at offset 44
 		// Sample size is 4 bytes
 		// Left channel is first 2 bytes of 4
@@ -177,7 +177,7 @@ public class AudioMatching {
 		
 		// add converted data to sample[]
 		for (int i = 0; i < sample.length; i++) {
-			sample[i] = convertToLittleEndian(b, offset, 2);
+			sample[i] = convertLittleEndian(b, offset, 2);
 			offset += 4;
 		}
 		
@@ -186,10 +186,10 @@ public class AudioMatching {
 	
 	/* byte[] int int -> int
 	 * Given: the byte array, the offset location, size of the chunk
-	 * Returns: the little-endian long value form of the chunk
-	 * Note: helper function for getLittleEndianForm
+	 * Returns: the int value form of the little-endian chunk
+	 * Note: helper function for littleEndianToInt
 	 */
-	private static int convertToLittleEndian(byte[] b,
+	private static int convertLittleEndian(byte[] b,
 			int offset, int size) {
 		// value to return
 		// will add to it based on bitwise operations
