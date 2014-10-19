@@ -258,6 +258,9 @@ public class AudioMatching {
 	 * Given: 2 FingerPrint arrays to compare and a threshold
 	 * Returns: Void
 	 * Note: function can set the variable match to be true
+	 * 
+	 * TODO - this needs to be modified once makeFingerPrints
+	 * is fixed
 	 */
 	private static void compareFingerPrints(FingerPrint[] a,
 			FingerPrint[] b) {
