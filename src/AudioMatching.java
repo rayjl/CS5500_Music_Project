@@ -221,7 +221,7 @@ public class AudioMatching {
 			sample = (val << 8*i) + sample;
 		}
 		
-		// Return little-endian int value
+		// Return int value of the little-endian chunk
 		return sample;
 	}
 	
