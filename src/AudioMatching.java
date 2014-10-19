@@ -2,9 +2,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-/* 
+/**
  * Rapid Prototype
- * Last Edited: 18 October 2014
+ * This prototype will need refactoring, especially with
+ * managing the files to compare.
+ * Current prototype has code that manually compares 2 files
+ * 
+ * Last Edited: 19 October 2014
  */
 
 public class AudioMatching {
@@ -89,52 +93,39 @@ public class AudioMatching {
 			// In-place mutator
 			hanningWindow(audio_data1);
 			hanningWindow(audio_data2);
-			
-			// TODO - Do we even need this part anymore?
-			// Convert data to complex numbers
-			ComplexNumber[] cn1 = 
-					convertToComplexNumber(b1);
-			ComplexNumber[] cn2 =
-					convertToComplexNumber(b2);
-			
-			// TODO - check if this is usable (args to pass in etc...)
+
 			// Use FFT Implementation
-//			FFT temp = new FFT(cn1.length);
+			FFT fft1 = new FFT(audio_data1.length);
+			FFT fft2 = new FFT(audio_data2.length);
+
+			// Create double arrays to utilize FFT implementation
+			double[] real1 = new double[audio_data1.length];
+			double[] imag1 = new double[audio_data1.length];
 			
-			
-			// TODO - do we need this part? 
-			// Based on our discussion this part should be reflected by
-			// our extracted sample data in little endian form
-			// imag array will be equated to 0s
-			double[] real1 = new double[cn1.length];
-			double[] imag1 = new double[cn1.length];
+			double[] real2 = new double[audio_data1.length];
+			double[] imag2 = new double[audio_data2.length];
 					
-			double[] real2 = new double[cn2.length];
-			double[] imag2 = new double[cn2.length];
-					
-			for (int i = 0; i < cn1.length; i++) {
-				real1[i] = cn1[i].getReal();
-				imag1[i] = cn1[i].getImag();
+			// Iterate through to fill arrays before passing
+			// to FFT function
+			for (int i = 0; i < audio_data1.length; i++) {
+				real1[i] = (double) audio_data1[i];
+				imag1[i] = 0;
 			}
 					
-			for (int i = 0; i < cn2.length; i++) {
-				real2[i] = cn2[i].getReal();
-				imag2[i] = cn2[i].getImag();
+			for (int i = 0; i < audio_data2.length; i++) {
+				real2[i] = (double) audio_data2[i];
+				imag2[i] = 0;
 			}
-					
-//			ComplexNumber[] transformed1 = 
-//					temp.fft(real1, imag1);
-//			ComplexNumber[] transformed2 = 
-//					temp.fft(real2,imag2);
-					
+				
+			// In-place FFT
+			fft1.fft(real1, imag1);
+			fft2.fft(real2, imag2);
 			
-			// TODO - need to create a fingerprinting routine
-			// WHAT DO YOU WANT TO DO HERE?
 			// Convert to FingerPrints
 			FingerPrint[] fp1 =
-					makeFingerPrints(cn1);
+					makeFingerPrints(real1, imag1);
 			FingerPrint[] fp2 =
-					makeFingerPrints(cn2);
+					makeFingerPrints(real2, imag2);
 					
 			// Compare FingerPrints
 			compareFingerPrints(fp1, fp2);
@@ -145,7 +136,7 @@ public class AudioMatching {
 		
 	}
 
-	/* int[] -> Void
+	/* double[] -> Void
 	 * Given: sample array
 	 * Returns: Void
 	 * Note: in-place mutator
@@ -153,9 +144,12 @@ public class AudioMatching {
 	private static void hanningWindow(int[] sample) {
 		// Iterate through the sample with the hanning window function
 		// Needs to be tested. Perhaps plotting the data would be helpful
-		for (int i = 0; i < sample.length; i++)
-			sample[i] = (int) (sample[i] * 0.5 
-					* (1.0 + Math.cos(2.0 * Math.PI * i / sample.length)));
+		double multiplier;
+		for (int i = 0; i < sample.length; i++) {
+			multiplier = 0.5 
+			* (1.0 + Math.cos(2.0 * Math.PI * i / sample.length));
+			sample[i] = (int) (sample[i] * multiplier);
+		}
 	}
 	
 	/* byte[] -> int[]
@@ -228,6 +222,7 @@ public class AudioMatching {
 	/* byte[] -> ComplexNumber[]
 	 * Given: array of bytes
 	 * Returns: corresponding array of complex numbers
+	 * Notes: this method CAN be used but is currently not used
 	 */
 	private static ComplexNumber[] convertToComplexNumber(byte[] a) {
 		int N = a.length;
@@ -241,19 +236,22 @@ public class AudioMatching {
 		return complexArray;	
 	}
 
-	/* ComplexNumber[] -> FingerPrint[]
-	 * Given: ComplexNumber[] that contains the data 
-	 * transformed by the DFT
+	/* double[] double[] -> FingerPrint[]
+	 * Given: the real and imag part of the the sample data after FFT
 	 * Returns: a FingerPrint[] that contains the FingerPrints 
 	 * of the samples
+	 * 
+	 * TODO - This method needs to be actually made, that is we need a 
+	 * finger printing routine for our FFT data
 	 */
-	private static FingerPrint[] makeFingerPrints(ComplexNumber[] ca) {
-		FingerPrint[] fa = new FingerPrint[ca.length];
+	private static FingerPrint[] 
+			makeFingerPrints(double[] real, double[] imag) {
 		
-		for(int i = 0; i < ca.length; i++){
-			fa[i] = new FingerPrint(ca[i]);
-		}
-		return fa;
+		
+		
+		FingerPrint[] f = new FingerPrint[real.length];
+		
+		return f;
 	}
 	
 	/* FingerPrint[] FingerPrint[] int -> Void

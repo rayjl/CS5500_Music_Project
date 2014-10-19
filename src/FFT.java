@@ -76,27 +76,27 @@ public class FFT {
 		return window; 
 	} 
  
- 
- /*************************************************************** 
- * fft.c 
- * Douglas L. Jones
- * University of Illinois at Urbana-Champaign
- * January 19, 1992 00093 
- * http://cnx.rice.edu/content/m12016/latest/ 
- * 00095 
- * fft: in-place radix-2 DIT DFT of a complex input 
- * 
- * input: 
- * n: length of FFT: must be a power of two 
- * m: n = 2**m 
- * input/output
- * x: double array of length n with real part of data 
- * y: double array of length n with imag part of data 
- * 
- * Permission to copy and use this program is granted 
- * as long as this header is included. 
- ****************************************************************/
-	public ComplexNumber[] fft(double[] x, double[] y) {
+
+	/*************************************************************** 
+	* fft.c 
+	* Douglas L. Jones
+	* University of Illinois at Urbana-Champaign
+	* January 19, 1992 00093 
+	* http://cnx.rice.edu/content/m12016/latest/ 
+	* 00095 
+	* fft: in-place radix-2 DIT DFT of a complex input 
+	* 
+	* input: 
+	* n: length of FFT: must be a power of two 
+	* m: n = 2**m 
+	* input/output
+	* x: double array of length n with real part of data 
+	* y: double array of length n with imag part of data 
+	* 
+	* Permission to copy and use this program is granted 
+	* as long as this header is included. 
+	****************************************************************/
+	public void fft(double[] x, double[] y) {
 		int i,j,k,n1,n2,a; 
 		double c,s,e,t1,t2;
   
@@ -146,13 +146,13 @@ public class FFT {
 			} 
 		}
 		
+		// This can be used to return a data type ComplexNumber
+//		ComplexNumber[] ans = new ComplexNumber[this.n];
+//		for(int z=0; z<this.n; z++){
+//			ans[z] = new ComplexNumber(x[z],y[z]);
+//		}	
+//		return ans;
 		
-		ComplexNumber[] ans = new ComplexNumber[this.n];
-		for(int z=0; z<this.n; z++){
-			ans[z] = new ComplexNumber(x[z],y[z]);
-		}
-		
-		return ans;
 	}
 	
 	// Test the FFT to make sure it's working 
