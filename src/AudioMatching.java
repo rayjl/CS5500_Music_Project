@@ -155,7 +155,7 @@ public class AudioMatching {
 		// Needs to be tested. Perhaps plotting the data would be helpful
 		for (int i = 0; i < sample.length; i++)
 			sample[i] = (int) (sample[i] * 0.5 
-					* (1.0 + Math.cos(2.0 * Math.PI * i) / sample.length));
+					* (1.0 + Math.cos(2.0 * Math.PI * i / sample.length)));
 	}
 	
 	/* byte[] -> int[]
