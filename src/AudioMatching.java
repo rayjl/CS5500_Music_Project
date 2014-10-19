@@ -375,7 +375,6 @@ public class AudioMatching {
 		fis.close();
 
 		return b;
-	}
-	
+	}	
 	
 }
