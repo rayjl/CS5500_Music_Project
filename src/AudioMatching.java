@@ -102,7 +102,7 @@ public class AudioMatching {
 			double[] real1 = new double[audio_data1.length];
 			double[] imag1 = new double[audio_data1.length];
 			
-			double[] real2 = new double[audio_data1.length];
+			double[] real2 = new double[audio_data2.length];
 			double[] imag2 = new double[audio_data2.length];
 					
 			// Iterate through to fill arrays before passing
@@ -161,8 +161,7 @@ public class AudioMatching {
 	private static int[] littleEndianToInt(byte[] b) {
 		// First data sample begins at offset 44
 		// Sample size is 4 bytes
-		// Left channel is first 2 bytes of 4
-		int dataLength = (b.length - 44) / 4 / 2;
+		int dataLength = (b.length - 44) / 4;
 		
 		int[] sample = new int[dataLength];
 		
