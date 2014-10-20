@@ -122,6 +122,12 @@ public class AudioMatching {
 			fft1.fft(real1, imag1);
 			fft2.fft(real2, imag2);
 			
+// Print values to check for comparisons
+			for (int i = 0; i < 20; i++) {
+				System.out.println(real1[i] + "      " + real2[i]
+						+ "   |   " + imag1[i] + "     " + imag2[i]);	
+			}
+			
 			// Convert to FingerPrints
 			FingerPrint[] fp1 =
 					makeFingerPrints(real1, imag1);
