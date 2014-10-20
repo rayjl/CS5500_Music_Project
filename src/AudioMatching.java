@@ -300,7 +300,8 @@ public class AudioMatching {
 		// Iterate through and check each FingerPrint
 		for (int i = 0; i < a.length; i++) {
 			if (i < 21)
-				System.out.println(a[i].getPowerDensity() - b[i].getPowerDensity());
+				System.out.println(Math.abs(a[i].getPowerDensity() 
+						- b[i].getPowerDensity()));
 			if (a[i].similarTo(b[i]))
 				counter++;
 		}
