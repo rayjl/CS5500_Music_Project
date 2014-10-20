@@ -103,8 +103,7 @@ public class AudioMatching {
 			int nextPOT1 = nextPowerOfTwo(audio_data1.length);
 			int nextPOT2 = nextPowerOfTwo(audio_data2.length);
 			
-			// Modify audio_data arrays to have new lengths
-			// and create double arrays for FFT implementation usage
+			// Create double arrays for FFT implementation usage
 			double[] real1 = new double[nextPOT1];
 			double[] imag1 = new double[nextPOT1];
 			
@@ -128,6 +127,7 @@ public class AudioMatching {
 						+ "   |   " + imag1[i] + "     " + imag2[i]);	
 			}
 			
+			// TODO
 			// Convert to FingerPrints
 			FingerPrint[] fp1 =
 					makeFingerPrints(real1, imag1);
