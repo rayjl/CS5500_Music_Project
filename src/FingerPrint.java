@@ -6,37 +6,55 @@
 
 public class FingerPrint {
 
-	// TODO - fix dummy threshold values of 5
-	private double FREQ_THRESHOLD = 1;
-	private double MAG_THRESHOLD = 1;
-	private double magnitude;
-	private double freq;
+	// TODO - fix dummy threshold value?
+	private double THRESHOLD = 0.5;
+	private double real;
+	private double imag;
+	private double powerDensity;
 	
 	// Constructor
-	public FingerPrint(ComplexNumber c) {
-		this.magnitude = c.getMagnitude();
-		this.freq = c.getFreq();	
+	public FingerPrint(double real, double imag) {
+		this.real = real;
+		this.imag = imag;	
+		this.powerDensity = this.setPowerDensity(real, imag);
 	}
 	
-	// FingerPrint -> boolean
-	// Given: compares this FingerPrint to the given FingerPrint
-	// Returns: true if the FingerPrints are "similar"
+	/* double double -> double
+	 * Given: real and imaginary part of a frame of signal
+	 * Returns: the power density of that frame
+	 */
+	public double setPowerDensity(double real, double imag) {
+		double a = real * real;
+		double b = imag * imag;
+		double mag = Math.sqrt(a + b);
+		
+		// Magnitude value in dB - is this way of computing it correct?
+		double magdB = 10 * Math.log(mag);
+		return magdB;
+	}
+	
+	/* FingerPrint -> boolean
+	 * Given: compares this FingerPrint to the given FingerPrint
+	 * Returns: true if the FingerPrints are "similar"
+	 */
 	public boolean similarTo(FingerPrint f) {
-
 		// Check thresholds
-		if (Math.abs(magnitude - f.getMagnitude()) < this.MAG_THRESHOLD
-				&& Math.abs(freq - f.getFreq()) < this.FREQ_THRESHOLD)	
+		if (Math.abs(powerDensity - f.getPowerDensity()) < this.THRESHOLD)
 			return true;
 		return false;
 	}
 	
 	// Getters --------------------------------------------
-	public double getFreq() {
-		return this.freq;
+	public double getImag() {
+		return this.imag;
 	}
 	
-	public double getMagnitude() {
-		return this.magnitude;
+	public double getReal() {
+		return this.real;
+	}
+	
+	public double getPowerDensity() {
+		return this.powerDensity;
 	}
 	
 }

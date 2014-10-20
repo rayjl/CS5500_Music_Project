@@ -8,7 +8,7 @@ import java.io.IOException;
  * managing the files to compare.
  * Current prototype has code that manually compares 2 files
  * 
- * Last Edited: 19 October 2014
+ * Last Edited: 20 October 2014
  */
 
 public class AudioMatching {
@@ -97,6 +97,10 @@ public class AudioMatching {
 			int nextPOT1 = nextPowerOfTwo(audio_data1.length);
 			int nextPOT2 = nextPowerOfTwo(audio_data2.length);
 			
+			// Check the lengths to make sure
+//			System.out.println(nextPOT1);
+//			System.out.println(nextPOT2);
+			
 			// Create double arrays for FFT implementation usage
 			double[] real1 = new double[nextPOT1];
 			double[] imag1 = new double[nextPOT1];
@@ -117,12 +121,11 @@ public class AudioMatching {
 			fft2.fft(real2, imag2);
 			
 // Print values to check for comparisons
-			for (int i = 0; i < 20; i++) {
-				System.out.println(real1[i] + "      " + real2[i]
-						+ "   |   " + imag1[i] + "     " + imag2[i]);	
-			}
+//			for (int i = 0; i < 20; i++) {
+//				System.out.println(real1[i] + "      " + real2[i]
+//						+ "   |   " + imag1[i] + "     " + imag2[i]);	
+//			}
 			
-			// TODO
 			// Convert to FingerPrints
 			FingerPrint[] fp1 =
 					makeFingerPrints(real1, imag1);
@@ -255,38 +258,25 @@ public class AudioMatching {
 		// Return int value of the little-endian chunk
 		return sample;
 	}
-	
-	/* byte[] -> ComplexNumber[]
-	 * Given: array of bytes
-	 * Returns: corresponding array of complex numbers
-	 * Notes: this method CAN be used but is currently not used
-	 */
-	private static ComplexNumber[] convertToComplexNumber(byte[] a) {
-		int N = a.length;
-		
-		ComplexNumber[] complexArray = new ComplexNumber[N];
-		
-		for(int i=0; i<N; i++){
-			complexArray[i] = new ComplexNumber((double) a[i], 0);
-		}
-		
-		return complexArray;	
-	}
 
 	/* double[] double[] -> FingerPrint[]
 	 * Given: the real and imag part of the the sample data after FFT
 	 * Returns: a FingerPrint[] that contains the FingerPrints 
 	 * of the samples
 	 * 
-	 * TODO - This method needs to be actually made, that is we need a 
-	 * finger printing routine for our FFT data
+	 * TODO - Currently only loading FFT output data into FingerPrint objects
+	 * May need to change that based on fingerprinting method.
+	 * See FingerPrint Object for method of "finger printing"
 	 */
 	private static FingerPrint[] 
 			makeFingerPrints(double[] real, double[] imag) {
-		
-		
-		
+		// Load data into a FingerPrint[]
 		FingerPrint[] f = new FingerPrint[real.length];
+		
+		// Just looping through
+		for (int i = 0; i < real.length; i++) {
+			f[i] = new FingerPrint(real[i], imag[i]);
+		}
 		
 		return f;
 	}
@@ -295,13 +285,9 @@ public class AudioMatching {
 	 * Given: 2 FingerPrint arrays to compare and a threshold
 	 * Returns: Void
 	 * Note: function can set the variable match to be true
-	 * 
-	 * TODO - this needs to be modified once makeFingerPrints
-	 * is fixed
 	 */
 	private static void compareFingerPrints(FingerPrint[] a,
 			FingerPrint[] b) {
-	
 		// trivial case, different song lengths = different songs
 		// return; default match = false
 		if (a.length != b.length)
@@ -311,7 +297,10 @@ public class AudioMatching {
 		int counter = 0;
 		int goal = (int) Math.floor(a.length * 0.90);
 		
+		// Iterate through and check each FingerPrint
 		for (int i = 0; i < a.length; i++) {
+			if (i < 21)
+				System.out.println(a[i].getPowerDensity() - b[i].getPowerDensity());
 			if (a[i].similarTo(b[i]))
 				counter++;
 		}
