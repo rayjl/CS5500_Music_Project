@@ -1,6 +1,6 @@
 -----------------------------------------------------------
 
-Last Revised: 17 October 2014
+Last Revised: 19 October 2014
 
 -----------------------------------------------------------
 
@@ -97,6 +97,9 @@ http://en.wikipedia.org/wiki/Window_function
 
 [13] "WAVE PCM Soundfile Format". Documentation Website:
 https://ccrma.stanford.edu/courses/422/projects/WaveFormat/
+
+[14] "Next Power of 2". Website:
+http://www.geeksforgeeks.org/next-power-of-2/
 
 -----------------------------------------------------------
 

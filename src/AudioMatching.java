@@ -94,28 +94,29 @@ public class AudioMatching {
 			hanningWindow(audio_data1);
 			hanningWindow(audio_data2);
 
-			// Use FFT Implementation
-			FFT fft1 = new FFT(audio_data1.length);
-			FFT fft2 = new FFT(audio_data2.length);
-
-			// Create double arrays to utilize FFT implementation
-			double[] real1 = new double[audio_data1.length];
-			double[] imag1 = new double[audio_data1.length];
+			System.out.println(audio_data1.length);
+			System.out.println(audio_data2.length);
 			
-			double[] real2 = new double[audio_data2.length];
-			double[] imag2 = new double[audio_data2.length];
-					
-			// Iterate through to fill arrays before passing
-			// to FFT function
-			for (int i = 0; i < audio_data1.length; i++) {
-				real1[i] = (double) audio_data1[i];
-				imag1[i] = 0;
-			}
-					
-			for (int i = 0; i < audio_data2.length; i++) {
-				real2[i] = (double) audio_data2[i];
-				imag2[i] = 0;
-			}
+			// Get the next largest power of 2 from the sample
+			// array length
+			// This is necessary for FFT usage
+			int nextPOT1 = nextPowerOfTwo(audio_data1.length);
+			int nextPOT2 = nextPowerOfTwo(audio_data2.length);
+			
+			// Modify audio_data arrays to have new lengths
+			// and create double arrays for FFT implementation usage
+			double[] real1 = new double[nextPOT1];
+			double[] imag1 = new double[nextPOT1];
+			
+			double[] real2 = new double[nextPOT2];
+			double[] imag2 = new double[nextPOT2];
+			
+			makeFFTAble(audio_data1, real1, imag1);
+			makeFFTAble(audio_data2, real2, imag2);
+			
+			// Use FFT Implementation
+			FFT fft1 = new FFT(nextPOT1);
+			FFT fft2 = new FFT(nextPOT2);
 				
 			// In-place FFT
 			fft1.fft(real1, imag1);
@@ -134,6 +135,42 @@ public class AudioMatching {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	/* int[] double[] double[] -> Void
+	 * Given: sample array and 2 empty double arrays to be filled
+	 * to ready for FFT use
+	 * Returns: Void
+	 * Notes: In-place mutator
+	 */
+	private static void makeFFTAble(int[] sample, 
+			double[] real, double[] imag) {
+		
+		// Iterate through to fill arrays
+		for (int i = 0; i < real.length; i++) {
+			// Step exceeds sample range,
+			// fill with 0 value
+			if (i >= sample.length)
+				real[i] = 0;
+			// Step is within sample range
+			else
+				real[i] = (double) sample[i];
+			imag[i] = 0;
+		}
+		
+	}
+	
+	/* int -> int
+	 * Given: length of the sample array
+	 * Returns: the next power of 2 value from the length
+	 */
+	private static int nextPowerOfTwo(int len) {
+		// Using Log of the number to calculate
+		// Solution implemented from geeksforgeeks.org
+		double pow = Math.ceil(Math.log(len) / Math.log(2));
+		int val = (int) Math.pow(2, pow);
+		
+		return val;
 	}
 
 	/* double[] -> Void
