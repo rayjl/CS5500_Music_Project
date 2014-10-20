@@ -81,9 +81,6 @@ public class AudioMatching {
 			// Assignment 5 Format Check
 			fileFormatCheck(af1, file_name1);
 			fileFormatCheck(af2, file_name2);
-					
-			// Test - Sample Rate output - 44100
-			System.out.println(convertLittleEndian(b1,24,4));
 			
 			// Convert data to Little-Endian Form
 			int[] audio_data1 = littleEndianToInt(b1);
@@ -93,9 +90,6 @@ public class AudioMatching {
 			// In-place mutator
 			hanningWindow(audio_data1);
 			hanningWindow(audio_data2);
-
-			System.out.println(audio_data1.length);
-			System.out.println(audio_data2.length);
 			
 			// Get the next largest power of 2 from the sample
 			// array length
@@ -110,6 +104,7 @@ public class AudioMatching {
 			double[] real2 = new double[nextPOT2];
 			double[] imag2 = new double[nextPOT2];
 			
+			// In-place modification
 			makeFFTAble(audio_data1, real1, imag1);
 			makeFFTAble(audio_data2, real2, imag2);
 			
