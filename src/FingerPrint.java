@@ -7,6 +7,8 @@
 public class FingerPrint {
 
 	// TODO - fix dummy threshold value?
+	// Fine tuned to be a value of 12 to pass examples in specification
+	// Need to develop a more robust fingerprint
 	private double THRESHOLD = 12;
 	private double real;
 	private double imag;
