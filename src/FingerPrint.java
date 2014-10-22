@@ -7,7 +7,7 @@
 public class FingerPrint {
 
 	// TODO - fix dummy threshold value?
-	private double THRESHOLD = 0.5;
+	private double THRESHOLD = 12;
 	private double real;
 	private double imag;
 	private double powerDensity;
