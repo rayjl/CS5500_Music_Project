@@ -9,7 +9,7 @@ public class FingerPrint {
 	// TODO - fix dummy threshold value?
 	// Fine tuned to be a value of 12 to pass examples in specification
 	// Need to develop a more robust fingerprint
-	private double THRESHOLD = 12;
+	private double THRESHOLD = 6;
 	private double real;
 	private double imag;
 	private double powerDensity;
@@ -31,7 +31,7 @@ public class FingerPrint {
 		double mag = Math.sqrt(a + b);
 		
 		// Magnitude value in dB - is this way of computing it correct?
-		double magdB = 10 * Math.log(mag);
+		double magdB = 10 * Math.log10(mag);
 		return magdB;
 	}
 	
