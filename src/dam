@@ -6,13 +6,13 @@
 javac AudioMatching.java
 
 # Check if 4 arguments
-if [ "$#" == 4 ]
+if [ "$#" == 4 ];
     then 
     # Check if arguments are files
-    if [ "$1" == "-f" -a "$3" == "-f" ]
+    if [ "$1" == "-f" -a "$3" == "-f" ];
         then
         # Check the paths
-        if [ -f "$2" -a -f "$4" ]
+        if [ -f "$2" -a -f "$4" ];
             then
             # Pass file paths as arguments to Java Application
             java AudioMatching "$2" "$4"

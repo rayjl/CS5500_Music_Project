@@ -51,12 +51,25 @@ public class AudioFile {
 	}
 	
 	public void setFormat(String format) {
-		switch (format) {
-		case "WAVE": 	this.format = Format.WAVE;
+		// Necessary for Java6...
+		int val;
+		if (format == "WAVE")
+			val = 1;
+		else if (format == "MP3")
+			val = 2;
+		else if (format == "MIDI")
+			val = 3;
+		else
+			val = 0;
+			
+		// Switch statement for file types
+		// Will need to be modified for other file formats
+		switch (val) {
+		case 1: 		this.format = Format.WAVE;
 					 	break;
-		case "MP3": 	this.format = Format.MP3;
+		case 2: 		this.format = Format.MP3;
 						break;
-		case "MIDI":	this.format = Format.MIDI;
+		case 3:			this.format = Format.MIDI;
 						break;
 		default: 		this.format = null;
 				 		break;
