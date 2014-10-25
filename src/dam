@@ -15,7 +15,7 @@ javac AudioMatching.java
 
 # Declare function to execute
 # Arguments must be passed in when called
-function run() {
+run() {
     # Check if 4 arguments
     if [ "$#" == 4 ]
         then 
@@ -65,7 +65,7 @@ function run() {
 # Calls validateDirectoryPath
 # Paths passed into this function:
 #   Arg $1 == directory, Arg $2 == directory
-function validateDirectoryPathsLoop() {
+validateDirectoryPathsLoop() {
     DIRECTORY1=$1
     DIRECTORY2=$2
 
@@ -90,7 +90,7 @@ function validateDirectoryPathsLoop() {
 # Calls validateFilePaths to validate and execute content
 # Paths passed into this function:
 #   Arg $1 == directory, Arg $2 == file
-function validateDirectoryPath() {
+validateDirectoryPath() {
     DIRECTORY=$1
     FILE=$2
     # Validate Directory and File path
@@ -111,7 +111,7 @@ function validateDirectoryPath() {
 
 # Both paths are marked as files
 # Function checks validity of file paths
-function validateFilePaths() {
+validateFilePaths() {
     FILE1=$1
     FILE2=$2
     # Validate the paths
@@ -128,7 +128,7 @@ function validateFilePaths() {
 
 # Error function
 # Argument passed in is "1" or "2" to indicate error thrown
-function error() {
+error() {
     case "$1" in
         '1') echo 'ERROR : Path not valid. '$2 >&2
         ;;
