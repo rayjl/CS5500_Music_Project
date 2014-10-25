@@ -3,33 +3,63 @@
 # Script used to execute AudioMatching.java application
 # Arguments passed in command line will be passed into application
 
+# Last Revised: 24 October 2014
+# Assignment 6
+
 javac AudioMatching.java
 
-# Check if 4 arguments
-if [ "$#" == 4 ];
-    then 
-    # Check if arguments are files
-    if [ "$1" == "-f" -a "$3" == "-f" ];
-        then
-        # Check the paths
-        if [ -f "$2" -a -f "$4" ];
+# Declare main function to execute
+function main() {
+    # Check if 4 arguments
+    if [ "$#" == 4 ];
+        then 
+
+        # Both paths are files
+        if [ "$1" == "-f" -a "$3" == "-f" ];
             then
-            # Pass file paths as arguments to Java Application
-            java AudioMatching "$2" "$4"
+            # Check the paths
+            if [ -f "$2" -a -f "$4" ];
+                then
+                # Pass file paths as arguments to Java Application
+                java AudioMatching "$2" "$4"
+            else
+                # Write to stderr if non files
+                echo 'ERROR : Paths are not files.' >&2
+                exit 1
+            fi
+
+
+        # The first path is a directory
+        # The second path is a file
+        elif [ "$1" == "-d" -a "$3" == "-f"];
+            then
+
+
+        # The first path is a file
+        # The second path is a directory
+        elif [ "$1" == "-f" -a "$3" == "-d"];
+            then
+
+
+        # The first path is a directory
+        # The second path is a directory
+        elif [ "$1" == "-d" -a "$3" == "-d"];
+            then
+
+
         else
-            # Write to stderr if non files
-            echo 'ERROR : Paths are not files.' >&2
+            # Write to stderr if incorrect command line
+            echo 'ERROR : Incorrect command line.' >&2
             exit 1
         fi
+
     else
-        # Write to stderr if incorrect command line
+    	# Write to stderr if incorrect command line
         echo 'ERROR : Incorrect command line.' >&2
         exit 1
     fi
-else
-	# Write to stderr if incorrect command line
-    echo 'ERROR : Incorrect command line.' >&2
-    exit 1
-fi
+}
 
+# Call main function and pass in command line args
+main $1 $2 $3 $4
 exit 0
