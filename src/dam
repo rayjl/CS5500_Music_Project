@@ -13,9 +13,9 @@ javac AudioMatching.java
 
 # ---------------------------------------------------------
 
-# Declare main function to execute
+# Declare function to execute
 # Arguments must be passed in when called
-function main() {
+function run() {
     # Check if 4 arguments
     if [ "$#" == 4 ]
         then 
@@ -140,5 +140,5 @@ function error() {
 # ---------------------------------------------------------
 
 # Call main function and pass in command line args to execute
-main $1 $2 $3 $4
+run $1 $2 $3 $4
 exit 0
