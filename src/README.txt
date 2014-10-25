@@ -1,6 +1,6 @@
 -----------------------------------------------------------
 
-Last Revised: 19 October 2014
+Last Revised: 24 October 2014
 
 -----------------------------------------------------------
 
@@ -21,8 +21,12 @@ Due: Wednesday, 15 October 2014
 -----------------------------------------------------------
 
 About:
-This program is a rapid prototype that can compare two .wav
-files and checks to see if they "match". 
+This program is a rapid prototype that can compare two audio
+files and returns a match if the files are the same song.
+This current version will be able to compare files in the
+format / file extension of ".mp3" and ".wav". This prototype
+follows he specification provided by the instructor for
+Assignment 6 with some of its details listed below.
 
 Dependencies:		AudioMatching.java
                     AudioFile.java
@@ -38,10 +42,20 @@ Compilation and
 Execution:          Prototype's build process will result in 
                     software that can be invoked by cd'ing to 
                     the directory containing the software's 
-                    executable and executing a command of the 
-                    following form:
+                    executable and executing a command of one of 
+                    the following forms:
 
                     ./dam -f <pathname> -f <pathname>
+                    ./dam -d <pathname> -d <pathname>
+                    ./dam -f <pathname> -d <pathname>
+                    ./dam -d <pathname> -f <pathname>
+
+                    where <pathname> is a Linux path name. If
+                    a <pathname> is preceded by "-f", then the
+                    <pathname> must end in ".wav" or ".mp3".
+                    If a <pathname> is preceded by "-d" the <pathname>represents a directory which then the software should compare every recording in the directory
+                    against the second <pathname>'s recording or
+                    every recording if it is a directory.
 
 Note: "dam" abbreviates "detect audio misappropriations".
 
@@ -100,6 +114,10 @@ https://ccrma.stanford.edu/courses/422/projects/WaveFormat/
 
 [14] "Next Power of 2". Website:
 http://www.geeksforgeeks.org/next-power-of-2/
+
+[15] Japp Haitsma. "A Highly Robust Audio Fingerprinting System". 
+Article Website:
+http://www.nhchau.com/files/AudioFingerprint-02-FP04-2.pdf
 
 -----------------------------------------------------------
 
