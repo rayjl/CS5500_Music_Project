@@ -1,6 +1,6 @@
 -----------------------------------------------------------
 
-Last Revised: 24 October 2014
+Last Revised: 25 October 2014
 
 -----------------------------------------------------------
 
@@ -56,6 +56,7 @@ Execution:          Prototype's build process will result in
                     If a <pathname> is preceded by "-d" the <pathname>represents a directory which then the software should compare every recording in the directory
                     against the second <pathname>'s recording or
                     every recording if it is a directory.
+
 
 Note: "dam" abbreviates "detect audio misappropriations".
 
