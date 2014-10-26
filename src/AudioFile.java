@@ -57,7 +57,7 @@ public class AudioFile {
 			val = 1;
 		else if (format == "MP3")
 			val = 2;
-		else if (format == "MIDI")
+		else if (format == "OGG")
 			val = 3;
 		else
 			val = 0;
@@ -69,7 +69,7 @@ public class AudioFile {
 					 	break;
 		case 2: 		this.format = Format.MP3;
 						break;
-		case 3:			this.format = Format.MIDI;
+		case 3:			this.format = Format.OGG;
 						break;
 		default: 		this.format = null;
 				 		break;
@@ -129,7 +129,7 @@ public class AudioFile {
 			return Arrays.copyOfRange(data, 36, data.length);
 		} else if (this.format == Format.MP3){
 			System.err.print("audio format not yet supported");
-		} else if (this.format == Format.MIDI){
+		} else if (this.format == Format.OGG){
 			System.err.print("audio format not yet supported");
 		} else if (this.format == null) {
 			System.err.print("audio format not supported");

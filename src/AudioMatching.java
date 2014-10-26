@@ -145,7 +145,7 @@ public class AudioMatching {
 	 * Given: sample array and 2 empty double arrays to be filled
 	 * to ready for FFT use
 	 * Returns: Void
-	 * Notes: In-place mutator
+	 * Notes: In-place mutator ; does not need to be modified
 	 */
 	private static void makeFFTAble(int[] sample, 
 			double[] real, double[] imag) {
@@ -167,13 +167,15 @@ public class AudioMatching {
 	/* int -> int
 	 * Given: length of the sample array
 	 * Returns: the next power of 2 value from the length
+	 * Notes: Fixed - this function does not need to be modified
 	 */
 	private static int nextPowerOfTwo(int len) {
 		// Using Log of the number to calculate
-		// Solution implemented from geeksforgeeks.org
+		// Round the 'height' up and computer 2^height
 		double pow = Math.ceil(Math.log(len) / Math.log(2));
 		int val = (int) Math.pow(2, pow);
 		
+		// return the calculated next power of 2 value
 		return val;
 	}
 
@@ -181,6 +183,10 @@ public class AudioMatching {
 	 * Given: sample array
 	 * Returns: Void
 	 * Note: in-place mutator
+	 * 
+	 * TODO - 
+	 * I feel like this window might need to be fixed
+	 * Some additional reading on this topic will be benefitial
 	 */
 	private static void hanningWindow(int[] sample) {
 		// Iterate through the sample with the hanning window function
@@ -198,6 +204,11 @@ public class AudioMatching {
 	 * Returns: the int form of the file 
 	 * Note: The entire byte stream stream is passed in but
 	 * only the left channel of the data chunk will be returned
+	 * 
+	 * TODO - 
+	 * Need to update this to become more abstract/modular for other file
+	 * formats
+	 * Needs to take in an additional parameter to identify that file format
 	 */
 	private static int[] littleEndianToInt(byte[] b) {
 		// First data sample begins at offset 44
@@ -222,6 +233,9 @@ public class AudioMatching {
 	 * Given: the byte array, the offset location, size of the chunk
 	 * Returns: the int value form of the little-endian chunk
 	 * Note: helper function for littleEndianToInt
+	 * 
+	 * TODO - 
+	 * Verify that this is abstract enough to be used for other file formats
 	 */
 	private static int convertLittleEndian(byte[] b,
 			int offset, int size) {
@@ -264,9 +278,10 @@ public class AudioMatching {
 	 * Returns: a FingerPrint[] that contains the FingerPrints 
 	 * of the samples
 	 * 
-	 * TODO - Currently only loading FFT output data into FingerPrint objects
-	 * May need to change that based on fingerprinting method.
+	 * TODO - 
 	 * See FingerPrint Object for method of "finger printing"
+	 * Currently using power density of signal as a finger print
+	 * Will need a more robust approach
 	 */
 	private static FingerPrint[] 
 			makeFingerPrints(double[] real, double[] imag) {
@@ -285,6 +300,9 @@ public class AudioMatching {
 	 * Given: 2 FingerPrint arrays to compare and a threshold
 	 * Returns: Void
 	 * Note: function can set the variable match to be true
+	 * 
+	 * TODO - 
+	 * need to update to a more robust fingerprinting method
 	 */
 	private static void compareFingerPrints(FingerPrint[] a,
 			FingerPrint[] b) {
@@ -299,6 +317,8 @@ public class AudioMatching {
 		
 		// Iterate through and check each FingerPrint
 		for (int i = 0; i < a.length; i++) {
+			
+			// Print statement for visual check
 			if (i < 21)
 				System.out.println(Math.abs(a[i].getPowerDensity() 
 						- b[i].getPowerDensity()));
@@ -316,6 +336,7 @@ public class AudioMatching {
 	 * Given: the path name of a file
 	 * Returns: the short name of the file
 	 * Note: the name of the file is contained in the path name
+	 * This function is fixed - does not need to be modified
 	 */
 	private static String shortFileName(String s) {
 		// temp string to concatenate file name to
@@ -331,7 +352,7 @@ public class AudioMatching {
 		}
 		
 		// Return the concatenated string representing
-		// the file name
+		// the file name with n characters in O(n^2) time
 		return temp;	
 	}
 	
@@ -343,7 +364,9 @@ public class AudioMatching {
 	 * is in WAVE format for Assignment 5 and set the
 	 * fields in the AudioFile object accordingly.
 	 * 
-	 * This method will need to be fixed for the final. 
+	 * TODO - 
+	 * make more modular for other file format types
+	 * Possible file formats : WAVE, MP3, OGG
 	 */
 	private static void setAudioFileParams(AudioFile af) {
 		// Grab the byte array from the object
@@ -356,7 +379,7 @@ public class AudioMatching {
 				&& (char)data[2] == 'F' 
 				&& (char)data[3] == 'F')
 			af.setRIFFval(true);
-		
+	
 		// File Format - offset 8 size 4
 		if ((char)data[8] == 'W' 
 				&& (char)data[9] == 'A'
@@ -380,10 +403,11 @@ public class AudioMatching {
 	 * of the respective file
 	 * Returns: Void
 	 * 
-	 * Note: this method will need to be modified for final
+	 * TODO - 
+	 * will need to be updated for OGG file format later on
 	 */
 	private static void fileFormatCheck(AudioFile af, String s) {
-		if (af.getFormat() != Format.WAVE) {
+		if (af.getFormat() != Format.WAVE || af.getFormat() != Format.MP3) {
 			System.err.println("ERROR : " + s + " " 
 					+ "is not a supported format.");
 			System.exit(1);
@@ -393,6 +417,7 @@ public class AudioMatching {
 	/* File -> byte[]
 	 * Given: a file that is read 
 	 * Returns: the byte stream representation of the file
+	 * Note: Fixed - does not need to be modified
 	 */
 	private static byte[] getByteArray(File file) throws IOException {
 		// Create FileInputStream from file argument
