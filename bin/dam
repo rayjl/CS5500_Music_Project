@@ -3,33 +3,117 @@
 # Script used to execute AudioMatching.java application
 # Arguments passed in command line will be passed into application
 
+# Assignment 6 Revision
+# Last Revised: 25 October 2014
+
+# ---------------------------------------------------------
+
+# Compile the java Application
 javac AudioMatching.java
 
-# Check if 4 arguments
-if [ "$#" == 4 ]
-    then 
-    # Check if arguments are files
-    if [ "$1" == "-f" -a "$3" == "-f" ]
-        then
-        # Check the paths
-        if [ -f "$2" -a -f "$4" ]
+# ---------------------------------------------------------
+
+# Declare main function to execute
+# Arguments must be passed in when called
+function main() {
+    # Check if 4 arguments
+    if [ "$#" == 4 ];
+        then 
+
+        # Both paths are files
+        if [ "$1" == "-f" -a "$3" == "-f" ];
             then
-            # Pass file paths as arguments to Java Application
-            java AudioMatching "$2" "$4"
+            # Pass paths to validateFilePaths
+            validateFilePaths "$2" "$4"
+
+        # The first path is a directory
+        # The second path is a file
+        elif [ "$1" == "-d" -a "$3" == "-f"];
+            then
+            # Pass to validateDirectoryPaths
+            validateDirectoryPaths "$2" "4"
+
+        # The first path is a file
+        # The second path is a directory
+        elif [ "$1" == "-f" -a "$3" == "-d"];
+            then
+            validateDirectoryPaths "$4" "$2"
+
+        # The first path is a directory
+        # The second path is a directory
+        elif [ "$1" == "-d" -a "$3" == "-d"];
+            then
+            validateDirectoryPathsLoop "$2" "$4"
+
+        # Incorrect path designation
+        # Return command line error
         else
-            # Write to stderr if non files
-            echo 'ERROR : Paths are not files.' >&2
+            # Write to stderr if incorrect command line
+            error "2"
             exit 1
+
         fi
     else
-        # Write to stderr if incorrect command line
-        echo 'ERROR : Incorrect command line.' >&2
+    	# Write to stderr if incorrect command line
+        error "2"
         exit 1
     fi
-else
-	# Write to stderr if incorrect command line
-    echo 'ERROR : Incorrect command line.' >&2
-    exit 1
-fi
+}
 
+# Both paths are directories
+# Function checks validity of contents in both directories
+# Calls validateDirectoryPaths
+# Paths passed into this function:
+#   Arg $1 == directory, Arg $2 == directory
+function validateDirectoryPathsLoop() {
+
+}
+
+# One path is a directory
+# Function checks validity of contents in directory
+# Calls validateFilePaths to validate and execute content
+# Paths passed into this function:
+#   Arg $1 == directory, Arg $2 == file
+function validateDirectoryPaths() {
+    # Validate Directory and File path
+    if [ -d "$1" -a -f "$2" ];
+        then
+        # Loop through Directory and call validateFilePaths
+        # Each 'path' should be a file
+        for path in "$1";
+        do
+            validateFilePaths "$path" "$2"
+        done
+}
+
+# Both paths are marked as files
+# Function checks validity of file paths
+function validateFilePaths() {
+    # Validate the paths
+    if [ -f "$1" -a -f "$2" ];
+        then
+        # Pass file paths as arguments to Java Application
+        java AudioMatching "$1" "$2"
+    else
+        # Write to stderr if non files
+        error "1"
+        exit 1
+    fi    
+}
+
+# Error function
+# Argument passed in is "1" or "2" to indicate error thrown
+function error() {
+    case "$1" in
+        '1') echo 'ERROR : Path not valid.' >&2
+        ;;
+        '2') echo 'ERROR : Incorrect command line.' >&2
+        ;;
+    esac
+}
+
+# ---------------------------------------------------------
+
+# Call main function and pass in command line args to execute
+main $1 $2 $3 $4
 exit 0
