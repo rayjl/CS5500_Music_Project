@@ -8,7 +8,7 @@ import java.io.IOException;
  * managing the files to compare.
  * Current prototype has code that manually compares 2 files
  * 
- * Last Edited: 20 October 2014
+ * Last Edited: 26 October 2014
  */
 
 public class AudioMatching {
@@ -407,7 +407,7 @@ public class AudioMatching {
 	 * will need to be updated for OGG file format later on
 	 */
 	private static void fileFormatCheck(AudioFile af, String s) {
-		if (af.getFormat() != Format.WAVE || af.getFormat() != Format.MP3) {
+		if (af.getFormat() != Format.WAVE && af.getFormat() != Format.MP3) {
 			System.err.println("ERROR : " + s + " " 
 					+ "is not a supported format.");
 			System.exit(1);
