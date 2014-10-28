@@ -59,7 +59,7 @@ public class AudioMatching {
 		// Grab file names from paths
 		file_name1 = shortFileName(path1);
 		file_name2 = shortFileName(path2);
-				
+		
 		// Create file objects from file paths
 		File file1 = new File(path1);
 		File file2 = new File(path2);
@@ -72,16 +72,16 @@ public class AudioMatching {
 					
 			byte[] b1 = getByteArray(file1);
 			byte[] b2 = getByteArray(file2);
-			AudioFile af1 = new AudioFile(b1);
-			AudioFile af2 = new AudioFile(b2);
+			AudioFile af1 = new AudioFile(b1, file_name1);
+			AudioFile af2 = new AudioFile(b2, file_name2);
 					
 			// Set parameters for AudioFile
 			setAudioFileParams(af1);
 			setAudioFileParams(af2);
 					
 			// Assignment 5 Format Check
-			fileFormatCheck(af1, file_name1);
-			fileFormatCheck(af2, file_name2);
+			fileFormatCheck(af1);
+			fileFormatCheck(af2);
 			
 			// Convert data to Little-Endian Form
 			int[] audio_data1 = littleEndianToInt(b1);
@@ -360,16 +360,31 @@ public class AudioMatching {
 	/* AudioFile -> Void
 	 * Given: an AudioFile object to have its fields set
 	 * Returns: Void
-	 * Notes: This is where all the logic goes to check
-	 * what type of file this is. We will only check if it
-	 * is in WAVE format for Assignment 5 and set the
-	 * fields in the AudioFile object accordingly.
-	 * 
-	 * TODO - 
-	 * make more modular for other file format types
-	 * Possible file formats : WAVE, MP3, OGG
 	 */
 	private static void setAudioFileParams(AudioFile af) {
+		// Get the file extension of the file
+		String fileExtension = getFileExtension(af.getFileName());
+		System.out.println(fileExtension);
+		
+		// Check file extensions - .wav or .mp3
+		// Set parameters based on extension
+		if (fileExtension.equals(".wav"))
+			setWaveFileParams(af);
+		else if (fileExtension.equals(".mp3"))
+			setMP3FileParams(af);
+		else if (fileExtension.equals(".ogg"))
+			setOGGFileParams(af);
+		else
+			error(1, fileExtension);
+		
+	}
+	
+	/* AudioFile -> Void
+	 * Given: the AudioFile object with a file extension of ".wav"
+	 * Returns: Void
+	 * Notes: Helper function for setAudioFileParams
+	 */
+	private static void setWaveFileParams(AudioFile af) {
 		// Grab the byte array from the object
 		// Values in array are decimal format
 		byte[] data = af.getData();
@@ -396,7 +411,48 @@ public class AudioMatching {
 		
 		// Bits per Sample - offset 34 size 2
 		af.setBPS(data[34]);
+	}
+	
+	/* AudioFile -> Void
+	 * Given: the AudioFile object with a file extension of ".mp3"
+	 * Returns: Void
+	 * Notes: Helper function for setAudioFileParams
+	 */
+	private static void setMP3FileParams(AudioFile af) {
+		
+	}
+	
+	/* AudioFile -> Void
+	 * Given: the AudioFile object with a file extension of ".gg"
+	 * Returns: Void
+	 * Notes: Helper function for setAudioFileParams
+	 */
+	private static void setOGGFileParams(AudioFile af) {
+		
+	}
 
+	/* String -> String
+	 * Given: the file name to check its extension
+	 * Returns: the file extension
+	 */
+	private static String getFileExtension(String fileName) {
+		// Use a StringBuilder for file extension
+		StringBuilder temp = new StringBuilder();
+		
+		// Loop through from end of string and append to StringBuilder
+		for (int i = fileName.length() - 1; i >= 0; i--) {
+			if (fileName.charAt(i) == '.') {
+				temp.append(fileName.charAt(i));
+				break;
+			}
+			else
+				temp.append(fileName.charAt(i));
+		}
+		// Reverse the appended string to be returned
+		temp.reverse();
+		
+		// Return the file extension
+		return temp.toString();
 	}
 	
 	/* AudioFile String -> Void
@@ -406,12 +462,12 @@ public class AudioMatching {
 	 * 
 	 * TODO - 
 	 * will need to be updated for OGG file format later on
+	 * Currently acceptable for WAVE and MP3 Formats
 	 */
-	private static void fileFormatCheck(AudioFile af, String s) {
-		if (af.getFormat() != Format.WAVE && af.getFormat() != Format.MP3) {
-			System.err.println("ERROR : " + s + " " 
-					+ "is not a supported format.");
-			System.exit(1);
+	private static void fileFormatCheck(AudioFile af) {
+		if (af.getFormat() != Format.WAVE
+			&& af.getFormat() != Format.MP3) {
+			error(2, af.getFileName());
 		}
 	}
 	
@@ -432,5 +488,29 @@ public class AudioMatching {
 
 		return b;
 	}	
+
+	/* int String -> Void
+	 * Given: an int value that will determine the error to throw
+	 * for the given file String s
+	 * Returns: Void
+	 * Note: this function is for printing error messages to stderr
+	 */
+	private static void error(int e, String s) {
+		// switch block for error messages
+		switch (e) {
+			case 1:
+				System.err.println("ERROR : " + s + " " 
+					+ "is not a supported extension.");
+				break;
+			case 2:
+				System.err.println("ERROR : " + s + " "
+					+ "has incorrect file format.");
+			default:
+				System.err.println("ERROR");
+				break;
+		}
+		// Terminate the application
+		System.exit(1);
+	}
 	
 }

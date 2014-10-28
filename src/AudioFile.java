@@ -10,6 +10,9 @@ public class AudioFile {
 	 * Declare File states
 	 *-----------------------------------------------*/	
 	
+	// File name
+	private String fileName;
+
 	// RIFF
 	// Canonical WAVE format starts with RIFF header
 	private boolean RIFFval;
@@ -40,8 +43,9 @@ public class AudioFile {
 	// Constructor ----------------------------------------
 	// Class can only be instantiated with a byte stream
 
-	public AudioFile(byte[] data) {
+	public AudioFile(byte[] data, String fileName) {
 		this.data = data;
+		this.fileName = fileName;
 	}
 	
 	// Setters --------------------------------------------
@@ -65,14 +69,14 @@ public class AudioFile {
 		// Switch statement for file types
 		// Will need to be modified for other file formats
 		switch (val) {
-		case 1: 		this.format = Format.WAVE;
-					 	break;
-		case 2: 		this.format = Format.MP3;
-						break;
-		case 3:			this.format = Format.OGG;
-						break;
-		default: 		this.format = null;
-				 		break;
+			case 1: 		this.format = Format.WAVE;
+					 		break;
+			case 2: 		this.format = Format.MP3;
+							break;
+			case 3:			this.format = Format.OGG;
+							break;
+			default: 		this.format = null;
+				 			break;
 		}
 	}
 
@@ -93,6 +97,10 @@ public class AudioFile {
 	}
 	
 	// Getters---------------------------------------------
+
+	public String getFileName() {
+		return this.fileName;
+	}
 	
 	public boolean getRIFFval() {
 		return this.RIFFval;
