@@ -64,7 +64,8 @@ public class AudioMatching {
 		File file1 = new File(path1);
 		File file2 = new File(path2);
 				
-		// Read files into byte arrays and compare to WAVE format
+		// Read files into byte arrays and compare to 
+		// WAVE and MP3 formats
 		// Each index contains decimal value stored in corresponding
 		// byte offset
 		try {
