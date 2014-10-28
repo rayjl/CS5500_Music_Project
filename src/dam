@@ -10,10 +10,6 @@
 
 # Compile the java Application
 javac AudioMatching.java
-javac AudioFile.java
-javac FFT.java
-javac Format.java
-javac FingerPrint.java
 
 # ---------------------------------------------------------
 
