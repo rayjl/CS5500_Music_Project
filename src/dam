@@ -21,31 +21,31 @@ javac FingerPrint.java
 # Arguments must be passed in when called
 run() {
     # Check if 4 arguments
-    if [ "$#" == 4 ]
+    if [ "$#" = 4 ]
         then 
         # Both paths are files
-        if [ "$1" == "-f" -a "$3" == "-f" ]
+        if [ "$1" = "-f" -a "$3" = "-f" ]
             then
             # Pass paths to validateFilePaths
             validateFilePaths "$2" "$4"
 
         # The first path is a directory
         # The second path is a file
-        elif [ "$1" == "-d" -a "$3" == "-f" ]
+        elif [ "$1" = "-d" -a "$3" = "-f" ]
             then
             # Pass to validateDirectoryPath
             validateDirectoryPath "$2" "4"
 
         # The first path is a file
         # The second path is a directory
-        elif [ "$1" == "-f" -a "$3" == "-d" ]
+        elif [ "$1" = "-f" -a "$3" = "-d" ]
             then
             # Pass to validateDirectoryPath
             validateDirectoryPath "$4" "$2"
 
         # The first path is a directory
         # The second path is a directory
-        elif [ "$1" == "-d" -a "$3" == "-d" ]
+        elif [ "$1" = "-d" -a "$3" = "-d" ]
             then
             validateDirectoryPathsLoop "$2" "$4"
 
