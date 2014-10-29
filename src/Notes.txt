@@ -38,3 +38,14 @@ Interleaving of Algorithms
 Slow algorithm that always works
 Fast algorithm that doesn't always work
 - reason why is because possible hash collisions
+- by combining the 2 -> 'fast' algorithm that will always work
+
+How to read floating point numbers accurately
+- use obvious algorithm
+- look at the low-order bits of the next-to-last step
+- if those bits are 10000000xxx, you have to use a slower algorithm
+- otherwise you're done
+
+Iterative Widening
+- The equal? procedure must always terminate even if its arguments
+  contan cycles

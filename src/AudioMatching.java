@@ -4,7 +4,7 @@ import java.io.IOException;
 
 /**
  * Rapid Prototype
- * This prototype will need refactoring, especially with
+ * This prototype will need re-factoring, especially with
  * managing the files to compare.
  * Current prototype has code that manually compares 2 files
  * 
