@@ -125,7 +125,7 @@ validateFilePaths() {
         # Check the exit status of the proces
         # Terminate if non-zero
         OUT=$?
-        if [ $OUT -ne 0];
+        if [ $OUT -ne 0 ];
             then
             exit 1
         fi
