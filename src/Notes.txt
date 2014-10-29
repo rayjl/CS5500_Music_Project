@@ -1,4 +1,6 @@
-Notes:
+-----------------------------------------------------------
+
+Assignment 6 Notes:
 
 WAVE format:
 
@@ -17,9 +19,25 @@ MPEG-1 Audio Layer III format (MP3).
 
 Agenda:
 
-(DONE) Fix dam script such that it can execute with directory paths
-utilize CD command
+(DONE) 
+Fix dam script such that it can execute with directory paths
+utilize CD command.
 
+(DONE)
+Terminate dam script if any errors are thrown in the application.
+This is for terminating the loop for directories.
+Have emailed professor to check this but may not be necessary.
+
+(NOTDONE)
+Understand mp3 file format.
+
+(NOTDONE)
+Implement read and checks for mp3 file formats.
+
+(NOTDONE)
+Find and implement a robust finger printing method.
+
+-----------------------------------------------------------
 
 Notes for searching for substrings:
 String Search Algorithms
@@ -56,3 +74,11 @@ f(0) = 2
 f(1) = -17
 
 Newton's Method
+
+-----------------------------------------------------------
+
+Random notes:
+
+don't
+don't yet
+don't anymore than you have to
