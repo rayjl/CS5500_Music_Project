@@ -18,8 +18,7 @@ public class AudioMatching {
 	private static String file_name2;
 	private static boolean match;
 	
-	public static void main(String[] args) {
-		
+	public static void main(String[] args) {	
 		// Read wave files in to File objects
 		// 2 Arguments should be passed in from shell script
 		// Format: 
@@ -327,8 +326,7 @@ public class AudioMatching {
 		
 		// threshold met
 		if (counter >= goal)
-			match = true;
-		
+			match = true;		
 	}
 
 	/* String -> String
@@ -458,20 +456,51 @@ public class AudioMatching {
 		return temp.toString();
 	}
 	
-	/* AudioFile String -> Void
-	 * Given: an AudioFile object to check its format and the name
-	 * of the respective file
+	/* AudioFile -> Void
+	 * Given: an AudioFile object to check its format
 	 * Returns: Void
-	 * 
-	 * TODO - 
-	 * will need to be updated for OGG file format later on
-	 * Currently acceptable for WAVE and MP3 Formats for assignment 6
 	 */
 	private static void fileFormatCheck(AudioFile af) {
-		if (af.getFormat() != Format.WAVE
-			&& af.getFormat() != Format.MP3) {
+		// Validate to check if its either in wave, mp3, or ogg format
+		if (waveFormatCheck(af) || mp3FormatCheck(af) 
+				|| oggFormatCheck(af))
+			return;
+		else
 			error(2, af.getFileName());
-		}
+	}
+	
+	/* AudioFile -> boolean
+	 * Given: an AudioFile to check if its in WAVE format
+	 * Returns: true if it is, false otherwise 
+	 */
+	private static boolean waveFormatCheck(AudioFile af) {
+		return (af.getRIFFval() 
+				&& af.getFormat() == Format.WAVE);
+	}
+	
+	
+	/* AudioFile -> boolean
+	 * Given: an AudioFile to check if its in MP3 format
+	 * Returns: true if it is, false otherwise 
+	 * 
+	 * TODO - 
+	 * Check the mp3 format.
+	 */
+	private static boolean mp3FormatCheck(AudioFile af) {
+		
+		return false;
+	}
+	
+	/* AudioFile -> boolean
+	 * Given: an AudioFile to check if its in OGG format
+	 * Returns: true if it is, false otherwise 
+	 * 
+	 * TODO - 
+	 * This is for later use for OGG file formats.
+	 */
+	private static boolean oggFormatCheck(AudioFile af) {
+		
+		return false;
 	}
 	
 	/* File -> byte[]
