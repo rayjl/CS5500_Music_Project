@@ -93,7 +93,8 @@ public class AudioMatching {
 			// In-place mutator
 			//
 			// TODO - gotta fix this, need another array to split
-			// audio file into frames before transforming/mutating with function 
+			// audio file into frames before transforming/mutating 
+			// with function 
 			hanningWindow(audio_data1);
 			hanningWindow(audio_data2);
 			
@@ -102,10 +103,6 @@ public class AudioMatching {
 			// This is necessary for FFT usage
 			int nextPOT1 = nextPowerOfTwo(audio_data1.length);
 			int nextPOT2 = nextPowerOfTwo(audio_data2.length);
-			
-			// Check the lengths to make sure
-//			System.out.println(nextPOT1);
-//			System.out.println(nextPOT2);
 			
 			// Create double arrays for FFT implementation usage
 			double[] real1 = new double[nextPOT1];
@@ -125,12 +122,6 @@ public class AudioMatching {
 			// In-place FFT
 			fft1.fft(real1, imag1);
 			fft2.fft(real2, imag2);
-			
-// Print values to check for comparisons
-//			for (int i = 0; i < 20; i++) {
-//				System.out.println(real1[i] + "      " + real2[i]
-//						+ "   |   " + imag1[i] + "     " + imag2[i]);	
-//			}
 			
 			// Convert to FingerPrints
 			FingerPrint[] fp1 =
@@ -212,9 +203,10 @@ public class AudioMatching {
 	 * only the left channel of the data chunk will be returned
 	 * 
 	 * TODO - 
-	 * Need to update this to become more abstract/modular for other file
-	 * formats
-	 * Needs to take in an additional parameter to identify that file format
+	 * Need to update this to become more abstract/modular for 
+	 * other file formats.
+	 * Needs to take in an additional parameter to identify that 
+	 * file format.
 	 */
 	private static int[] littleEndianToInt(byte[] b) {
 		// First data sample begins at offset 44
@@ -241,7 +233,8 @@ public class AudioMatching {
 	 * Note: helper function for littleEndianToInt
 	 * 
 	 * TODO - 
-	 * Verify that this is abstract enough to be used for other file formats
+	 * Verify that this is abstract enough to be used for other 
+	 * file formats.
 	 */
 	private static int convertLittleEndian(byte[] b,
 			int offset, int size) {
