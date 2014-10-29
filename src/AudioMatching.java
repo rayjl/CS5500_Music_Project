@@ -8,7 +8,7 @@ import java.io.IOException;
  * managing the files to compare.
  * Current prototype has code that manually compares 2 files
  * 
- * Last Edited: 26 October 2014
+ * Last Edited: 28 October 2014
  */
 
 public class AudioMatching {
@@ -79,7 +79,9 @@ public class AudioMatching {
 			setAudioFileParams(af1);
 			setAudioFileParams(af2);
 					
-			// Assignment 5 Format Check
+			// Format Check
+			// "Just because extension is correct, inner byte data
+			// might be invalid"
 			fileFormatCheck(af1);
 			fileFormatCheck(af2);
 			
@@ -89,11 +91,14 @@ public class AudioMatching {
 			
 			// Hanning Window before application of FFT
 			// In-place mutator
+			//
+			// TODO - gotta fix this, need another array to split
+			// audio file into frames before transforming/mutating with function 
 			hanningWindow(audio_data1);
 			hanningWindow(audio_data2);
 			
 			// Get the next largest power of 2 from the sample
-			// array length
+			// array lengths
 			// This is necessary for FFT usage
 			int nextPOT1 = nextPowerOfTwo(audio_data1.length);
 			int nextPOT2 = nextPowerOfTwo(audio_data2.length);
@@ -360,13 +365,13 @@ public class AudioMatching {
 	/* AudioFile -> Void
 	 * Given: an AudioFile object to have its fields set
 	 * Returns: Void
+	 * Notes: calls helper methods based on file extension
 	 */
 	private static void setAudioFileParams(AudioFile af) {
 		// Get the file extension of the file
 		String fileExtension = getFileExtension(af.getFileName());
-		System.out.println(fileExtension);
 		
-		// Check file extensions - .wav or .mp3
+		// Check file extensions - .wav .mp3 or .ogg
 		// Set parameters based on extension
 		if (fileExtension.equals(".wav"))
 			setWaveFileParams(af);
@@ -376,7 +381,6 @@ public class AudioMatching {
 			setOGGFileParams(af);
 		else
 			error(1, fileExtension);
-		
 	}
 	
 	/* AudioFile -> Void
@@ -417,6 +421,9 @@ public class AudioMatching {
 	 * Given: the AudioFile object with a file extension of ".mp3"
 	 * Returns: Void
 	 * Notes: Helper function for setAudioFileParams
+	 * 
+	 * TODO - 
+	 * 
 	 */
 	private static void setMP3FileParams(AudioFile af) {
 		
@@ -426,6 +433,9 @@ public class AudioMatching {
 	 * Given: the AudioFile object with a file extension of ".gg"
 	 * Returns: Void
 	 * Notes: Helper function for setAudioFileParams
+	 * 
+	 * TODO - 
+	 * 
 	 */
 	private static void setOGGFileParams(AudioFile af) {
 		
@@ -462,7 +472,7 @@ public class AudioMatching {
 	 * 
 	 * TODO - 
 	 * will need to be updated for OGG file format later on
-	 * Currently acceptable for WAVE and MP3 Formats
+	 * Currently acceptable for WAVE and MP3 Formats for assignment 6
 	 */
 	private static void fileFormatCheck(AudioFile af) {
 		if (af.getFormat() != Format.WAVE
@@ -486,6 +496,7 @@ public class AudioMatching {
 		fis.read(b);
 		fis.close();
 
+		// return the array read from the buffer
 		return b;
 	}	
 
@@ -505,6 +516,7 @@ public class AudioMatching {
 			case 2:
 				System.err.println("ERROR : " + s + " "
 					+ "has incorrect file format.");
+				break;
 			default:
 				System.err.println("ERROR");
 				break;
