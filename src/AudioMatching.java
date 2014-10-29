@@ -8,7 +8,7 @@ import java.io.IOException;
  * managing the files to compare.
  * Current prototype has code that manually compares 2 files
  * 
- * Last Edited: 28 October 2014
+ * Last Edited: 29 October 2014
  */
 
 public class AudioMatching {
@@ -39,13 +39,14 @@ public class AudioMatching {
 	/* boolean -> Void
 	 * Given: true if the files match, false otherwise
 	 * Returns: Void
+	 * Note: only prints to System.out if files match
 	 */
 	private static void summaryReport(boolean b) {
 		if (b)
 			System.out.println("MATCH" + " " 
 					+ file_name1 + " " + file_name2);
 		else
-			System.out.println("NO MATCH");
+			return;
 	}
 	
 	/* String String -> Void
