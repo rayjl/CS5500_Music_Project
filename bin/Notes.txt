@@ -82,8 +82,6 @@ f(1) = -17
 
 Newton's Method
 
-Nearest Neighbors
-
 -----------------------------------------------------------
 
 Random notes:

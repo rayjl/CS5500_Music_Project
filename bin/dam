@@ -4,7 +4,8 @@
 # Arguments passed in command line will be passed into application
 
 # Assignment 6 Revision
-# Last Revised: 25 October 2014
+# By: Raymond Li
+# Last Revised: 29 October 2014
 
 # ---------------------------------------------------------
 
@@ -117,8 +118,18 @@ validateFilePaths() {
     # Validate the paths
     if [ -f $FILE1 -a -f $FILE2 ];
         then
+
         # Pass file paths as arguments to Java Application
         java AudioMatching $FILE1 $FILE2
+
+        # Check the exit status of the last process
+        # Terminate dam script if non-zero
+        OUT=$?
+        if [ $OUT -ne 0 ];
+            then
+            exit 1
+        fi
+
     else
         # Write to stderr if non files
         error "1" "validateFilePaths"

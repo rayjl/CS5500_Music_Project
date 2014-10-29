@@ -6,7 +6,7 @@ import java.io.IOException;
  * Rapid Prototype
  * This prototype will need re-factoring, especially with
  * managing the files to compare.
- * Current prototype has code that manually compares 2 files
+ * WAVE file format is the conical for to be used.
  * 
  * Last Edited: 29 October 2014
  */
@@ -85,6 +85,10 @@ public class AudioMatching {
 			fileFormatCheck(af1);
 			fileFormatCheck(af2);
 			
+			// Convert file types for wave format to
+			convertToWave(af1);
+			convertToWave(af2);
+			
 			// Convert data to Little-Endian Form
 			int[] audio_data1 = littleEndianToInt(b1);
 			int[] audio_data2 = littleEndianToInt(b2);
@@ -136,6 +140,22 @@ public class AudioMatching {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	/* AudioFile -> Void
+	 * Given: an AudioFile to be converted to WAVE format
+	 * Returns: Void
+	 * Notes: in-place mutator
+	 * 
+	 * TODO -
+	 * 
+	 */
+	private static void convertToWave(AudioFile af) {
+		if (af.getFormat() == Format.WAVE)
+			return;
+		else {
+			// TODO -
+		}
 	}
 	
 	/* int[] double[] double[] -> Void
