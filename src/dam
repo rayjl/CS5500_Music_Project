@@ -122,8 +122,8 @@ validateFilePaths() {
         # Pass file paths as arguments to Java Application
         java AudioMatching $FILE1 $FILE2
 
-        # Check the exit status of the proces
-        # Terminate if non-zero
+        # Check the exit status of the last process
+        # Terminate dam script if non-zero
         OUT=$?
         if [ $OUT -ne 0 ];
             then

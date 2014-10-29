@@ -57,6 +57,7 @@ Execution:          Prototype's build process will result in
                     against the second <pathname>'s recording or
                     every recording if it is a directory.
 
+If any errors are thrown, the dam script will terminate.
 
 Note: "dam" abbreviates "detect audio misappropriations".
 
