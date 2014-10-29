@@ -318,9 +318,9 @@ public class AudioMatching {
 		for (int i = 0; i < a.length; i++) {
 			
 			// Print statement for visual check
-			if (i < 21)
-				System.out.println(Math.abs(a[i].getPowerDensity() 
-						- b[i].getPowerDensity()));
+//			if (i < 21)
+//				System.out.println(Math.abs(a[i].getPowerDensity() 
+//						- b[i].getPowerDensity()));
 			if (a[i].similarTo(b[i]))
 				counter++;
 		}
