@@ -85,11 +85,11 @@ public class AudioMatching {
 			fileFormatCheck(af1);
 			fileFormatCheck(af2);
 			
-			// Convert file types for wave format to
+			// Convert file types to wave format
 			convertToWave(af1);
 			convertToWave(af2);
 			
-			// Convert data to Little-Endian Form
+			// Convert little-endian data to int format
 			int[] audio_data1 = littleEndianToInt(b1);
 			int[] audio_data2 = littleEndianToInt(b2);
 			
