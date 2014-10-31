@@ -63,8 +63,6 @@ public class AudioMatching {
 		file_name1 = shortFileName(path1);
 		file_name2 = shortFileName(path2);
 		
-		System.out.println(path1);
-		System.out.println(path2);
 		// Create file objects from file paths
 		File file1 = new File(path1);
 		File file2 = new File(path2);
@@ -159,6 +157,7 @@ public class AudioMatching {
 			try {
 				File tempFile = new File(destFile);
 				System.out.println(destFile);
+				System.out.println(tempFile);
 				byte[] tempByte = getByteArray(tempFile);
 				System.out.println("test");
 				
