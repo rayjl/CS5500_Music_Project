@@ -78,12 +78,11 @@ public class AudioMatching {
 			AudioFile af2 = new AudioFile(b2, file_name2);
 					
 			// Set parameters for AudioFile
+			// Method includes a file extension check
 			setAudioFileParams(af1);
 			setAudioFileParams(af2);
 					
-			// Format Check
-			// "Just because extension is correct, 
-			// inner byte data may not be"
+			// Format Check for Data
 			fileFormatCheck(af1);
 			fileFormatCheck(af2);
 			
