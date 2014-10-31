@@ -162,6 +162,7 @@ public class AudioMatching {
 			}
 			catch (IOException e) {
 				e.printStackTrace();
+				System.out.println("error 1");
 			}
 			
 			// Load file created into buffer and extract byte data
@@ -174,6 +175,7 @@ public class AudioMatching {
 			}
 			catch (IOException e) {
 				e.printStackTrace();
+				System.out.println("error 2");
 			}
 			
 			// Execute command to remove temp.wav file
@@ -182,6 +184,7 @@ public class AudioMatching {
 			}
 			catch (IOException e) {
 				e.printStackTrace();
+				System.out.println("error 3");
 			}
 		}
 	}
