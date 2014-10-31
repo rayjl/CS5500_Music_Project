@@ -17,6 +17,8 @@ public class AudioMatching {
 	// Global variables
 	private static String file_name1;
 	private static String file_name2;
+	private static String path1;
+	private static String path2;
 	private static boolean match;
 
 	public static void main(String[] args) {	
@@ -29,8 +31,12 @@ public class AudioMatching {
 			System.exit(1);
 		}
 		
+		// Initialize paths from the params
+		path1 = args[0];
+		path2 = args[1];
+		
 		// Compare songs
-		CompareFiles(args[0], args[1]);
+		CompareFiles(path1, path2);
 		
 		// Report results and exit program
 		summaryReport(match);
@@ -55,11 +61,11 @@ public class AudioMatching {
 	 * Returns: Void
 	 * Note: this function is the main operation
 	 */
-	private static void CompareFiles(String path1, String path2) {
+	private static void CompareFiles(String p1, String p2) {
 		
 		// Grab file names from paths
-		file_name1 = shortFileName(path1);
-		file_name2 = shortFileName(path2);
+		file_name1 = shortFileName(p1);
+		file_name2 = shortFileName(p2);
 		
 		// Create file objects from file paths
 		File file1 = new File(path1);
@@ -182,12 +188,12 @@ public class AudioMatching {
 		// Command to execute LAME application in CCIS box
 		String command = "/course/cs4500f14/bin/lame";
 		String op = "--decode";
-		String source = af.getFileName();
-		String dest = "/tmp/temp.wav";
+		String sourcePath = af.getPath();
+		String destPath = "/tmp/temp.wav";
 		
 		// Execute file conversion with ProcessBuilder
 		ProcessBuilder pb = new ProcessBuilder(command, op, 
-				source, dest);
+				sourcePath, destPath);
 		try {
 			Process p = pb.start();
 		}
@@ -196,7 +202,7 @@ public class AudioMatching {
 		}
 		
 		// Return the file path of the temp file
-		return dest;
+		return destPath;
 	}
 	
 	/* int[] double[] double[] -> Void

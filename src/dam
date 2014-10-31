@@ -101,7 +101,6 @@ validateDirectoryPath() {
         # Each 'path' should be a file
         for FILEPATH in $DIRECTORY/*;
         do
-            echo $FILEPATH
             validateFilePaths $FILEPATH $FILE
         done
     # Arguments are invalid ; not a directory and file

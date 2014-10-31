@@ -12,6 +12,9 @@ public class AudioFile {
 	
 	// File name
 	private String fileName;
+	
+	// Path name
+	private String path;
 
 	// RIFF
 	// Canonical WAVE format starts with RIFF header
@@ -49,6 +52,10 @@ public class AudioFile {
 	}
 	
 	// Setters --------------------------------------------
+	
+	public void setPath(String path) {
+		this.path = path;
+	}
 	
 	public void setRIFFval(boolean RIFFval) {
 		this.RIFFval = RIFFval;
@@ -104,6 +111,10 @@ public class AudioFile {
 	}
 	
 	// Getters---------------------------------------------
+	
+	public String getPath() {
+		return this.path;
+	}
 
 	public String getFileName() {
 		return this.fileName;
