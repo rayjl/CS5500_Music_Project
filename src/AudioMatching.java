@@ -150,9 +150,9 @@ public class AudioMatching {
 		else {
 			// Call helper to convert non-wave file to wave format
 			String destFile = convertToWaveHelper(af);
-
+			System.out.println(destFile);
 			// Load created temp file into buffer and extract byte data
-			File tempFile = new File("wayfaring2.wav");
+			File tempFile = new File(destFile);
 			try {
 				byte[] tempByte = getByteArray(tempFile);
 				// Overwrite current AudioFile object data
