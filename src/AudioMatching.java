@@ -165,14 +165,7 @@ public class AudioMatching {
 				e.printStackTrace();
 			}
 
-			// Remove file created in tmp
-			ProcessBuilder pb = new ProcessBuilder("rm", "/tmp/temp.wav");
-			try {
-				Process p = pb.start();
-			}
-			catch (IOException e) {
-				e.printStackTrace();
-			}
+
 		}
 	}
 	
