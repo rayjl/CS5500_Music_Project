@@ -28,7 +28,7 @@ format / file extension of ".mp3" and ".wav". This prototype
 follows he specification provided by the instructor for
 Assignment 6 with some of its details listed below.
 
-Dependencies:		AudioMatching.java
+Dependencies:       AudioMatching.java
                     AudioFile.java
                     ComplexNumber.java
                     FingerPrint.java
@@ -53,7 +53,8 @@ Execution:          Prototype's build process will result in
                     where <pathname> is a Linux path name. If
                     a <pathname> is preceded by "-f", then the
                     <pathname> must end in ".wav" or ".mp3".
-                    If a <pathname> is preceded by "-d" the <pathname>represents a directory which then the software should compare every recording in the directory
+                    If a <pathname> is preceded by "-d" the <pathname>
+                    represents a directory which then the software should compare every recording in the directory
                     against the second <pathname>'s recording or
                     every recording if it is a directory.
 
