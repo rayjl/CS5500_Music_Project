@@ -18,6 +18,8 @@ public class AudioMatching {
 	private static String file_name2;
 	private static boolean match;
 	
+	private static int dividends = 20;
+	
 	public static void main(String[] args) {	
 		// Read wave files in to File objects
 		// 2 Arguments should be passed in from shell script
@@ -95,10 +97,6 @@ public class AudioMatching {
 			
 			// Hanning Window before application of FFT
 			// In-place mutator
-			//
-			// TODO - gotta fix this, need another array to split
-			// audio file into frames before transforming/mutating 
-			// with function 
 			hanningWindow(audio_data1);
 			hanningWindow(audio_data2);
 			
@@ -195,19 +193,15 @@ public class AudioMatching {
 		// return the calculated next power of 2 value
 		return val;
 	}
-
-	/* double[] -> Void
+	
+	/* int[] -> Void
 	 * Given: sample array
 	 * Returns: Void
 	 * Note: in-place mutator
-	 * 
-	 * TODO - 
-	 * I feel like this window might need to be fixed
-	 * Some additional reading on this topic will be benefitial
+	 * This is a frame of data.
 	 */
 	private static void hanningWindow(int[] sample) {
 		// Iterate through the sample with the hanning window function
-		// Needs to be tested. Perhaps plotting the data would be helpful
 		double multiplier;
 		for (int i = 0; i < sample.length; i++) {
 			multiplier = 0.5 
@@ -319,9 +313,6 @@ public class AudioMatching {
 	 * Given: 2 FingerPrint arrays to compare and a threshold
 	 * Returns: Void
 	 * Note: function can set the variable match to be true
-	 * 
-	 * TODO - 
-	 * need to update to a more robust fingerprinting method
 	 */
 	private static void compareFingerPrints(FingerPrint[] a,
 			FingerPrint[] b) {

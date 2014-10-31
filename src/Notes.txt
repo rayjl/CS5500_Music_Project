@@ -24,7 +24,6 @@ Use wav file as the conical form.
 Convert mp3 to wav.
 Conver ogg to wav.
 
-
 (DONE) 
 Fix dam script such that it can execute with directory paths
 utilize CD command.
@@ -39,6 +38,10 @@ Understand mp3 file format.
 
 (NOTDONE)
 Implement decoding of mp3 file format to wave format.
+
+(NOTDONE)
+Frame and smooth out time domain data with hanning window
+before transforming with FFT class.
 
 (NOTDONE)
 Find and implement a robust finger printing method.
