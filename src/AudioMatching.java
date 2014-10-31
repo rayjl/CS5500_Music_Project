@@ -171,13 +171,7 @@ public class AudioMatching {
 				e.printStackTrace();
 			}
 			
-			// Execute command to remove temp.wav file
-			try {
-				Process p2 = new ProcessBuilder("rm", destFile).start();
-			}
-			catch (IOException e) {
-				e.printStackTrace();
-			}
+
 		}
 	}
 	
