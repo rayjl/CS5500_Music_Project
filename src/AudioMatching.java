@@ -66,6 +66,7 @@ public class AudioMatching {
 		// Create file objects from file paths
 		File file1 = new File(path1);
 		File file2 = new File(path2);
+		System.out.println(file1);
 				
 		// Read files into byte arrays and compare to 
 		// WAVE and MP3 formats
@@ -152,7 +153,7 @@ public class AudioMatching {
 		else {
 			// Call helper to convert non-wave file to wave format
 			String destFile = convertToWaveHelper(af);
-			
+			System.out.println(destFile);
 			// Load created temp file into buffer and extract byte data
 			try {
 				File tempFile = new File(destFile);
@@ -574,7 +575,7 @@ public class AudioMatching {
 		// Create FileInputStream from file argument
 		FileInputStream fis = null;
 		fis = new FileInputStream(file);
-		
+		System.out.println("test");
 		// Read bytes from buffer
 		byte[] b = new byte[fis.available()];
 		fis.read(b);
