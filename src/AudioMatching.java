@@ -152,6 +152,7 @@ public class AudioMatching {
 		else {
 			// Call helper to convert non-wave file to wave format
 			String destFile = convertToWaveHelper(af);
+			System.out.println(destFile);
 			
 			// Load created temp file into buffer and extract byte data
 			try {
