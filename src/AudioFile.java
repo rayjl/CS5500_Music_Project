@@ -46,16 +46,13 @@ public class AudioFile {
 	// Constructor ----------------------------------------
 	// Class can only be instantiated with a byte stream
 
-	public AudioFile(byte[] data, String fileName) {
+	public AudioFile(byte[] data, String fileName, String path) {
 		this.data = data;
 		this.fileName = fileName;
+		this.path = path;
 	}
 	
 	// Setters --------------------------------------------
-	
-	public void setPath(String path) {
-		this.path = path;
-	}
 	
 	public void setRIFFval(boolean RIFFval) {
 		this.RIFFval = RIFFval;

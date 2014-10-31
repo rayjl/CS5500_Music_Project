@@ -79,8 +79,8 @@ public class AudioMatching {
 					
 			byte[] b1 = getByteArray(file1);
 			byte[] b2 = getByteArray(file2);
-			AudioFile af1 = new AudioFile(b1, file_name1);
-			AudioFile af2 = new AudioFile(b2, file_name2);
+			AudioFile af1 = new AudioFile(b1, file_name1, path1);
+			AudioFile af2 = new AudioFile(b2, file_name2, path2);
 					
 			// Set parameters for AudioFile
 			// Method includes a file extension check
