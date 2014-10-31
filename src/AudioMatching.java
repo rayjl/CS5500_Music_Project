@@ -66,7 +66,6 @@ public class AudioMatching {
 		// Create file objects from file paths
 		File file1 = new File(path1);
 		File file2 = new File(path2);
-		System.out.println(file1);
 				
 		// Read files into byte arrays and compare to 
 		// WAVE and MP3 formats
@@ -157,9 +156,7 @@ public class AudioMatching {
 			// Load created temp file into buffer and extract byte data
 			try {
 				File tempFile = new File(destFile);
-				System.out.println(tempFile);
 				byte[] tempByte = getByteArray(tempFile);
-				System.out.println("test");
 				
 				// Overwrite current AudioFile object data
 				af.setData(tempByte);
@@ -167,8 +164,7 @@ public class AudioMatching {
 			catch (IOException e) {
 				e.printStackTrace();
 			}
-			
-			System.out.println("removing file");
+
 			// Remove file created in tmp
 			ProcessBuilder pb = new ProcessBuilder("rm", "/tmp/temp.wav");
 			try {
