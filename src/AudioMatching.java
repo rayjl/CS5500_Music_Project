@@ -161,11 +161,11 @@ public class AudioMatching {
 						sourceFile, destFile).start();	
 				
 				// Load file created into buffer and extract byte data
-				File tempFile = new File(destFile);
-				byte[] tempByte = getByteArray(tempFile);
+			//	File tempFile = new File(destFile);
+				//byte[] tempByte = getByteArray(tempFile);
 				
 				// Overwrite current AudioFile object data
-				af.setData(tempByte);
+			//	af.setData(tempByte);
 			}
 			catch (IOException e) {
 				e.printStackTrace();
