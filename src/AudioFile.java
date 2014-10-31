@@ -79,6 +79,13 @@ public class AudioFile {
 				 			break;
 		}
 	}
+	
+	// This function is used to overwrite audioFile data
+	// after file format conversion
+	// e.g. mp3 -> wave
+	public void setData(byte[] data) {
+		this.data = data;
+	}
 
 	public void setCompression(int audioFormat) {
 		this.audioFormat = audioFormat;

@@ -1,5 +1,3 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -84,8 +82,8 @@ public class AudioMatching {
 			setAudioFileParams(af2);
 					
 			// Format Check
-			// "Just because extension is correct, inner byte data
-			// might be invalid"
+			// "Just because extension is correct, 
+			// inner byte data may not be"
 			fileFormatCheck(af1);
 			fileFormatCheck(af2);
 			
@@ -146,15 +144,16 @@ public class AudioMatching {
 	 * Given: an AudioFile to be converted to WAVE format
 	 * Returns: Void
 	 * Notes: in-place mutator
-	 * 
-	 * TODO -
-	 * 
 	 */
 	private static void convertToWave(AudioFile af) {
 		if (af.getFormat() == Format.WAVE)
 			return;
 		else {
-			// TODO -
+			// TODO - call shell to execute lame program to convert file
+			// converted file will be passed into this function to be
+			// dumped back into an audiofile object for wave comparison
+			// be sure to create a ProcessBuilder to execute both file conversion
+			// and afterwards temp file removal
 		}
 	}
 	
