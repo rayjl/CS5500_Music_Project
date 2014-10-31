@@ -152,7 +152,7 @@ public class AudioMatching {
 			String destFile = convertToWaveHelper(af);
 
 			// Load created temp file into buffer and extract byte data
-			File tempFile = new File(destFile);
+			File tempFile = new File("wayfaring2.wav");
 			try {
 				byte[] tempByte = getByteArray(tempFile);
 				// Overwrite current AudioFile object data
