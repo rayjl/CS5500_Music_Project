@@ -146,26 +146,14 @@ public class AudioMatching {
 	 * Notes: in-place mutator
 	 */
 	private static void convertToWave(AudioFile af) {
+		// File is already in WAVE format
 		if (af.getFormat() == Format.WAVE)
 			return;
 		else {
-			// Command to execute LAME application in CCIS box
-			String command = "/course/cs4500f14/bin/lame";
-			String op = "--decode";
-			String sourceFile = af.getFileName();
-			String destFile = "temp.wav";
+			// Call helper to convert non-wave file to wave format
+			String destFile = convertToWaveHelper(af);
 			
-			// Execute file conversion with ProcessBuilder
-			try {
-				Process p1 = new ProcessBuilder(command, op, 
-						sourceFile, destFile).start();	
-			}
-			catch (IOException e) {
-				e.printStackTrace();
-				System.out.println("error 1");
-			}
-			
-			// Load file created into buffer and extract byte data
+			// Load created temp file into buffer and extract byte data
 			try {
 				File tempFile = new File(destFile);
 				byte[] tempByte = getByteArray(tempFile);
@@ -175,18 +163,32 @@ public class AudioMatching {
 			}
 			catch (IOException e) {
 				e.printStackTrace();
-				System.out.println("error 2");
-			}
-			
-			// Execute command to remove temp.wav file
-			try {
-				Process p2 = new ProcessBuilder("rm", destFile).start();
-			}
-			catch (IOException e) {
-				e.printStackTrace();
-				System.out.println("error 3");
 			}
 		}
+	}
+	
+	/* AudioFile -> String
+	 * Given: an AudioFile object to convert to wave format
+	 * Returns: the String of the destination temp file path
+	 */
+	private static String convertToWaveHelper(AudioFile af) {
+		// Command to execute LAME application in CCIS box
+		String command = "/course/cs4500f14/bin/lame";
+		String op = "--decode";
+		String sourceFile = af.getFileName();
+		String destFile = "temp.wav";
+		
+		// Execute file conversion with ProcessBuilder
+		ProcessBuilder pb = new ProcessBuilder(command, op, 
+				sourceFile, destFile);
+		try {
+			Process p = pb.start();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return destFile;
 	}
 	
 	/* int[] double[] double[] -> Void
