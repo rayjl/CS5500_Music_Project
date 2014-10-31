@@ -92,8 +92,8 @@ public class AudioMatching {
 			convertToWave(af2);
 			
 			// Convert little-endian data to int format
-			int[] audio_data1 = littleEndianToInt(b1);
-			int[] audio_data2 = littleEndianToInt(b2);
+			int[] audio_data1 = littleEndianToInt(af1.getData());
+			int[] audio_data2 = littleEndianToInt(af2.getData());
 			
 			// Hanning Window before application of FFT
 			// In-place mutator

@@ -141,9 +141,9 @@ public class AudioFile {
 	
 	public byte[] getAudioData() {
 		if (this.format == Format.WAVE){
-			return Arrays.copyOfRange(data, 36, data.length);
+			return data;
 		} else if (this.format == Format.MP3){
-			System.err.print("audio format not yet supported");
+			return data;
 		} else if (this.format == Format.OGG){
 			System.err.print("audio format not yet supported");
 		} else if (this.format == null) {
