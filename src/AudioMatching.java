@@ -159,19 +159,30 @@ public class AudioMatching {
 			try {
 				Process p1 = new ProcessBuilder(command, op, 
 						sourceFile, destFile).start();	
-				
-				// Load file created into buffer and extract byte data
-			//	File tempFile = new File(destFile);
-				//byte[] tempByte = getByteArray(tempFile);
-				
-				// Overwrite current AudioFile object data
-			//	af.setData(tempByte);
 			}
 			catch (IOException e) {
 				e.printStackTrace();
 			}
 			
-
+			// Load file created into buffer and extract byte data
+			try {
+				File tempFile = new File(destFile);
+				byte[] tempByte = getByteArray(tempFile);
+				
+				// Overwrite current AudioFile object data
+				af.setData(tempByte);
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			// Execute command to remove temp.wav file
+			try {
+				Process p2 = new ProcessBuilder("rm", destFile).start();
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
