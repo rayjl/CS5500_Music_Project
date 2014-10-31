@@ -157,7 +157,6 @@ public class AudioMatching {
 			try {
 				File tempFile = new File(destFile);
 				System.out.println(destFile);
-				System.out.println(tempFile);
 				byte[] tempByte = getByteArray(tempFile);
 				System.out.println("test");
 				
@@ -589,9 +588,10 @@ public class AudioMatching {
 	 */
 	private static byte[] getByteArray(File file) throws IOException {
 		// Create FileInputStream from file argument
+		System.out.println("1");
 		FileInputStream fis = null;
 		fis = new FileInputStream(file);
-		
+		System.out.println("2");
 		// Read bytes from buffer
 		byte[] b = new byte[fis.available()];
 		fis.read(b);
