@@ -1,3 +1,5 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -8,7 +10,7 @@ import java.io.IOException;
  * managing the files to compare.
  * WAVE file format is the conical for to be used.
  * 
- * Last Edited: 29 October 2014
+ * Last Edited: 30 October 2014
  */
 
 public class AudioMatching {
@@ -87,7 +89,7 @@ public class AudioMatching {
 			fileFormatCheck(af1);
 			fileFormatCheck(af2);
 			
-			// Convert file types to wave format
+			// Convert mp3 file type to wave format
 			convertToWave(af1);
 			convertToWave(af2);
 			
