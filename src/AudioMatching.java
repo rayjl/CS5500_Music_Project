@@ -66,6 +66,7 @@ public class AudioMatching {
 		// Create file objects from file paths
 		File file1 = new File(path1);
 		File file2 = new File(path2);
+		System.out.println(file1);
 				
 		// Read files into byte arrays and compare to 
 		// WAVE and MP3 formats
