@@ -157,7 +157,7 @@ public class AudioMatching {
 			// Load created temp file into buffer and extract byte data
 			try {
 				File tempFile = new File(destFile);
-				System.out.println(destFile);
+				System.out.println(tempFile);
 				byte[] tempByte = getByteArray(tempFile);
 				System.out.println("test");
 				
@@ -168,7 +168,15 @@ public class AudioMatching {
 				e.printStackTrace();
 			}
 			
-
+			System.out.println("removing file");
+			// Remove file created in tmp
+			ProcessBuilder pb = new ProcessBuilder("rm", "/tmp/temp.wav");
+			try {
+				Process p = pb.start();
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -256,12 +264,6 @@ public class AudioMatching {
 	 * Returns: the int form of the file 
 	 * Note: The entire byte stream stream is passed in but
 	 * only the left channel of the data chunk will be returned
-	 * 
-	 * TODO - 
-	 * Need to update this to become more abstract/modular for 
-	 * other file formats.
-	 * Needs to take in an additional parameter to identify that 
-	 * file format.
 	 */
 	private static int[] littleEndianToInt(byte[] b) {
 		// First data sample begins at offset 44
