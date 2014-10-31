@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.*;
 
 /**
  * Rapid Prototype
@@ -8,7 +9,7 @@ import java.io.IOException;
  * managing the files to compare.
  * WAVE file format is the conical for to be used.
  * 
- * Last Edited: 30 October 2014
+ * Last Edited: 31 October 2014
  */
 
 public class AudioMatching {
@@ -148,11 +149,35 @@ public class AudioMatching {
 		if (af.getFormat() == Format.WAVE)
 			return;
 		else {
-			// TODO - call shell to execute lame program to convert file
-			// converted file will be passed into this function to be
-			// dumped back into an audiofile object for wave comparison
-			// be sure to create a ProcessBuilder to execute both file conversion
-			// and afterwards temp file removal
+			// Command to execute LAME application in CCIS box
+			String command = "/course/cs4500f14/bin/lame";
+			String op = "--decode";
+			String sourceFile = af.getFileName();
+			String destFile = "temp.wav";
+			
+			// Execute file conversion with ProcessBuilder
+			try {
+				Process p1 = new ProcessBuilder(command, op, 
+						sourceFile, destFile).start();	
+				
+				// Load file created into buffer and extract byte data
+				File tempFile = new File(destFile);
+				byte[] tempByte = getByteArray(tempFile);
+				
+				// Overwrite current AudioFile object data
+				af.setData(tempByte);
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			// Execute command to remove temp.wav file
+			try {
+				Process p2 = new ProcessBuilder("rm", destFile).start();
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -234,24 +259,22 @@ public class AudioMatching {
 		
 		// add converted data to sample[]
 		for (int i = 0; i < sample.length; i++) {
-			sample[i] = convertLittleEndian(b, offset, 2);
+			sample[i] = convertLittleEndian(b, offset, 2, true);
 			offset += 4;
 		}
 		
 		return sample;
 	}
 	
-	/* byte[] int int -> int
+	/* byte[] int int boolean -> int
 	 * Given: the byte array, the offset location, size of the chunk
+	 * @param bool : true - little-endian / false - big-endian
 	 * Returns: the int value form of the little-endian chunk
 	 * Note: helper function for littleEndianToInt
-	 * 
-	 * TODO - 
-	 * Verify that this is abstract enough to be used for other 
-	 * file formats.
+	 * This can be used for BigEndian to int conversion
 	 */
 	private static int convertLittleEndian(byte[] b,
-			int offset, int size) {
+			int offset, int size, boolean bool) {
 		// value to return
 		// will add to it based on bitwise operations
 		int sample = 0;
@@ -277,9 +300,11 @@ public class AudioMatching {
 				val = b[offset + i] & 0xFF;
 			}
 			
-			// add sample shifted i bytes to the left
-			// accordingly
-			sample = (val << 8*i) + sample;
+			// set bits based on endian-ness
+			if (bool)
+				sample = (val << 8*i) + sample;
+			else
+				sample = (sample << 8*i) + val;
 		}
 		
 		// Return int value of the little-endian chunk
@@ -425,11 +450,29 @@ public class AudioMatching {
 	 * Returns: Void
 	 * Notes: Helper function for setAudioFileParams
 	 * 
-	 * TODO - 
-	 * 
 	 */
 	private static void setMP3FileParams(AudioFile af) {
+		// Grab the byte array from the object
+		byte[] data = af.getData();
 		
+		// MPEG-1 Layer III Corresponds to first 2 bytes reading :
+		// 0xFFFA or 0xFFFB depending on CRC
+		String hex1 = "FFFA";
+		String hex2 = "FFFB";
+		
+		// Parse Hex Strings to int values for comparison
+		int dec1 = Integer.parseInt(hex1, 16);
+		int dec2 = Integer.parseInt(hex2, 16);
+		
+		
+		// Read the first 2 bytes (16bits) of the file
+		// Convert the big-endian value to process
+		int val = convertLittleEndian(data, 0, 2, false);
+		
+		if ((val == dec1) || (val == dec2))
+			af.setFormat("MP3");
+		else
+			error(2, af.getFileName());
 	}
 	
 	/* AudioFile -> Void
@@ -496,11 +539,11 @@ public class AudioMatching {
 	 * Returns: true if it is, false otherwise 
 	 * 
 	 * TODO - 
-	 * Check the mp3 format.
+	 * This and setMP3FileParams is redundant in a way.
+	 * Refactor this section in the future
 	 */
 	private static boolean mp3FormatCheck(AudioFile af) {
-		
-		return false;
+		return (af.getFormat() == Format.MP3);
 	}
 	
 	/* AudioFile -> boolean
