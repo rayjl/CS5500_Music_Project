@@ -154,16 +154,26 @@ public class AudioMatching {
 		else {
 			// Call helper to convert non-wave file to wave format
 			String destFile = convertToWaveHelper(af);
-			System.out.println(destFile);
 			
 			// Load created temp file into buffer and extract byte data
 			try {
 				File tempFile = new File(destFile);
 				System.out.println(destFile);
 				byte[] tempByte = getByteArray(tempFile);
+				System.out.println("test");
 				
 				// Overwrite current AudioFile object data
 				af.setData(tempByte);
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			System.out.println("removing file");
+			// Remove file created in tmp
+			ProcessBuilder pb = new ProcessBuilder("rm", "/tmp/temp.wav");
+			try {
+				Process p = pb.start();
 			}
 			catch (IOException e) {
 				e.printStackTrace();
@@ -180,7 +190,7 @@ public class AudioMatching {
 		String command = "/course/cs4500f14/bin/lame";
 		String op = "--decode";
 		String sourceFile = af.getFileName();
-		String destFile = "temp.wav";
+		String destFile = "/tmp/temp.wav";
 		
 		// Execute file conversion with ProcessBuilder
 		ProcessBuilder pb = new ProcessBuilder(command, op, 
@@ -192,6 +202,7 @@ public class AudioMatching {
 			e.printStackTrace();
 		}
 		
+		// Return the file path of the temp file
 		return destFile;
 	}
 	
