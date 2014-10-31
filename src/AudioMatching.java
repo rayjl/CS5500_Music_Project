@@ -167,15 +167,7 @@ public class AudioMatching {
 				e.printStackTrace();
 			}
 			
-			System.out.println("removing file");
-			// Remove file created in tmp
-			ProcessBuilder pb = new ProcessBuilder("rm", "/tmp/temp.wav");
-			try {
-				Process p = pb.start();
-			}
-			catch (IOException e) {
-				e.printStackTrace();
-			}
+
 		}
 	}
 	
@@ -588,10 +580,9 @@ public class AudioMatching {
 	 */
 	private static byte[] getByteArray(File file) throws IOException {
 		// Create FileInputStream from file argument
-		System.out.println("1");
 		FileInputStream fis = null;
 		fis = new FileInputStream(file);
-		System.out.println("2");
+		
 		// Read bytes from buffer
 		byte[] b = new byte[fis.available()];
 		fis.read(b);
