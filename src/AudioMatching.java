@@ -170,6 +170,7 @@ public class AudioMatching {
 			}
 			catch (IOException e) {
 				e.printStackTrace();
+				System.exit(1);
 			}
 
 		}
