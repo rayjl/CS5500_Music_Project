@@ -574,7 +574,7 @@ public class AudioMatching {
 		// Create FileInputStream from file argument
 		FileInputStream fis = null;
 		fis = new FileInputStream(file);
-		System.out.println("test");
+
 		// Read bytes from buffer
 		byte[] b = new byte[fis.available()];
 		fis.read(b);
