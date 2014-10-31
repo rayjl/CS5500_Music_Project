@@ -18,9 +18,7 @@ public class AudioMatching {
 	private static String file_name1;
 	private static String file_name2;
 	private static boolean match;
-	
-	private static int dividends = 20;
-	
+
 	public static void main(String[] args) {	
 		// Read wave files in to File objects
 		// 2 Arguments should be passed in from shell script
@@ -154,17 +152,16 @@ public class AudioMatching {
 			String destFile = convertToWaveHelper(af);
 
 			// Load created temp file into buffer and extract byte data
+			File tempFile = new File(destFile);
 			try {
-				File tempFile = new File(destFile);
 				byte[] tempByte = getByteArray(tempFile);
-				
 				// Overwrite current AudioFile object data
 				af.setData(tempByte);
 			}
 			catch (IOException e) {
 				e.printStackTrace();
 			}
-
+			
 			// Remove file created in tmp
 			ProcessBuilder pb = new ProcessBuilder("rm", "/tmp/temp.wav");
 			try {
