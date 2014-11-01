@@ -159,6 +159,7 @@ public class AudioMatching {
 
 			// Load created temp file into buffer and extract byte data
 			File tempFile = new File(destPath);
+			tempFile.exists();
 			try {
 				byte[] tempByte = getByteArray(tempFile);
 				// Overwrite current AudioFile object data
