@@ -201,13 +201,14 @@ public class AudioMatching {
 				sourcePath, destPath);
 		try {
 			Process p = pb.start();
-			System.out.println("Process started");
+			System.out.println("ProcessBuilder successful");
 		}
 		catch (IOException e) {
 			e.printStackTrace();
 		}
 		
 		// Return the file path of the temp file
+		System.out.println(destPath);;
 		return destPath;
 	}
 	
