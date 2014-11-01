@@ -159,8 +159,8 @@ public class AudioMatching {
 
 			// Load created temp file into buffer and extract byte data
 			File tempFile = new File(destPath);
-			tempFile.exists();
-			tempFile.canRead();
+			System.out.println(tempFile.exists());
+			System.out.println(tempFile.canRead());
 			System.out.println(tempFile.getAbsolutePath());
 			
 			try {
