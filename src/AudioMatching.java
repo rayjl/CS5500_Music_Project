@@ -173,14 +173,7 @@ public class AudioMatching {
 				e.printStackTrace();
 			}
 			
-			// Remove file created in tmp
-			ProcessBuilder pb = new ProcessBuilder("rm", "/tmp/temp.wav");
-			try {
-				Process p = pb.start();
-			}
-			catch (IOException e) {
-				e.printStackTrace();
-			}
+
 
 		}
 	}
@@ -208,7 +201,7 @@ public class AudioMatching {
 		}
 		
 		// Return the file path of the temp file
-		System.out.println(destPath);;
+		System.out.println(destPath);
 		return destPath;
 	}
 	
