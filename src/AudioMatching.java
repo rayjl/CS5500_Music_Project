@@ -201,7 +201,6 @@ public class AudioMatching {
 		}
 		
 		// Return the file path of the temp file
-		System.out.println(destPath);
 		return destPath;
 	}
 	
