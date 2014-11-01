@@ -181,16 +181,7 @@ public class AudioMatching {
 			}
 		}
 		
-		// Remove file created in tmp
-		if (rm) {	
-			ProcessBuilder pb = new ProcessBuilder("rm", "/tmp/temp.wav");
-			try {
-				Process p = pb.start();
-			}
-			catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+
 	}
 	
 	/* AudioFile -> String
