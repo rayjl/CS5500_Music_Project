@@ -166,7 +166,7 @@ public class AudioMatching {
 			String destPath = convertToWaveHelper(af);
 
 			// Load created temp file into buffer and extract byte data
-			File tempFile = new File(destPath);
+			File tempFile = new File(temp);
 			
 			// Debugging purposes
 			System.out.println(tempFile.exists());
