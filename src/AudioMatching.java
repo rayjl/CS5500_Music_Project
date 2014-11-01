@@ -150,19 +150,26 @@ public class AudioMatching {
 	 * Notes: in-place mutator
 	 */
 	private static void convertToWave(AudioFile af) {
+		// Variable to decide whether to run a file removal process
+		boolean rm;
+		
 		// File is already in WAVE format
 		if (af.getFormat() == Format.WAVE)
 			return;
+		
 		else {
+			rm = true;
+			
 			// Call helper to convert non-wave file to wave format
 			String destPath = convertToWaveHelper(af);
 
 			// Load created temp file into buffer and extract byte data
 			File tempFile = new File(destPath);
 			
-			System.out.println(tempFile.exists());
-			System.out.println(tempFile.canRead());
-			System.out.println(tempFile.getAbsolutePath());
+			// Debugging purposes
+//			System.out.println(tempFile.exists());
+//			System.out.println(tempFile.canRead());
+//			System.out.println(tempFile.getAbsolutePath());
 			
 			try {
 				byte[] tempByte = getByteArray(tempFile);
@@ -172,9 +179,17 @@ public class AudioMatching {
 			catch (IOException e) {
 				e.printStackTrace();
 			}
-			
-
-
+		}
+		
+		// Remove file created in tmp
+		if (rm) {	
+			ProcessBuilder pb = new ProcessBuilder("rm", "/tmp/temp.wav");
+			try {
+				Process p = pb.start();
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
