@@ -181,7 +181,7 @@ public class AudioMatching {
 			}
 		}
 		
-		// Remove file created in tmp
+		// Remove file created in /tmp
 		if (rm) {	
 			ProcessBuilder pb = new ProcessBuilder("rm", "/tmp/temp.wav");
 			try {
