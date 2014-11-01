@@ -185,7 +185,7 @@ public class AudioMatching {
 		if (rm) {	
 			ProcessBuilder pb = new ProcessBuilder("rm", "/tmp/temp.wav");
 			try {
-				Process p = pb.start();
+				pb.start();
 			}
 			catch (IOException e) {
 				e.printStackTrace();
@@ -208,7 +208,7 @@ public class AudioMatching {
 		ProcessBuilder pb = new ProcessBuilder(command, op, 
 				sourcePath, destPath);
 		try {
-			Process p = pb.start();
+			pb.start();
 		}
 		catch (IOException e) {
 			e.printStackTrace();
