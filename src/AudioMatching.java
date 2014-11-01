@@ -209,7 +209,6 @@ public class AudioMatching {
 				sourcePath, destPath);
 		try {
 			Process p = pb.start();
-			System.out.println("ProcessBuilder successful");
 		}
 		catch (IOException e) {
 			e.printStackTrace();
