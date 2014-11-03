@@ -226,6 +226,7 @@ public class AudioMatching {
 			    // Reading output stream
 				System.out.println("Output loop.");
 			}
+			System.out.println("Begin waiting for process to complete.");
 			p.waitFor();
 		}
 		catch (IOException e) {
