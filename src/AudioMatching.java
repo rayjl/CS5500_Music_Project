@@ -1,6 +1,9 @@
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+
 
 /**
  * Rapid Prototype
@@ -185,9 +188,13 @@ public class AudioMatching {
 			ProcessBuilder pb = new ProcessBuilder("rm", "/tmp/temp.wav");
 			try {
 				Process p =pb.start();
+				p.waitFor();
 			}
 			catch (IOException e) {
 				e.printStackTrace();
+			}
+			catch (InterruptedException ie) {
+				ie.printStackTrace();
 			}
 
 		}
@@ -210,6 +217,13 @@ public class AudioMatching {
 		System.out.println("Creating new process.");
 		try {
 			Process p = pb.start();
+			BufferedReader reader = 
+					new BufferedReader(
+							new InputStreamReader(p.getInputStream()));
+			String line;
+			while ((line = reader.readLine()) != null) {
+			    // Reading output stream
+			}
 			p.waitFor();
 		}
 		catch (IOException e) {
