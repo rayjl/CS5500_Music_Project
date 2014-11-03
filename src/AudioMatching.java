@@ -217,6 +217,8 @@ public class AudioMatching {
 		System.out.println("Creating new process.");
 		try {
 			Process p = pb.start();
+			
+			System.out.println("Creating BufferedReader.");
 			BufferedReader reader = 
 					new BufferedReader(
 							new InputStreamReader(p.getInputStream()));
