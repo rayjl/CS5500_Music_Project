@@ -1,6 +1,6 @@
 -----------------------------------------------------------
 
-Last Revised: 29 October 2014
+Last Revised: 30 October 2014
 
 -----------------------------------------------------------
 
@@ -14,9 +14,9 @@ Raymond Li - rayjl@uw.edu
 
 -----------------------------------------------------------
 
-CS5500 Assignment #5
-Assigned: Wednesday, 1 October 2014
-Due: Wednesday, 15 October 2014
+CS5500 Assignment #6
+Assigned: Monday, 20 October 2014
+Due: Friday, 31 October 2014
 
 -----------------------------------------------------------
 
@@ -28,7 +28,7 @@ format / file extension of ".mp3" and ".wav". This prototype
 follows he specification provided by the instructor for
 Assignment 6 with some of its details listed below.
 
-Dependencies:		AudioMatching.java
+Dependencies:       AudioMatching.java
                     AudioFile.java
                     ComplexNumber.java
                     FingerPrint.java
@@ -53,7 +53,9 @@ Execution:          Prototype's build process will result in
                     where <pathname> is a Linux path name. If
                     a <pathname> is preceded by "-f", then the
                     <pathname> must end in ".wav" or ".mp3".
-                    If a <pathname> is preceded by "-d" the <pathname>represents a directory which then the software should compare every recording in the directory
+                    If a <pathname> is preceded by "-d" the <pathname>
+                    represents a directory which then the software 
+                    should compare every recording in the directory
                     against the second <pathname>'s recording or
                     every recording if it is a directory.
 
@@ -120,6 +122,10 @@ http://www.geeksforgeeks.org/next-power-of-2/
 [15] Japp Haitsma. "A Highly Robust Audio Fingerprinting System". 
 Article Website:
 http://www.nhchau.com/files/AudioFingerprint-02-FP04-2.pdf
+
+[16] "How to Execute Shell Command From Java."
+Article Website:
+http://www.mkyong.com/java/how-to-execute-shell-command-from-java/
 
 -----------------------------------------------------------
 

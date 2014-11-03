@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.*;
 
 /**
  * Rapid Prototype
@@ -9,7 +8,7 @@ import java.util.*;
  * managing the files to compare.
  * WAVE file format is the conical for to be used.
  * 
- * Last Edited: 31 October 2014
+ * Last Edited: 3 November 2014
  */
 
 public class AudioMatching {
@@ -185,10 +184,14 @@ public class AudioMatching {
 		if (rm) {	
 			ProcessBuilder pb = new ProcessBuilder("rm", "/tmp/temp.wav");
 			try {
-				pb.start();
+				Process p =pb.start();
+				p.waitFor();
 			}
 			catch (IOException e) {
 				e.printStackTrace();
+			}
+			catch (InterruptedException ie) {
+				ie.printStackTrace();
 			}
 		}
 	}
@@ -207,11 +210,16 @@ public class AudioMatching {
 		// Execute file conversion with ProcessBuilder
 		ProcessBuilder pb = new ProcessBuilder(command, op, 
 				sourcePath, destPath);
+		
 		try {
-			pb.start();
+			Process p = pb.start();
+			p.waitFor();
 		}
 		catch (IOException e) {
 			e.printStackTrace();
+		}
+		catch (InterruptedException ie) {
+		    ie.printStackTrace();
 		}
 		
 		// Return the file path of the temp file
