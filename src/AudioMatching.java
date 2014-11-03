@@ -207,7 +207,7 @@ public class AudioMatching {
 		// Execute file conversion with ProcessBuilder
 		ProcessBuilder pb = new ProcessBuilder(command, op, 
 				sourcePath, destPath);
-		
+		System.out.println("Creating new process.");
 		try {
 			Process p = pb.start();
 			p.waitFor();
