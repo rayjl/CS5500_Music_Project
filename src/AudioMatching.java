@@ -166,9 +166,9 @@ public class AudioMatching {
 			File tempFile = new File(destPath);
 			
 			// Debugging purposes
-			System.out.println(tempFile.exists());
-			System.out.println(tempFile.canRead());
-			System.out.println(tempFile.getAbsolutePath());
+//			System.out.println(tempFile.exists());
+//			System.out.println(tempFile.canRead());
+//			System.out.println(tempFile.getAbsolutePath());
 			
 			try {
 				byte[] tempByte = getByteArray(tempFile);
