@@ -224,10 +224,10 @@ public class AudioMatching {
 							new InputStreamReader(p.getInputStream()));
 			String line;
 			System.out.println("Begin readLine Loop.");
-			while ((line = reader.readLine()) != null) {
+//			while ((line = reader.readLine()) != null) {
 			    // Reading output stream
-				System.out.println("readLine output holder.");
-			}
+//				System.out.println("readLine output holder.");
+//			}
 			System.out.println("Begin waiting for process to complete.");
 			p.waitFor();
 		}
