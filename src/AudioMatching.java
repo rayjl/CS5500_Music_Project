@@ -222,8 +222,9 @@ public class AudioMatching {
 			BufferedReader reader = 
 					new BufferedReader(
 							new InputStreamReader(p.getInputStream()));
+			String line;
 			System.out.println("Begin readLine Loop.");
-			while (reader.readLine() != null) {
+			while ((line = reader.readLine()) != null) {
 			    // Reading output stream
 				System.out.println("readLine output holder.");
 			}
