@@ -185,14 +185,11 @@ public class AudioMatching {
 			ProcessBuilder pb = new ProcessBuilder("rm", "/tmp/temp.wav");
 			try {
 				Process p =pb.start();
-				p.waitFor();
 			}
 			catch (IOException e) {
 				e.printStackTrace();
 			}
-			catch (InterruptedException ie) {
-				ie.printStackTrace();
-			}
+
 		}
 	}
 	
