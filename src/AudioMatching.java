@@ -177,6 +177,7 @@ public class AudioMatching {
 				byte[] tempByte = getByteArray(tempFile);
 				// Overwrite current AudioFile object data
 				af.setData(tempByte);
+				System.out.println("Data set.");
 			}
 			catch (IOException e) {
 				e.printStackTrace();
