@@ -102,6 +102,7 @@ validateDirectoryPath() {
         for FILEPATH in $DIRECTORY/*;
         do
             validateFilePaths $FILEPATH $FILE
+            break
         done
     # Arguments are invalid ; not a directory and file
     else
