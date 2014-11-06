@@ -243,3 +243,52 @@ Invariants:
 Has a remembered set for pointers
 
 Unfilled -> Filled -> Summarizing -> Ready -> Unfilled
+
+-----------------------------------------------------------
+
+Main Ideas:
+preconditions and postconditions
+loop invariant
+state invariant
+module invariant
+system invariant
+
+design patterns
+visitor and iterator patterns
+- separating an algorithm from an object structure on which it operates (one way to follow open-closed principal)
+one-closed princial: software entities should be open for extension but closed for modification
+composite pattern
+delegation
+
+parametric polymorphism
+-Using parametric polymorphism, a function or a data type can be written generically so that it can handle values identically without depending on their type.
+danger of side effects
+(avoiding side effects is important as concurrency is becoming a large topic)
+
+-----------------------------------------------------------
+
+code-points ; scalar values
+
+The Power (and Complexity) of Plain Text
+US-ASCII
+Latin-1
+	ISO/IEC 8859-1
+Latin-9
+	ISO/IEC 8859-15
+
+Unicode (destined to replace everything) 
+(16-bits initially)
+surrogates made it possible to leave initial 16-bits of characters unchanged while additional characters were added
+
+*- UTF-8
+*- UTF-16 (surrogates used here) - JAVA and C#
+- UTF-32
+*- UTF-16LE - Microsoft Variant of UTF-16LE are on Windows
+
+Unicode Normalization forms
+NFD
+NFC
+NFKD
+NFKC
+
+Ligatures

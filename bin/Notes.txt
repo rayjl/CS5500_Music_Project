@@ -33,11 +33,13 @@ Terminate dam script if any errors are thrown in the application.
 This is for terminating the loop for directories.
 Have emailed professor to check this but may not be necessary.
 
-(NOTDONE)
+(DONE)
 Understand mp3 file format.
 
-(NOTDONE)
+(ALMOST-DONE)
 Implement decoding of mp3 file format to wave format.
+Utilized lame converter but stuck at conversion process.
+System call not returning.
 
 (NOTDONE)
 Frame and smooth out time domain data with hanning window
@@ -94,3 +96,199 @@ Random notes:
 don't
 don't yet
 don't anymore than you have to
+
+-----------------------------------------------------------
+
+Segmenting an audio signal for hamming window analysis
+
+Fs = 44100;                // sample rate, e.g. 44.1 kHz
+overlap = 0.5;             // overlap = 50%
+nw = Fs * 0.025;           // no of samples in window
+ns = nw * (1.0 - overlap); // no of samples to increment n0, n1
+n0 = 0;                    // window sample no begin
+n1 = n0 + nw;              // window sample no end
+N = 10 * Fs;               // N = total no of samples to process, e.g. 10 seconds
+
+do
+    get nw samples from n0 to (n1 - 1) into temporary buffer
+    apply window function to temporary buffer
+    apply FFT to temporary buffer
+    ... etc ...
+    n0 += ns; // increment window start/end by no of overlap samples
+    n1 += ns;
+while n1 <= N;
+
+-----------------------------------------------------------
+
+Loop invariants
+System and State Invariants
+Design Patterns
+
+Iterator Pattern
+
+public interface Iterator<E> {
+	public boolean hasNext();
+	public E next();
+	public void remove();
+}
+
+-Iterator objects are mutable
+
+// Implementation of Iterators (won't work for ArrayList)
+class MyIterator<E> implements Iterator<E> {
+	private Iterator<E> it; // generates values that remain
+
+	MyIterator(ArrayList<E> a) {
+		this.it = a.iterator();
+	}
+
+	public boolean hasNext() {
+		return it.hasNext(); // delegation example
+	}
+
+	public E next() {
+		return it.next();
+	}
+
+	public void remove() {
+		throw new UnsupportedOperationException ("remove");
+	}
+}
+
+// Implementation of Iterators (will work)
+// Copies values into an array
+class MyIterator<E> implements Iterator<E> {
+	private E[] values; // values to be generated
+	private int i; // index of next value to generate
+
+	MyIterator(ArrayList<E> a) {
+		int n = a.size();
+		this.values = (E[]) new Object[n];
+		for (int j = 0; j < n; j = j+1) {
+			this.values[j] = a.get(j);
+		}
+		this.i = 0;
+	}
+
+	public boolean hasNext() {
+		return i < values.length;
+	}
+
+	public E next() {
+		if (hasNext()) {
+			E result = values[i];
+			i = i + 1;
+			return result;
+		}
+		else throw new NoSuchElementException();
+	}
+}
+
+// Implementation of Iterators (will work)
+// Uses ArrayList as a state variable
+class MyIterator<E> implements Iterator<E> {
+	private ArrayList<E> values; // values to be generated
+	private int i; // index of next value to generate
+
+	MyIterator(ArrayList<E> a) {
+		this.values = a;
+		this.i = 0;
+	}
+
+	public boolean hasNext() {
+		return i < values.size();
+	}
+
+	public E next() {
+		if (hasNext()) {
+			E result = values[i];
+			i = i + 1;
+			return result;
+		}
+		else throw new NoSuchElementException();
+	}
+}
+
+Foreach statements are a version of a for statement
+
+Iterator Pattern
+-shorter
+-easier to read
+-more modular
+-more elegant
+-less tangled
+-representation-independent
+-simpler
+-supports the basic operations that would allow a client programmer to iterate over any kind of collection
+
+// Binary Search Trees
+red black tree
+- longest possible path from the root to an empty tree is no more than twice the length of the shortest possible path from the root to an empty tree
+
+1. no red node has a red child
+2. every path from the root to an empty tree contains the same number of black nodes
+
+
+Invariants
+- Condition that can be relied to be true during execution of a program or during some portion of it
+1. loop 
+- e.g. invariant must be true at the beginning and end of every execution of a loop
+2. systems
+3. class
+
+
+Requirements for a Sophisticated Garbage Collector
+Invariants:
+4-stage circular 
+Has a remembered set for pointers
+
+Unfilled -> Filled -> Summarizing -> Ready -> Unfilled
+
+-----------------------------------------------------------
+
+Main Ideas:
+preconditions and postconditions
+loop invariant
+state invariant
+module invariant
+system invariant
+
+design patterns
+visitor and iterator patterns
+- separating an algorithm from an object structure on which it operates (one way to follow open-closed principal)
+one-closed princial: software entities should be open for extension but closed for modification
+composite pattern
+delegation
+
+parametric polymorphism
+-Using parametric polymorphism, a function or a data type can be written generically so that it can handle values identically without depending on their type.
+danger of side effects
+(avoiding side effects is important as concurrency is becoming a large topic)
+
+-----------------------------------------------------------
+
+code-points ; scalar values
+
+The Power (and Complexity) of Plain Text
+US-ASCII
+Latin-1
+	ISO/IEC 8859-1
+Latin-9
+	ISO/IEC 8859-15
+
+Unicode (destined to replace everything) 
+(16-bits initially)
+surrogates made it possible to leave initial 16-bits of characters unchanged while additional characters were added
+
+*- UTF-8
+*- UTF-16 (surrogates used here) - JAVA and C#
+- UTF-32
+*- UTF-16LE - Microsoft Variant of UTF-16LE are on Windows
+
+Unicode Normalization forms
+NFD
+NFC
+NFKD
+NFKC
+
+Ligatures

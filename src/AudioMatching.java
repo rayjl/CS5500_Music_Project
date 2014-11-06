@@ -160,7 +160,7 @@ public class AudioMatching {
 			return;
 		
 		else {
-			rm = true;
+			rm = false;
 			
 			// Call helper to convert non-wave file to wave format
 			String destPath = convertToWaveHelper(af);
