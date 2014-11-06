@@ -209,7 +209,7 @@ public class AudioMatching {
 		String command = "/course/cs4500f14/bin/lame";
 		String op = "--decode";
 		String sourcePath = af.getPath();
-		String destPath = "/tmp/temp.wav";
+		String destPath = "/tmp/temp" + af.getFileName();
 		
 		// Execute file conversion with ProcessBuilder
 		ProcessBuilder pb = new ProcessBuilder(command, op, 
