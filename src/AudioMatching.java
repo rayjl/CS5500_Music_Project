@@ -41,6 +41,7 @@ public class AudioMatching {
 		CompareFiles(path1, path2);
 		
 		// Report results and exit program
+		System.out.println("Compared.");
 		summaryReport(match);
 		System.exit(0);
 	}
