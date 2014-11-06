@@ -39,9 +39,9 @@ public class AudioMatching {
 		
 		// Compare songs
 		CompareFiles(path1, path2);
+//		System.out.println("File Comparison Successful.");
 		
 		// Report results and exit program
-		System.out.println("Compared.");
 		summaryReport(match);
 		System.exit(0);
 	}
@@ -156,15 +156,18 @@ public class AudioMatching {
 		// Variable to decide whether to run a file removal process
 		boolean rm;
 		
+		// Path of temporary file to be used
+		String destPath;
+		
 		// File is already in WAVE format
 		if (af.getFormat() == Format.WAVE)
 			return;
 		
 		else {
-			rm = false;
+			rm = true;
 			
 			// Call helper to convert non-wave file to wave format
-			String destPath = convertToWaveHelper(af);
+			destPath = convertToWaveHelper(af);
 
 			// Load created temp file into buffer and extract byte data
 			File tempFile = new File(destPath);
@@ -178,7 +181,7 @@ public class AudioMatching {
 				byte[] tempByte = getByteArray(tempFile);
 				// Overwrite current AudioFile object data
 				af.setData(tempByte);
-				System.out.println("Data set.");
+//				System.out.println("Data set successful.");
 			}
 			catch (IOException e) {
 				e.printStackTrace();
@@ -187,9 +190,9 @@ public class AudioMatching {
 		
 		// Remove file created in /tmp
 		if (rm) {	
-			ProcessBuilder pb = new ProcessBuilder("rm", "/tmp/temp.wav");
+			ProcessBuilder pb = new ProcessBuilder("rm", destPath);
 			try {
-				Process p =pb.start();
+				Process p = pb.start();
 				p.waitFor();
 			}
 			catch (IOException e) {
@@ -216,21 +219,22 @@ public class AudioMatching {
 		// Execute file conversion with ProcessBuilder
 		ProcessBuilder pb = new ProcessBuilder(command, op, 
 				sourcePath, destPath);
-		System.out.println("Creating new process.");
+//		System.out.println("Creating new process.");
 		try {
 			Process p = pb.start();
 			
-			System.out.println("Creating BufferedReader.");
-			BufferedReader reader = 
-					new BufferedReader(
-							new InputStreamReader(p.getInputStream()));
-			String line;
-			System.out.println("Begin readLine Loop.");
+//			System.out.println("Creating BufferedReader.");
+//			BufferedReader reader = 
+//					new BufferedReader(
+//							new InputStreamReader(p.getInputStream()));
+//			String line;
+//			System.out.println("Begin readLine Loop.");
 //			while ((line = reader.readLine()) != null) {
 			    // Reading output stream
 //				System.out.println("readLine output holder.");
 //			}
-			System.out.println("Begin waiting for process to complete.");
+//			System.out.println("Begin waiting for process to complete.");
+			
 			p.waitFor();
 		}
 		catch (IOException e) {
