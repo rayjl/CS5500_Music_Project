@@ -133,10 +133,12 @@ validateFilePaths() {
     else
         if [ -f $FILE1 ]
             then
+        else
             echo 'FILE 1'
         fi
         if [ -f $FILE2 ]
             then
+        else
             echo 'FILE 2'
         fi
         # Write to stderr if non files
