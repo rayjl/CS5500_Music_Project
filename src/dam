@@ -131,10 +131,14 @@ validateFilePaths() {
         fi
 
     else
-        val1=[ -f $FILE1 ]
-        val2=[ -f $FILE2 ]
-        echo $val1
-        echo $val2
+        if [ -f $FILE1 ]
+            then
+            echo 'FILE 1'
+        fi
+        if [ -f $FILE2 ]
+            then
+            echo 'FILE 2'
+        fi
         # Write to stderr if non files
         error "1" "validateFilePaths"
         exit 1
