@@ -133,11 +133,13 @@ validateFilePaths() {
     else
         if [ -f $FILE1 ]
             then
+            echo " " 
         else
             echo 'FILE 1'
         fi
         if [ -f $FILE2 ]
             then
+            echo " "
         else
             echo 'FILE 2'
         fi
