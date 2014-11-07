@@ -105,6 +105,8 @@ validateDirectoryPath() {
         done
     # Arguments are invalid ; not a directory and file
     else
+        echo $DIRECTORY
+        echo $FILE
         error "1" "validateDirectoryPath"
         exit 1
     fi
