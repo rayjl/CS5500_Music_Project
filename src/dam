@@ -95,7 +95,7 @@ validateDirectoryPath() {
     DIRECTORY=$1
     FILE=$2
     # Validate Directory and File path
-    if [ -d $DIRECTORY -a -f $FILE ];
+    if [ -d $DIRECTORY -a -r $FILE ];
         then
         # Loop through Directory and call validateFilePaths
         # Each 'path' should be a file
@@ -116,7 +116,7 @@ validateFilePaths() {
     FILE1=$1
     FILE2=$2
     # Validate the paths
-    if [ -f $FILE1 -a -f $FILE2 ];
+    if [ -r $FILE1 -a -r $FILE2 ];
         then
 
         # Pass file paths as arguments to Java Application
@@ -131,18 +131,6 @@ validateFilePaths() {
         fi
 
     else
-        if [ -f $FILE1 ]
-            then
-            echo " " 
-        else
-            echo 'FILE 1'
-        fi
-        if [ -f $FILE2 ]
-            then
-            echo " "
-        else
-            echo 'FILE 2'
-        fi
         # Write to stderr if non files
         error "1" "validateFilePaths"
         exit 1
