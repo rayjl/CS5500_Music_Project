@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * managing the files to compare.
  * WAVE file format is the conical for to be used.
  * 
- * Last Edited: 3 November 2014
+ * Last Edited: 12 November 2014
  */
 
 public class AudioMatching {
@@ -23,6 +23,7 @@ public class AudioMatching {
 	private static String path1;
 	private static String path2;
 	private static boolean match;
+	private static final int window = 512;
 
 	public static void main(String[] args) {	
 		// Read wave files in to File objects
@@ -236,7 +237,7 @@ public class AudioMatching {
 	 * The data is transformed using FFT from this method
 	 */
 	private static void applyFFT(ArrayList<double[]> AL) {
-		FFT func = new FFT(512);
+		FFT func = new FFT(window);
 		
 		// Iterate over the ArrayList and apply FFT
 		// Every 2 indices is a sample interval
@@ -261,8 +262,8 @@ public class AudioMatching {
 	 * ArrayList<double[]>
 	 * 
 	 * Notes: 
-	 * Interval size = 512 samples
-	 * If last interval is less than 512 samples, 
+	 * Interval size = window
+	 * If last interval is less than the window, 
 	 * 0s will be used as fillers
 	 * 
 	 * Every odd index in ArrayList corresponds to a zero array
@@ -271,7 +272,6 @@ public class AudioMatching {
 	private static ArrayList<double[]> frameData(int[] audio_data) {
 		// Initializations
 		ArrayList<double[]> AL = new ArrayList<double[]>();
-		int window = 512;
 		
 		// Calculate number of full intervals
 		int intervals = (int) Math.ceil(audio_data.length / window);
@@ -303,7 +303,7 @@ public class AudioMatching {
 			
 			// Append temp array to end of ArrayList
 			AL.add(temp);
-			AL.add(new double[512]);
+			AL.add(new double[window]);
 		}	
 //		System.out.println(AL.size());
 		return AL;
@@ -415,7 +415,7 @@ public class AudioMatching {
 	 * Returns: the next power of 2 value from the length
 	 * 
 	 * Notes: Fixed - this function does not need to be modified
-	 * Currently not used as intervals of 512 samples are analyzed
+	 * Currently not used as intervals of window size are analyzed
 	 */
 	private static int nextPowerOfTwo(int len) {
 		// Using Log of the number to calculate
