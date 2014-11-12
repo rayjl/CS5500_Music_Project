@@ -30,19 +30,19 @@ public class AudioMatching {
 		// 2 Arguments should be passed in from shell script
 		// Format: 
 		// -f <pathname> -f <pathname>
-//		if (args.length != 2) {
-//			System.err.println("ERROR");
-//			System.exit(1);
-//		}
+		if (args.length != 2) {
+			System.err.println("ERROR");
+			System.exit(1);
+		}
 		
 		// Initialize paths from the params
-//		path1 = args[0];
-//		path2 = args[1];
+		path1 = args[0];
+		path2 = args[1];
 	
 		// For debugging purposes
 		// Passing file paths manually to java app
-		path1 = "/Users/Ray/Documents/wayfaring2.wav";
-		path2 = "/Users/Ray/Documents/wayfaring2mp3.wav";
+//		path1 = "/Users/Ray/Documents/wayfaring2.wav";
+//		path2 = "/Users/Ray/Documents/wayfaring2mp3.wav";
 		
 		// Compare songs
 		compareFiles(path1, path2);
