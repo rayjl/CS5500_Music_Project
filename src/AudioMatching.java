@@ -140,8 +140,13 @@ public class AudioMatching {
 	/* ArrayList<FingerPrint[]> ArrayList<FingerPrint[]> -> Void
 	 * Given: 2 ArrayLists containing finger prints of the audio files
 	 * Returns: Void
+	 * 
 	 * Note: method will set global variable match to true
 	 * if threshold met
+	 * 
+	 * TODO - 
+	 * This method must change especially for the situation that we are now
+	 * comparing intervals of audio samples
 	 */
 	private static void compareFingerPrints(
 			ArrayList<FingerPrint[]> fingerPrint1,
