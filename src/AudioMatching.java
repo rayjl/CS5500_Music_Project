@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 
 /**
@@ -28,14 +29,19 @@ public class AudioMatching {
 		// 2 Arguments should be passed in from shell script
 		// Format: 
 		// -f <pathname> -f <pathname>
-		if (args.length != 2) {
-			System.err.println("ERROR");
-			System.exit(1);
-		}
+//		if (args.length != 2) {
+//			System.err.println("ERROR");
+//			System.exit(1);
+//		}
 		
 		// Initialize paths from the params
-		path1 = args[0];
-		path2 = args[1];
+//		path1 = args[0];
+//		path2 = args[1];
+	
+		// For debugging purposes
+		// Passing file paths manually to java app
+		path1 = "/Users/Ray/Documents/wayfaring2.wav";
+		path2 = "/Users/Ray/Documents/wayfaring2mp3.wav";
 		
 		// Compare songs
 		CompareFiles(path1, path2);
@@ -99,52 +105,208 @@ public class AudioMatching {
 			convertToWave(af2);
 			
 			// Convert little-endian data to int format
+			// Entire file stream is converted
 			int[] audio_data1 = littleEndianToInt(af1.getData());
 			int[] audio_data2 = littleEndianToInt(af2.getData());
 			
-			// Hanning Window before application of FFT
-			// In-place mutator
-			hanningWindow(audio_data1);
-			hanningWindow(audio_data2);
+			// Frame audio data into Intervals
+			// and load into an ArrayList
+			// Hanning Window will have been applied to data
+			ArrayList<double[]> AL1 = frameData(audio_data1);
+			ArrayList<double[]> AL2 = frameData(audio_data2);
+		
+			// Apply FFT to data arrays in ArrayList
+			applyFFT(AL1);
+			applyFFT(AL2);
 			
-			// Get the next largest power of 2 from the sample
-			// array lengths
-			// This is necessary for FFT usage
-			int nextPOT1 = nextPowerOfTwo(audio_data1.length);
-			int nextPOT2 = nextPowerOfTwo(audio_data2.length);
-			
-			// Create double arrays for FFT implementation usage
-			double[] real1 = new double[nextPOT1];
-			double[] imag1 = new double[nextPOT1];
-			
-			double[] real2 = new double[nextPOT2];
-			double[] imag2 = new double[nextPOT2];
-			
-			// In-place modification
-			makeFFTAble(audio_data1, real1, imag1);
-			makeFFTAble(audio_data2, real2, imag2);
-			
-			// Use FFT Implementation
-			FFT fft1 = new FFT(nextPOT1);
-			FFT fft2 = new FFT(nextPOT2);
-				
-			// In-place FFT
-			fft1.fft(real1, imag1);
-			fft2.fft(real2, imag2);
-			
-			// Convert to FingerPrints
-			FingerPrint[] fp1 =
-					makeFingerPrints(real1, imag1);
-			FingerPrint[] fp2 =
-					makeFingerPrints(real2, imag2);
+			// Convert data into FingerPrints and load into an ArrayList
+			// TODO -
+			// This data structure to be returned will be changed
+			// to ArrayList<FingerPrint> when more robust finger printing
+			// solution is realized
+			ArrayList<FingerPrint[]> fingerPrint1 = logFingerPrints(AL1);
+			ArrayList<FingerPrint[]> fingerPrint2 = logFingerPrints(AL2);
 					
 			// Compare FingerPrints
-			compareFingerPrints(fp1, fp2);
+			compareFingerPrints(fingerPrint1, fingerPrint2);
 					
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	/* ArrayList<FingerPrint[]> ArrayList<FingerPrint[]> -> Void
+	 * Given: 2 ArrayLists containing finger prints of the audio files
+	 * Returns: Void
+	 * Note: method will set global variable match to true
+	 * if threshold met
+	 */
+	private static void compareFingerPrints(
+			ArrayList<FingerPrint[]> fingerPrint1,
+			ArrayList<FingerPrint[]> fingerPrint2) {
+		// Length of both ArrayLists
+		int len = fingerPrint1.size();
+		
+		// Threshold
+		int counter = 0;
+		int goal = (int) Math.floor(len * 0.90);
+		
+		// Iterate through and compare
+		for (int i = 0; i < len; i++) {
+			FingerPrint[] fp1 = fingerPrint1.get(i);
+			FingerPrint[] fp2 = fingerPrint2.get(i);
+			
+			boolean temp = compareFingerPrintsHelper(fp1, fp2);
+			
+			// Increment counter of interval matches
+			if (temp)
+				counter++;
+		}
+		
+		if (counter >= goal)
+			match = true;
+	}
+	
+	/* FingerPrint[] FingerPrint[] int -> boolean
+	 * Given: 2 FingerPrint arrays to compare and a threshold
+	 * Returns: true if threshold made
+	 */
+	private static boolean compareFingerPrintsHelper(FingerPrint[] a,
+			FingerPrint[] b) {
+		// If 90% of the array is similar, match found
+		int counter = 0;
+		int goal = (int) Math.floor(a.length * 0.90);
+		
+		// Iterate through and check each FingerPrint
+		for (int i = 0; i < a.length; i++) {
+			
+			// Print statement for visual check
+//			if (i < 21)
+//				System.out.println(Math.abs(a[i].getPowerDensity() 
+//						- b[i].getPowerDensity()));
+			if (a[i].similarTo(b[i]))
+				counter++;
+		}
+		
+		// threshold met
+		if (counter >= goal)
+			return true;	
+		
+		return false;
+	}
+	
+	/* ArrayList<double[]> -> ArrayList<FingerPrint[]>
+	 * Given: an ArrayList loaded with data from audio file
+	 * Returns: an ArrayList loaded with the finger printed data
+	 */
+	private static ArrayList<FingerPrint[]> logFingerPrints(
+			ArrayList<double[]> AL) {
+		
+		// Structure to be used to hold FingerPrints
+		// Current structure is a FingerPrint[] because a finger print
+		// is created for every sample
+		//
+		// TODO - Will want a fingerprint for every interval in the future
+		// This will change the structure to be a:
+		// ArrayList<FingerPrint>
+		ArrayList<FingerPrint[]> fingerPrint = 
+				new ArrayList<FingerPrint[]>();
+				
+		// Iterate through intervals of sample data
+		for (int i = 0; i < AL.size(); i += 2) {
+			// Get the data arrays
+			double[] real = AL.get(i);
+			double[] imag = AL.get(i+1);
+			
+			// Create finger prints from data
+			FingerPrint[] fp = makeFingerPrints(real, imag);
+			
+			// Set finger prints into ArrayList
+			fingerPrint.add(fp);		
+		}
+		
+		return fingerPrint;
+	}
+	
+	/* ArrayList<double[]> -> Void
+	 * Given: an ArrayList<double[]> with data representing the audio file
+	 * Returns: Void
+	 * Note:
+	 * The data is transformed using FFT from this method
+	 */
+	private static void applyFFT(ArrayList<double[]> AL) {
+		FFT func = new FFT(512);
+		
+		// Iterate over the ArrayList and apply FFT
+		// Every 2 indices is a sample interval
+		for (int i = 0; i < AL.size(); i += 2) {
+			// Get the data from the ArrayList
+			double[] real = AL.get(i);
+			double[] imag = AL.get(i+1);
+			
+			// Apply in-place mutator FFT
+			func.fft(real, imag);
+			
+			// Set the data back into the ArrayList
+			AL.set(i, real);
+			AL.set(i+1, imag);
+		}
+		
+	}
+	
+	/* int[] -> ArrayList<int[]>
+	 * Given: the audio data in an int[]
+	 * Returns: the same audio data intervaled and loaded into an
+	 * ArrayList<double[]>
+	 * 
+	 * Notes: 
+	 * Interval size = 512 samples
+	 * If last interval is less than 512 samples, 
+	 * 0s will be used as fillers
+	 * 
+	 * Every odd index in ArrayList corresponds to a zero array
+	 * to be used for imaginary section of FFT
+	 */
+	private static ArrayList<double[]> frameData(int[] audio_data) {
+		// Initializations
+		ArrayList<double[]> AL = new ArrayList<double[]>();
+		int window = 512;
+		
+		// Calculate number of full intervals
+		int intervals = (int) Math.ceil(audio_data.length / window);
+		
+		// Calculate remaining samples
+//		int rem = audio_data.length % window;
+		
+//		System.out.println(audio_data.length);
+//		System.out.println(intervals);
+//		System.out.println(rem);
+		
+		// Iterate through audio data samples
+		for (int i = 0; i <= intervals; i++) {
+			// Iterate through and create temp arrays of intervals
+			double[] temp = new double[window];
+			for (int j = 0; j < window; j++) {
+				if (i == intervals) {
+					if (((i - 1) * window + j) >= audio_data.length)
+						temp[j] = 0;
+					else
+						temp[j] = audio_data[(i - 1) * window + j];
+				}
+				else
+					temp[j] = audio_data[i * window + j];
+				
+			}
+			// Apply hanning function to each interval
+			hanningWindow(temp);
+			
+			// Append temp array to end of ArrayList
+			AL.add(temp);
+			AL.add(new double[512]);
+		}	
+//		System.out.println(AL.size());
+		return AL;
 	}
 	
 	/* AudioFile -> Void
@@ -234,7 +396,7 @@ public class AudioMatching {
 			    // Reading output stream
 			}
 			System.out.println("Begin waiting for process to complete.");
-			
+		
 			p.waitFor();
 		}
 		catch (IOException e) {
@@ -248,33 +410,12 @@ public class AudioMatching {
 		return destPath;
 	}
 	
-	/* int[] double[] double[] -> Void
-	 * Given: sample array and 2 empty double arrays to be filled
-	 * to ready for FFT use
-	 * Returns: Void
-	 * Notes: In-place mutator ; does not need to be modified
-	 */
-	private static void makeFFTAble(int[] sample, 
-			double[] real, double[] imag) {
-		
-		// Iterate through to fill arrays
-		for (int i = 0; i < real.length; i++) {
-			// Step exceeds sample range,
-			// fill with 0 value
-			if (i >= sample.length)
-				real[i] = 0;
-			// Step is within sample range
-			else
-				real[i] = (double) sample[i];
-			imag[i] = 0;
-		}
-		
-	}
-	
 	/* int -> int
 	 * Given: length of the sample array
 	 * Returns: the next power of 2 value from the length
+	 * 
 	 * Notes: Fixed - this function does not need to be modified
+	 * Currently not used as intervals of 512 samples are analyzed
 	 */
 	private static int nextPowerOfTwo(int len) {
 		// Using Log of the number to calculate
@@ -286,19 +427,19 @@ public class AudioMatching {
 		return val;
 	}
 	
-	/* int[] -> Void
+	/* double[] -> Void
 	 * Given: sample array
 	 * Returns: Void
 	 * Note: in-place mutator
 	 * This is a frame of data.
 	 */
-	private static void hanningWindow(int[] sample) {
+	private static void hanningWindow(double[] sample) {
 		// Iterate through the sample with the hanning window function
 		double multiplier;
 		for (int i = 0; i < sample.length; i++) {
 			multiplier = 0.5 
 			* (1.0 + Math.cos(2.0 * Math.PI * i / sample.length));
-			sample[i] = (int) (sample[i] * multiplier);
+			sample[i] = (double) (sample[i] * multiplier);
 		}
 	}
 	
@@ -393,38 +534,6 @@ public class AudioMatching {
 		}
 		
 		return f;
-	}
-	
-	/* FingerPrint[] FingerPrint[] int -> Void
-	 * Given: 2 FingerPrint arrays to compare and a threshold
-	 * Returns: Void
-	 * Note: function can set the variable match to be true
-	 */
-	private static void compareFingerPrints(FingerPrint[] a,
-			FingerPrint[] b) {
-		// trivial case, different song lengths = different songs
-		// return; default match = false
-		if (a.length != b.length)
-			return;
-		
-		// If 90% of the array is similar, match found
-		int counter = 0;
-		int goal = (int) Math.floor(a.length * 0.90);
-		
-		// Iterate through and check each FingerPrint
-		for (int i = 0; i < a.length; i++) {
-			
-			// Print statement for visual check
-//			if (i < 21)
-//				System.out.println(Math.abs(a[i].getPowerDensity() 
-//						- b[i].getPowerDensity()));
-			if (a[i].similarTo(b[i]))
-				counter++;
-		}
-		
-		// threshold met
-		if (counter >= goal)
-			match = true;		
 	}
 
 	/* String -> String
