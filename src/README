@@ -1,6 +1,6 @@
 -----------------------------------------------------------
 
-Last Revised: 5 Novemeber 2014
+Last Revised: 12 Novemeber 2014
 
 -----------------------------------------------------------
 
@@ -14,9 +14,9 @@ Raymond Li - rayjl@uw.edu
 
 -----------------------------------------------------------
 
-CS5500 Assignment #6
-Assigned: Monday, 20 October 2014
-Due: Friday, 31 October 2014
+CS5500 Assignment #7
+Assigned: Wednesday, 29 October 2014
+Due: Friday, 14 November 2014
 
 -----------------------------------------------------------
 
@@ -30,7 +30,6 @@ Assignment 6 with some of its details listed below.
 
 Dependencies:       AudioMatching.java
                     AudioFile.java
-                    ComplexNumber.java
                     FingerPrint.java
                     Format.java
                     FFT.java
@@ -58,6 +57,18 @@ Execution:          Prototype's build process will result in
                     should compare every recording in the directory
                     against the second <pathname>'s recording or
                     every recording if it is a directory.
+
+Assignment Specification:
+"If the command line is correct and each <pathname> is correct,
+then the dam program should compare the audio recordings to see
+whether one of them contains a segment of five seconds or more
+that sounds like a segment of the same length within the other
+recording. If so, then the dam program should print "MATCH" to
+standard output, followed by a space, followed by the short name
+of the first file, followed by a space, followed by the short name
+of the second file, followed by a space, followed by the offset in
+seconds of the beginning of the matching segment within the second
+file."
 
 If any errors are thrown, the dam script will terminate.
 
