@@ -44,7 +44,7 @@ public class AudioMatching {
 		path2 = "/Users/Ray/Documents/wayfaring2mp3.wav";
 		
 		// Compare songs
-		CompareFiles(path1, path2);
+		compareFiles(path1, path2);
 //		System.out.println("File Comparison Successful.");
 		
 		// Report results and exit program
@@ -70,7 +70,7 @@ public class AudioMatching {
 	 * Returns: Void
 	 * Note: this function is the main operation
 	 */
-	private static void CompareFiles(String p1, String p2) {
+	private static void compareFiles(String p1, String p2) {
 		
 		// Grab file names from paths
 		file_name1 = shortFileName(p1);
