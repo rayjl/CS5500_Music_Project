@@ -343,7 +343,7 @@ public class AudioMatching {
 				byte[] tempByte = getByteArray(tempFile);
 				// Overwrite current AudioFile object data
 				af.setData(tempByte);
-				System.out.println("Data set successful.");
+//				System.out.println("Data set successful.");
 			}
 			catch (IOException e) {
 				e.printStackTrace();
@@ -381,21 +381,21 @@ public class AudioMatching {
 		// Execute file conversion with ProcessBuilder
 		ProcessBuilder pb = new ProcessBuilder(command, op, 
 				sourcePath, destPath);
-		System.out.println("Creating new process.");
-		System.out.println(af.getFileName());
+//		System.out.println("Creating new process.");
+//		System.out.println(af.getFileName());
 		try {
 			Process p = pb.start();
 			
-			System.out.println("Creating BufferedReader.");
+//			System.out.println("Creating BufferedReader.");
 			BufferedReader reader = 
 					new BufferedReader(
 							new InputStreamReader(p.getErrorStream()));
 			String line;
-			System.out.println("Begin readLine Loop.");
+//			System.out.println("Begin readLine Loop.");
 			while ((line = reader.readLine()) != null) {
 			    // Reading output stream
 			}
-			System.out.println("Begin waiting for process to complete.");
+//			System.out.println("Begin waiting for process to complete.");
 		
 			p.waitFor();
 		}
