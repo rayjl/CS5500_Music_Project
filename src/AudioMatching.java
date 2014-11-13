@@ -17,12 +17,21 @@ import java.util.ArrayList;
 
 public class AudioMatching {
 
-	// Global variables
+	// File names
 	private static String file_name1;
 	private static String file_name2;
+	
+	// Path names from application arguments
 	private static String path1;
 	private static String path2;
+	
+	// File match variable
 	private static boolean match;
+	
+	// File time shift variable
+	private static int time_shift;
+	
+	// Global fixed variables to be used
 	private static final int window = 512;
 
 	public static void main(String[] args) {	
@@ -49,19 +58,21 @@ public class AudioMatching {
 //		System.out.println("File Comparison Successful.");
 		
 		// Report results and exit program
-		summaryReport(match);
+		summaryReport(match, time_shift);
 		System.exit(0);
 	}
 	
-	/* boolean -> Void
-	 * Given: true if the files match, false otherwise
+	/* boolean int -> Void
+	 * Given: true if the files match, false otherwise and an int value
+	 * representing the shift in time where the matching interval begins
+	 * in the second file
 	 * Returns: Void
 	 * Note: only prints to System.out if files match
 	 */
-	private static void summaryReport(boolean b) {
+	private static void summaryReport(boolean b, int shift) {
 		if (b)
 			System.out.println("MATCH" + " " 
-					+ file_name1 + " " + file_name2);
+					+ file_name1 + " " + file_name2 + " " + shift);
 		else
 			return;
 	}
