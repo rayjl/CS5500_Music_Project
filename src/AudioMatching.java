@@ -162,6 +162,11 @@ public class AudioMatching {
 	private static void compareFingerPrints(
 			ArrayList<FingerPrint[]> fingerPrint1,
 			ArrayList<FingerPrint[]> fingerPrint2) {
+		
+		// String length check
+		if (fingerPrint1.size() != fingerPrint2.size()) 
+			error(3, file_name1);
+		
 		// Length of both ArrayLists
 		int len = fingerPrint1.size();
 		
