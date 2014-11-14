@@ -164,8 +164,10 @@ public class AudioMatching {
 			ArrayList<FingerPrint[]> fingerPrint2) {
 		
 		// String length check
-		if (fingerPrint1.size() != fingerPrint2.size()) 
-			error(3, file_name1);
+		if (fingerPrint1.size() != fingerPrint2.size()) {
+			match = false;
+			return;
+		}
 		
 		// Length of both ArrayLists
 		int len = fingerPrint1.size();
