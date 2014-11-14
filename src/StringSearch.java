@@ -32,7 +32,7 @@ public class StringSearch{
 					i1 = t[i1];
 				} else {
 					i1 = 0;
-					i2 = i2 + i1;
+					i2 = i2 + 1;
 				}
 			}
 			
