@@ -44,7 +44,7 @@ public class StringSearch{
 
 	public static void buildTable(List<FingerPrint> l1, int[] t){
 	
-		//fill out
+		//TODO fill out
 		
 		
 	}
