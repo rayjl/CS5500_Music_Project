@@ -153,76 +153,28 @@ public class AudioMatching {
         
     }
     
-    /* ArrayList<FingerPrint[]> ArrayList<FingerPrint[]> -> Void
+    /* ArrayList<FingerPrint> ArrayList<FingerPrint> -> Void
      * Given: 2 ArrayLists containing finger prints of the audio files
      * Returns: Void
      * 
      * Note: method will set global variable match to true
-     * if threshold met
-     * 
-     * TODO - 
-     * This method must change especially for the situation that we are now
-     * comparing intervals of audio samples
+     * if threshold met and the offsets where match occurs
+     * in their corresponding files
+     *
      */
     private static void compareFingerPrints(
-            ArrayList<FingerPrint[]> fingerPrint1,
-            ArrayList<FingerPrint[]> fingerPrint2) {
-        
-        // String length check
-        if (fingerPrint1.size() != fingerPrint2.size()) {
-            match = false;
-            return;
-        }
-        
-        // Length of both ArrayLists
-        int len = fingerPrint1.size();
-        
-        // Threshold
-        int counter = 0;
-        int goal = (int) Math.floor(len * 0.90);
-        
-        // Iterate through and compare
-        for (int i = 0; i < len; i++) {
-            FingerPrint[] fp1 = fingerPrint1.get(i);
-            FingerPrint[] fp2 = fingerPrint2.get(i);
-            
-            boolean temp = compareFingerPrintsHelper(fp1, fp2);
-            
-            // Increment counter of interval matches
-            if (temp)
-                counter++;
-        }
-        
-        if (counter >= goal)
-            match = true;
-    }
-    
-    /* FingerPrint[] FingerPrint[] int -> boolean
-     * Given: 2 FingerPrint arrays to compare and a threshold
-     * Returns: true if threshold made
-     */
-    private static boolean compareFingerPrintsHelper(FingerPrint[] a,
-            FingerPrint[] b) {
-        // If 90% of the array is similar, match found
-        int counter = 0;
-        int goal = (int) Math.floor(a.length * 0.90);
-        
-        // Iterate through and check each FingerPrint
-        for (int i = 0; i < a.length; i++) {
-            
-            // Print statement for visual check
-//            if (i < 21)
-//                System.out.println(Math.abs(a[i].getPowerDensity() 
-//                        - b[i].getPowerDensity()));
-            if (a[i].similarTo(b[i]))
-                counter++;
-        }
-        
-        // threshold met
-        if (counter >= goal)
-            return true;    
-        
-        return false;
+            ArrayList<FingerPrint> fingerPrint1,
+            ArrayList<FingerPrint> fingerPrint2) {
+     
+    	// Beginning of a bin is used
+    	int binThreshold = (int) (5 * SAMPLERATE) / OFFSET;
+    	
+    	int[] result = LCS.lcs(fingerPrint1, fingerPrint2);
+    	if (result[2] >= binThreshold) {
+    		match = true;
+    		offset1 = result[0];
+    		offset2 = result[1];
+    	}
     }
     
     /* ArrayList<ComplexNumber[]> -> ArrayList<FingerPrint>
@@ -562,23 +514,6 @@ public class AudioMatching {
         catch (InterruptedException ie) {
             ie.printStackTrace();
         }
-    }
-    
-    /* int -> int
-     * Given: length of the sample array
-     * Returns: the next power of 2 value from the length
-     * 
-     * Notes: Fixed - this function does not need to be modified
-     * Currently not used as intervals of window size are analyzed
-     */
-    private static int nextPowerOfTwo(int len) {
-        // Using Log of the number to calculate
-        // Round the 'height' up and computer 2^height
-        double pow = Math.ceil(Math.log(len) / Math.log(2));
-        int val = (int) Math.pow(2, pow);
-        
-        // return the calculated next power of 2 value
-        return val;
     }
     
     /* ComplexNumber[] -> Void
