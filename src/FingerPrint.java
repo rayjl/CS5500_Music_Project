@@ -27,12 +27,9 @@ public class FingerPrint {
         return maxValue;
     }
     
-    prviate double findPowerDensity(double mag){
+    private double findPowerDensity(double mag){
         return 10 * Math.log10(mag);
     }
-    
-    
-    
     
     public double getValue(){
         return value;
