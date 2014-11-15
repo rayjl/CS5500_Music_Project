@@ -294,6 +294,8 @@ public class AudioMatching {
 	 * 
 	 * Every odd index in ArrayList corresponds to a zero array
 	 * to be used for imaginary section of FFT
+	 * 
+	 * TODO - implement overlap in data
 	 */
 	private static ArrayList<double[]> frameData(int[] audio_data) {
 		// Initializations
@@ -343,23 +345,31 @@ public class AudioMatching {
 	private static void convertToWaveCanonical(AudioFile af) {
 		
 		// File is already in WAVE format
-		// Validate if in canonical file format
 		if (af.getFormat() == Format.WAVE) {
 			
-			// Check bits per sample
-			if (af.getBitWidth() == 16)
+			// Validate if in canonical format
+			if (af.getChannels() == 1
+					&& af.getBitWidth() == 16
+					&& af.getSampleRate() == 44100)
 				return;
-			else {
-				// Convert to 16bits per sample
-				String wav16 = convertBitWidth(af);
+			
+			// Channels or Sample rate is wrong
+			else if (af.getBitWidth() == 16
+					&& (af.getChannels() != 1 
+					|| af.getSampleRate() != 44100)) {
+				
 				
 				
 				
 			}
+			else {
+				// Convert to 16bits per sample
+			}
+
 		}
 		else {
 			// Call helper to convert non-wave file to wave format
-			String destPath = lameDecode(af);
+			String destPath = lameDecode(af, af.getPath());
 
 			// Load created temp file into buffer and extract byte data
 			File tempFile = new File(destPath);
@@ -385,15 +395,16 @@ public class AudioMatching {
 		
 	}
 	
-	/* String -> String
-	 * Given: the source path of a wave file to be converted to 16bits
-	 * Returns: the destination path of the temp wave file created
+	/* AudioFile String -> String
+	 * Given: the object and the source path of a wave file 
+	 * to be converted to 16bits
+	 * Returns: the destination path of the temp file created
+	 * Notes: wav convert - wave output
 	 */
-	private static String convertBitWidth(AudioFile af) {
+	private static String convertBitWidth(AudioFile af, String sourcePath) {
 		String command = "/course/cs5500f14/bin/wav";
 		String op = "-bitwidth";
 		String bitWidth = "16";
-		String sourcePath = af.getPath();
 		String destPath = "/tmp/temp" + af.getFileName() + "16" + ".wav";
 		
 		// Execute file conversion with ProcessBuilder
@@ -405,16 +416,40 @@ public class AudioMatching {
 		return destPath;
 	}
 	
-	/* AudioFile -> String
-	 * Given: an AudioFile object to convert to wave format
-	 * Returns: the String of the destination temp file path
+	/* AudioFile String -> String
+	 * Given: the object and the source path of a file to 
+	 * resample with lame converter
+	 * Returns: the destination path of the resampled temp file
+	 * Notes: lame convert - mp3 output
 	 */
-	private static String lameDecode(AudioFile af) {
+	private static String lameResample(AudioFile af, String sourcePath) {
 		// Command to execute LAME application in CCIS box
-		String command = "/course/cs4500f14/bin/lame";
+		String command = "/course/cs5500f14/bin/lame";
+		String op1 = "-a";
+		String op2 = "--resample";
+		String arg1 = "44.1";
+		String destPath = "/tmp/temp" + af.getFileName() + "rs" + ".mp3";
+		
+		// Execute file conversion with ProcessBuilder
+		ProcessBuilder pb = new ProcessBuilder(command, op1, op2, arg1, 
+				sourcePath, destPath);
+		executeProcess(pb);
+
+		// Return the file path of the temp file
+		return destPath;
+	}
+	
+	/* AudioFile String -> String
+	 * Given: the object and the source path of an mp3 file 
+	 * to convert to wave
+	 * Returns: the destination path of the converted file
+	 * Notes: lame convert - wave output
+	 */
+	private static String lameDecode(AudioFile af, String sourcePath) {
+		// Command to execute LAME application in CCIS box
+		String command = "/course/cs5500f14/bin/lame";
 		String op = "--decode";
-		String sourcePath = af.getPath();
-		String destPath = "/tmp/temp" + af.getFileName() + ".wav";
+		String destPath = "/tmp/temp" + af.getFileName() + "d" + ".wav";
 		
 		// Execute file conversion with ProcessBuilder
 		ProcessBuilder pb = new ProcessBuilder(command, op, 
@@ -512,12 +547,12 @@ public class AudioMatching {
 	/* byte[] -> int[]
 	 * Given: the byte stream data of an audio file
 	 * Returns: the int form of the file 
-	 * Note: The entire byte stream stream is passed in but
-	 * only the left channel of the data chunk will be returned
+	 * Note: The entire byte stream stream is passed 
+	 * Assumes mono audio (single channel)
 	 */
 	private static int[] littleEndianToInt(byte[] b) {
 		// First data sample begins at offset 44
-		// Sample size is 4 bytes
+		// Sample size is 4 bytes (16 bits)
 		int dataLength = (b.length - 44) / 4;
 		
 		int[] sample = new int[dataLength];
@@ -527,7 +562,7 @@ public class AudioMatching {
 		
 		// add converted data to sample[]
 		for (int i = 0; i < sample.length; i++) {
-			sample[i] = convertLittleEndian(b, offset, 2, true);
+			sample[i] = convertLittleEndian(b, offset, 4, true);
 			offset += 4;
 		}
 		
@@ -587,7 +622,8 @@ public class AudioMatching {
 	 * TODO - 
 	 * See FingerPrint Object for method of "finger printing"
 	 * Currently using power density of signal as a finger print
-	 * Will need a more robust approach
+	 * 
+	 * Need to implement bin amplitude as a finger print
 	 */
 	private static FingerPrint[] 
 			makeFingerPrints(double[] real, double[] imag) {
