@@ -10,9 +10,11 @@ import java.util.ArrayList;
  * Rapid Prototype
  * This prototype will need re-factoring, especially with
  * managing the files to compare.
- * WAVE file format is the conical for to be used.
  * 
- * Last Edited: 12 November 2014
+ * Canonical Form:
+ * Mono 16bit 44.1 khz WAVE format
+ * 
+ * Last Edited: 15 November 2014
  */
 
 public class AudioMatching {
@@ -32,7 +34,7 @@ public class AudioMatching {
 	private static int time_shift;
 	
 	// Global fixed variables to be used
-	private static final int window = 512;
+	private static final int window = 16384; //~0.37s frames
 
 	public static void main(String[] args) {	
 		// Read wave files in to File objects
@@ -112,9 +114,9 @@ public class AudioMatching {
 			fileFormatCheck(af1);
 			fileFormatCheck(af2);
 			
-			// Convert mp3 file type to wave format
-			convertToWave(af1);
-			convertToWave(af2);
+			// Convert file type to Canonical form
+			convertToWaveCanonical(af1);
+			convertToWaveCanonical(af2);
 			
 			// Convert little-endian data to int format
 			// Entire file stream is converted
@@ -124,6 +126,7 @@ public class AudioMatching {
 			// Frame audio data into Intervals
 			// and load into an ArrayList
 			// Hanning Window will have been applied to data
+			// 31/32 overlap @ 44.1khz - 16384 samples overlap
 			ArrayList<double[]> AL1 = frameData(audio_data1);
 			ArrayList<double[]> AL2 = frameData(audio_data2);
 		
@@ -337,7 +340,7 @@ public class AudioMatching {
 	 * Returns: Void
 	 * Notes: in-place mutator
 	 */
-	private static void convertToWave(AudioFile af) {
+	private static void convertToWaveCanonical(AudioFile af) {
 		// Variable to decide whether to run a file removal process
 		boolean rm;
 		
@@ -345,9 +348,15 @@ public class AudioMatching {
 		String destPath;
 		
 		// File is already in WAVE format
-		if (af.getFormat() == Format.WAVE)
-			return;
-		
+		if (af.getFormat() == Format.WAVE) {
+			// Validate Canonical Form of file
+//			if (validateWaveCanonical(af))
+				return;
+//			else {
+//				String wav16 = convertBitWidth(af);
+				
+//			}
+		}
 		else {
 			rm = true;
 			
@@ -636,8 +645,14 @@ public class AudioMatching {
 		
 		// Bits per Sample - offset 34 size 2
 		af.setBPS(data[34]);
+		
+		// Samplerate - offset 24 size 4
+		int sampleRate = convertLittleEndian(data,
+				24, 4, true);
+		af.setSampleRate(sampleRate);
+		System.out.println(af.getSampleRate());
 	}
-	
+
 	/* AudioFile -> Void
 	 * Given: the AudioFile object with a file extension of ".mp3"
 	 * Returns: Void
