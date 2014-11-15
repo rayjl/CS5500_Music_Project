@@ -39,6 +39,7 @@ public class AudioMatching {
     private static final int BITWIDTH = 16;
     private static final int CHANNELS = 1;
     private static final int SAMPLERATE = 44100;
+    private static final int OFFSET = 512;
 
     public static void main(String[] args) {    
         // Read wave files in to File objects
@@ -304,7 +305,7 @@ public class AudioMatching {
      */
     private static ArrayList<double[]> frameData(int[] audio_data) {
         // Initializations
-        ArrayList<double[]> AL = new ArrayList<double[]>();
+        ArrayList<ComplexNumber[]> AL = new ArrayList<ComplexNumber[]>();
         
         // Calculate number of full intervals
         int intervals = (int) Math.ceil(audio_data.length / WINDOW);
@@ -315,6 +316,13 @@ public class AudioMatching {
 //        System.out.println(audio_data.length);
 //        System.out.println(intervals);
 //        System.out.println(rem);
+    
+        // Iterate through to audio data samples and create
+        // overlapping frames
+        for (int i = 0; i < audio_data.length; i += OFFSET) {
+        	
+        }
+        
         
         // Iterate through audio data samples
         for (int i = 0; i <= intervals; i++) {
