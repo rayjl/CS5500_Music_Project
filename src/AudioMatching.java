@@ -33,8 +33,11 @@ public class AudioMatching {
 	// File time shift variable
 	private static int time_shift;
 	
-	// Global fixed variables to be used
-	private static final int window = 16384; //~0.37s frames
+	// Global fixed variables to be used - DO NOT CHANGE
+	private static final int WINDOW = 16384; //~0.37s frames
+	private static final int BITWIDTH = 16;
+	private static final int CHANNELS = 1;
+	private static final int SAMPLERATE = 44100;
 
 	public static void main(String[] args) {	
 		// Read wave files in to File objects
@@ -263,7 +266,7 @@ public class AudioMatching {
 	 * The data is transformed using FFT from this method
 	 */
 	private static void applyFFT(ArrayList<double[]> AL) {
-		FFT func = new FFT(window);
+		FFT func = new FFT(WINDOW);
 		
 		// Iterate over the ArrayList and apply FFT
 		// Every 2 indices is a sample interval
@@ -302,7 +305,7 @@ public class AudioMatching {
 		ArrayList<double[]> AL = new ArrayList<double[]>();
 		
 		// Calculate number of full intervals
-		int intervals = (int) Math.ceil(audio_data.length / window);
+		int intervals = (int) Math.ceil(audio_data.length / WINDOW);
 		
 		// Calculate remaining samples
 //		int rem = audio_data.length % window;
@@ -314,16 +317,16 @@ public class AudioMatching {
 		// Iterate through audio data samples
 		for (int i = 0; i <= intervals; i++) {
 			// Iterate through and create temp arrays of intervals
-			double[] temp = new double[window];
-			for (int j = 0; j < window; j++) {
+			double[] temp = new double[WINDOW];
+			for (int j = 0; j < WINDOW; j++) {
 				if (i == intervals) {
-					if (((i - 1) * window + j) >= audio_data.length)
+					if (((i - 1) * WINDOW + j) >= audio_data.length)
 						temp[j] = 0;
 					else
-						temp[j] = audio_data[(i - 1) * window + j];
+						temp[j] = audio_data[(i - 1) * WINDOW + j];
 				}
 				else
-					temp[j] = audio_data[i * window + j];
+					temp[j] = audio_data[i * WINDOW + j];
 				
 			}
 			// Apply hanning function to each interval
@@ -331,7 +334,7 @@ public class AudioMatching {
 			
 			// Append temp array to end of ArrayList
 			AL.add(temp);
-			AL.add(new double[window]);
+			AL.add(new double[WINDOW]);
 		}	
 //		System.out.println(AL.size());
 		return AL;
@@ -348,15 +351,15 @@ public class AudioMatching {
 		if (af.getFormat() == Format.WAVE) {
 			
 			// Validate if in canonical format
-			if (af.getChannels() == 1
-					&& af.getBitWidth() == 16
-					&& af.getSampleRate() == 44100)
+			if (af.getChannels() == CHANNELS
+					&& af.getBitWidth() == BITWIDTH
+					&& af.getSampleRate() == SAMPLERATE)
 				return;
 			
 			// Channels or Sample rate is wrong
-			else if (af.getBitWidth() == 16
-					&& (af.getChannels() != 1 
-					|| af.getSampleRate() != 44100)) {
+			else if (af.getBitWidth() == BITWIDTH
+					&& (af.getChannels() != CHANNELS
+					|| af.getSampleRate() != SAMPLERATE)) {
 				// Resample - conversion will be temp mp3 file
 				//TODO
 				
@@ -368,9 +371,9 @@ public class AudioMatching {
 			}
 			
 			// Only Bit width is wrong
-			else if (af.getBitWidth() != 16
-					&& af.getChannels() == 1
-					&& af.getSampleRate() == 44100) {
+			else if (af.getBitWidth() != BITWIDTH
+					&& af.getChannels() == CHANNELS
+					&& af.getSampleRate() == SAMPLERATE) {
 				// Convert to 16bits per sample
 				String wav16 = convertBitWidth(af, af.getPath());
 				
@@ -383,7 +386,7 @@ public class AudioMatching {
 			
 			// Both Bit Width and channels or sample rate is wrong
 			else {
-				// Convert to to 16bits per sample
+				// Convert to 16bits per sample
 				//TODO
 				
 				// Resample - conversion will be temp mp3 file
@@ -442,12 +445,12 @@ public class AudioMatching {
 	 */
 	private static String convertBitWidth(AudioFile af, String sourcePath) {
 		String command = "/course/cs5500f14/bin/wav";
-		String op = "-bitwidth";
-		String bitWidth = "16";
+		String op1 = "-bitwidth";
+		String arg1 = "16";
 		String destPath = "/tmp/temp" + af.getFileName() + "16" + ".wav";
 		
 		// Execute file conversion with ProcessBuilder
-		ProcessBuilder pb = new ProcessBuilder(command, op, bitWidth, 
+		ProcessBuilder pb = new ProcessBuilder(command, op1, arg1, 
 				sourcePath, destPath);
 		executeProcess(pb);
 		
