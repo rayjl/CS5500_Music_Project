@@ -341,27 +341,25 @@ public class AudioMatching {
 	 * Notes: in-place mutator
 	 */
 	private static void convertToWaveCanonical(AudioFile af) {
-		// Variable to decide whether to run a file removal process
-		boolean rm;
-		
-		// Path of temporary file to be used
-		String destPath;
 		
 		// File is already in WAVE format
+		// Validate if in canonical file format
 		if (af.getFormat() == Format.WAVE) {
-			// Validate Canonical Form of file
-//			if (validateWaveCanonical(af))
+			
+			// Check bits per sample
+			if (af.getBitWidth() == 16)
 				return;
-//			else {
-//				String wav16 = convertBitWidth(af);
+			else {
+				// Convert to 16bits per sample
+				String wav16 = convertBitWidth(af);
 				
-//			}
+				
+				
+			}
 		}
 		else {
-			rm = true;
-			
 			// Call helper to convert non-wave file to wave format
-			destPath = convertToWaveHelper(af);
+			String destPath = lameDecode(af);
 
 			// Load created temp file into buffer and extract byte data
 			File tempFile = new File(destPath);
@@ -387,30 +385,31 @@ public class AudioMatching {
 		
 	}
 	
-	/* String -> Void
-	 * Given: the path of a file to be removed
-	 * Returns: Void
+	/* String -> String
+	 * Given: the source path of a wave file to be converted to 16bits
+	 * Returns: the destination path of the temp wave file created
 	 */
-	private static void removeFile(String destPath) {
-		// Execute a process to remove a temp file created
-		ProcessBuilder pb = new ProcessBuilder("rm", destPath);
-		try {
-			Process p = pb.start();
-			p.waitFor();
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		catch (InterruptedException ie) {
-			ie.printStackTrace();
-		}
+	private static String convertBitWidth(AudioFile af) {
+		String command = "/course/cs5500f14/bin/wav";
+		String op = "-bitwidth";
+		String bitWidth = "16";
+		String sourcePath = af.getPath();
+		String destPath = "/tmp/temp" + af.getFileName() + "16" + ".wav";
+		
+		// Execute file conversion with ProcessBuilder
+		ProcessBuilder pb = new ProcessBuilder(command, op, bitWidth, 
+				sourcePath, destPath);
+		executeProcess(pb);
+		
+		// Return the file path of the temp wave file created
+		return destPath;
 	}
 	
 	/* AudioFile -> String
 	 * Given: an AudioFile object to convert to wave format
 	 * Returns: the String of the destination temp file path
 	 */
-	private static String convertToWaveHelper(AudioFile af) {
+	private static String lameDecode(AudioFile af) {
 		// Command to execute LAME application in CCIS box
 		String command = "/course/cs4500f14/bin/lame";
 		String op = "--decode";
@@ -420,6 +419,18 @@ public class AudioMatching {
 		// Execute file conversion with ProcessBuilder
 		ProcessBuilder pb = new ProcessBuilder(command, op, 
 				sourcePath, destPath);
+		executeProcess(pb);
+
+		// Return the file path of the temp file
+		return destPath;
+	}
+	
+	/* ProcessBuilder -> Void
+	 * Given: a ProcessBuilder to execute
+	 * Returns: Void
+	 * Note: This method is to simply factor out the try-catch blocks
+	 */
+	private static void executeProcess(ProcessBuilder pb) {
 //		System.out.println("Creating new process.");
 //		System.out.println(af.getFileName());
 		try {
@@ -444,9 +455,25 @@ public class AudioMatching {
 		catch (InterruptedException ie) {
 		    ie.printStackTrace();
 		}
-		
-		// Return the file path of the temp file
-		return destPath;
+	}
+	
+	/* String -> Void
+	 * Given: the path of a file to be removed
+	 * Returns: Void
+	 */
+	private static void removeFile(String destPath) {
+		// Execute a process to remove a temp file created
+		ProcessBuilder pb = new ProcessBuilder("rm", destPath);
+		try {
+			Process p = pb.start();
+			p.waitFor();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		catch (InterruptedException ie) {
+			ie.printStackTrace();
+		}
 	}
 	
 	/* int -> int
@@ -651,9 +678,9 @@ public class AudioMatching {
 		af.setChannels(data[22]);
 		
 		// Bits per Sample - offset 34 size 2
-		af.setBPS(data[34]);
+		af.setBitWidth(data[34]);
 		
-		// Samplerate - offset 24 size 4
+		// Sampling rate - offset 24 size 4
 		int sampleRate = convertLittleEndian(data,
 				24, 4, true);
 		af.setSampleRate(sampleRate);

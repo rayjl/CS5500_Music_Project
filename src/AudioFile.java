@@ -32,7 +32,7 @@ public class AudioFile {
 	
 	// Bits per Sample
 	// 8 bits = 8, 16 bits = 16
-	private int bitsPerSample;
+	private int bitWidth;
 	
 	// Sample Rate
 	// 8800, 44100, etc.
@@ -97,8 +97,8 @@ public class AudioFile {
 		this.numChannels = numChannels;
 	}
 	
-	public void setBPS(int bitsPerSample) {
-		this.bitsPerSample = bitsPerSample;
+	public void setBitWidth(int bitWidth) {
+		this.bitWidth = bitWidth;
 	}
 	
 	public void setSampleRate(int sampleRate) {
@@ -131,8 +131,8 @@ public class AudioFile {
 		return this.numChannels;
 	}
 	
-	public int getBPS() {
-		return this.bitsPerSample;
+	public int getBitWidth() {
+		return this.bitWidth;
 	}
 	
 	public int getSampleRate() {
