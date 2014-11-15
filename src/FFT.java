@@ -96,7 +96,7 @@ public class FFT {
 	* Permission to copy and use this program is granted 
 	* as long as this header is included. 
 	****************************************************************/
-	public void fft(double[] x, double[] y) {
+	public void fft(ComplexNumber[] cnum) {
 		int i,j,k,n1,n2,a; 
 		double c,s,e,t1,t2;
   
@@ -112,12 +112,12 @@ public class FFT {
 			j = j + n1; 
 	
 			if (i < j) {
-				t1 = x[i]; 
-				x[i] = x[j]; 
-				x[j] = t1; 
-				t1 = y[i]; 
-				y[i] = y[j]; 
-				y[j] = t1; 
+				t1 = cnum[i].getReal(); 
+				cnum[i].setReal(cnum[j].getReal()); 
+				cnum[j].setReal(t1); 
+				t1 = cnum[i].getImag(); 
+				cnum[i].setImag(cnum[j].getImag()); 
+				cnum[j].setImag(t1); 
 			} 
 		} 
   
@@ -136,12 +136,12 @@ public class FFT {
 				a += 1 << (m-i-1); 
 	 
 				for (k=j; k < n; k=k+n2) {
-					t1 = c*x[k+n1] - s*y[k+n1]; 
-					t2 = s*x[k+n1] + c*y[k+n1]; 
-					x[k+n1] = x[k] - t1; 
-					y[k+n1] = y[k] - t2; 
-					x[k] = x[k] + t1;
-					y[k] = y[k] + t2; 
+					t1 = c*cnum[k+n1].getReal() - s*cnum[k+n1].getImag(); 
+					t2 = s*cnum[k+n1].getReal() + c*cnum[k+n1].getImag(); 
+					cnum[k+n1].setReal(cnum[k].getReal() - t1); 
+					cnum[k+n1].setImag(cnum[k].getImag() - t2); 
+					cnum[k].setReal(cnum[k].getReal() + t1);
+					cnum[k].setImag(cnum[k].getImag() + t2); 
 				} 
 			} 
 		}
@@ -154,7 +154,8 @@ public class FFT {
 //		return ans;
 		
 	}
-	
+
+/*	
 	// Test the FFT to make sure it's working 
 	public static void main(String[] args) { 
 		int N = 8; 
@@ -219,5 +220,5 @@ public class FFT {
 			System.out.print(((int)(im[i]*1000)/1000.0) + " ");
 	  
 		System.out.println("]"); 
-	} 
+	} */
 } 

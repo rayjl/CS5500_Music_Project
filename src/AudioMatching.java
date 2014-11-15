@@ -141,12 +141,8 @@ public class AudioMatching {
             applyFFT(AL2);
             
             // Convert data into FingerPrints and load into an ArrayList
-            // TODO -
-            // This data structure to be returned will be changed
-            // to ArrayList<FingerPrint> when more robust finger printing
-            // solution is realized
-            ArrayList<FingerPrint[]> fingerPrint1 = logFingerPrints(AL1);
-            ArrayList<FingerPrint[]> fingerPrint2 = logFingerPrints(AL2);
+            ArrayList<FingerPrint> fingerPrint1 = logFingerPrints(AL1);
+            ArrayList<FingerPrint> fingerPrint2 = logFingerPrints(AL2);
                     
             // Compare FingerPrints
             compareFingerPrints(fingerPrint1, fingerPrint2);
@@ -229,61 +225,66 @@ public class AudioMatching {
         return false;
     }
     
-    /* ArrayList<double[]> -> ArrayList<FingerPrint[]>
+    /* ArrayList<ComplexNumber[]> -> ArrayList<FingerPrint>
      * Given: an ArrayList loaded with data from audio file
      * Returns: an ArrayList loaded with the finger printed data
      */
-    private static ArrayList<FingerPrint[]> logFingerPrints(
-            ArrayList<double[]> AL) {
+    private static ArrayList<FingerPrint> logFingerPrints(
+            ArrayList<ComplexNumber[]> AL) {
         
         // Structure to be used to hold FingerPrints
-        // Current structure is a FingerPrint[] because a finger print
-        // is created for every sample
-        //
-        // TODO - Will want a fingerprint for every interval in the future
-        // This will change the structure to be a:
-        // ArrayList<FingerPrint>
-        ArrayList<FingerPrint[]> fingerPrint = 
-                new ArrayList<FingerPrint[]>();
+        ArrayList<FingerPrint> fingerPrint = 
+                new ArrayList<FingerPrint>();
                 
         // Iterate through intervals of sample data
-        for (int i = 0; i < AL.size(); i += 2) {
-            // Get the data arrays
-            double[] real = AL.get(i);
-            double[] imag = AL.get(i+1);
-            
+        for (int i = 0; i < AL.size(); i ++) {
+  
             // Create finger prints from data
-            FingerPrint[] fp = makeFingerPrints(real, imag);
+        	// Pass in ComplexNumber array at each index of ArrayList
+            FingerPrint fp = makeFingerPrint(AL.get(i));
             
             // Set finger prints into ArrayList
+            // SINGLE FINGERPRINT NOT AN ARRAY ADDED
             fingerPrint.add(fp);        
         }
         
         return fingerPrint;
     }
     
-    /* ArrayList<double[]> -> Void
-     * Given: an ArrayList<double[]> with data representing the audio file
+    /* ComplexNumber[] -> FingerPrint
+     * Given: the real and imag part of the the sample data after FFT
+     * Returns: a FingerPrint
+     *
+     * Need to implement bin amplitude as a finger print
+     */
+    private static FingerPrint 
+            makeFingerPrint(ComplexNumber[] c) {
+    	FingerPrint fp = new FingerPrint(c, WINDOW);
+        
+        return fp;
+    }
+    
+    /* ArrayList<ComplexNumber[]> -> Void
+     * Given: an ArrayList<ComplexNumber[]> with data representing the audio file
      * Returns: Void
      * Note:
      * The data is transformed using FFT from this method
      */
-    private static void applyFFT(ArrayList<double[]> AL) {
+    private static void applyFFT(ArrayList<ComplexNumber[]> AL) {
         FFT func = new FFT(WINDOW);
         
         // Iterate over the ArrayList and apply FFT
-        // Every 2 indices is a sample interval
-        for (int i = 0; i < AL.size(); i += 2) {
-            // Get the data from the ArrayList
-            double[] real = AL.get(i);
-            double[] imag = AL.get(i+1);
-            
+        // to every ComplexNumber[]
+        for (int i = 0; i < AL.size(); i++) {
+        	
+        	// Extract data from ComplexNumbers
+        	ComplexNumber[] temp = AL.get(i);
+
             // Apply in-place mutator FFT
-            func.fft(real, imag);
+            func.fft(temp);
             
             // Set the data back into the ArrayList
-            AL.set(i, real);
-            AL.set(i+1, imag);
+            AL.set(i, temp);
         }
         
     }
@@ -666,30 +667,6 @@ public class AudioMatching {
         
         // Return int value of the little-endian chunk
         return sample;
-    }
-
-    /* double[] double[] -> FingerPrint[]
-     * Given: the real and imag part of the the sample data after FFT
-     * Returns: a FingerPrint[] that contains the FingerPrints 
-     * of the samples
-     * 
-     * TODO - 
-     * See FingerPrint Object for method of "finger printing"
-     * Currently using power density of signal as a finger print
-     * 
-     * Need to implement bin amplitude as a finger print
-     */
-    private static FingerPrint[] 
-            makeFingerPrints(double[] real, double[] imag) {
-        // Load data into a FingerPrint[]
-        FingerPrint[] f = new FingerPrint[real.length];
-        
-        // Just looping through
-        for (int i = 0; i < real.length; i++) {
-            f[i] = new FingerPrint(real[i], imag[i]);
-        }
-        
-        return f;
     }
 
     /* String -> String
