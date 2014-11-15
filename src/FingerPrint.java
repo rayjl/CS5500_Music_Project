@@ -1,5 +1,7 @@
 public class FingerPrint {
     
+    private double THRESHOLD = 6;
+    
     private ArrayList<ComplexNumber> window;
     private double value;
     
@@ -20,9 +22,13 @@ public class FingerPrint {
     private double findMaxMagnitude(ArrayList<ComplexNumber> window){
         double maxValue = 0;
         for(ComplexNumber comp : window){
-            maxValue = Math.max(comp.getMagnitude(), maxValue);
+            maxValue = Math.max(findPowerDenisity(comp.getMagnitude()), maxValue);
         }
         return maxValue;
+    }
+    
+    prviate double findPowerDensity(double mag){
+        return 10 * Math.log10(mag);
     }
     
     
@@ -30,6 +36,10 @@ public class FingerPrint {
     
     public double getValue(){
         return value;
+    }
+    
+    public boolean similarTo(FingerPrint other){
+        return  this.value - other.getValue() < this.THRESHOLD;
     }
     
 }
