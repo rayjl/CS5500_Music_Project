@@ -357,42 +357,81 @@ public class AudioMatching {
 			else if (af.getBitWidth() == 16
 					&& (af.getChannels() != 1 
 					|| af.getSampleRate() != 44100)) {
+				// Resample - conversion will be temp mp3 file
+				//TODO
 				
+				// lame decode - convert mp3 to wave
+				//TODO
 				
-				
-				
+				// Remove temp files created in /tmp
+				//TODO
 			}
-			else {
+			
+			// Only Bit width is wrong
+			else if (af.getBitWidth() != 16
+					&& af.getChannels() == 1
+					&& af.getSampleRate() == 44100) {
 				// Convert to 16bits per sample
+				String wav16 = convertBitWidth(af, af.getPath());
+				
+				// Update the AudioFile object with temp file data
+				updateAudioFileData(af, wav16);
+				
+				// Remove temp file create in /tmp
+				removeFile(wav16);
+			}
+			
+			// Both Bit Width and channels or sample rate is wrong
+			else {
+				// Convert to to 16bits per sample
+				//TODO
+				
+				// Resample - conversion will be temp mp3 file
+				//TODO
+				
+				// lame decode - convert mp3 to wave
+				//TODO
+				
+				// Remove temp files created in /tmp
+				//TODO
 			}
 
 		}
 		else {
-			// Call helper to convert non-wave file to wave format
+			// Call helper to convert mp3 file to wave format
 			String destPath = lameDecode(af, af.getPath());
-
-			// Load created temp file into buffer and extract byte data
-			File tempFile = new File(destPath);
 			
-			// Debugging purposes
-//			System.out.println(tempFile.exists());
-//			System.out.println(tempFile.canRead());
-//			System.out.println(tempFile.getAbsolutePath());
+			// Update the AudioFile object with temp file data
+			updateAudioFileData(af, destPath);
 			
-			try {
-				byte[] tempByte = getByteArray(tempFile);
-				// Overwrite current AudioFile object data
-				af.setData(tempByte);
-//				System.out.println("Data set successful.");
-			}
-			catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-			// Remove file created in /tmp	
+			// Remove temp file created in /tmp	
 			removeFile(destPath);
 		}
 		
+	}
+	
+	/* AudioFile String -> Void
+	 * Given: the AudioFile to update and the String of the file path
+	 * Returns: Void
+	 */
+	private static void updateAudioFileData(AudioFile af, String destPath) {
+		// Load created temp file into buffer and extract byte data
+		File tempFile = new File(destPath);
+		
+		// Debugging purposes
+//		System.out.println(tempFile.exists());
+//		System.out.println(tempFile.canRead());
+//		System.out.println(tempFile.getAbsolutePath());
+		
+		try {
+			byte[] tempByte = getByteArray(tempFile);
+			// Overwrite current AudioFile object data
+			af.setData(tempByte);
+//			System.out.println("Data set successful.");
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/* AudioFile String -> String
