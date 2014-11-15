@@ -381,24 +381,29 @@ public class AudioMatching {
 				e.printStackTrace();
 			}
 			
-			ProcessBuilder pb = new ProcessBuilder("rm", destPath);
-			try {
-				Process p = pb.start();
-				p.waitFor();
-			}
-			catch (IOException e) {
-				e.printStackTrace();
-			}
-			catch (InterruptedException ie) {
-				ie.printStackTrace();
-			}
+			// Remove file created in /tmp	
+			removeFile(destPath);
 		}
 		
-		// Remove file created in /tmp
+	}
 	
-
-
-		
+	/* String -> Void
+	 * Given: the path of a file to be removed
+	 * Returns: Void
+	 */
+	private static void removeFile(String destPath) {
+		// Execute a process to remove a temp file created
+		ProcessBuilder pb = new ProcessBuilder("rm", destPath);
+		try {
+			Process p = pb.start();
+			p.waitFor();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		catch (InterruptedException ie) {
+			ie.printStackTrace();
+		}
 	}
 	
 	/* AudioFile -> String
