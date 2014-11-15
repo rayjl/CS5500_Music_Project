@@ -10,10 +10,10 @@ public class LCS{
  //         is found; index 0 of array has offset of l1; index 1 of
  //         array has offset of l2; array holds -1 if no match
  //         is found
-public static int[] lcs(String l1, String l2){
+public static int[] lcs(List<FingerPrint> l1, List<FingerPrint> l2){
  //table[i,j] holds the longest suffix for prefixes of l1 and l2
  // that end at indexes i and j respectively
- int[][] table = new int[l1.length()][l2.length()];
+ int[][] table = new int[l1.size()][l2.size()];
 
  //holds the longest substring match
  int matchLength = 0;
@@ -24,9 +24,9 @@ public static int[] lcs(String l1, String l2){
  //offset for l2
  int index2 = -1;
 	
- for(int i=0; i<l1.length(); i++){
-  for(int j=0; j<l2.length(); j++){
-   if(l1.charAt(i)==l2.charAt(j)){
+ for(int i=0; i<l1.size(); i++){
+  for(int j=0; j<l2.size(); j++){
+   if(l1.get(i).similarTo(l2.get(j))){
     if(i==0||j==0){
      table[i][j] = 1;
     }else{
