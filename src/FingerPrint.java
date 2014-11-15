@@ -1,62 +1,35 @@
-/* 
- * FingerPrint Object
- * -Contains the "FingerPrint" of an audio file
- * -Object is for storage purposes
- */
-
 public class FingerPrint {
-
-	// TODO - fix dummy threshold value?
-	// Fine tuned to be a value of 12 to pass examples in specification
-	// Need to develop a more robust fingerprint
-	private double THRESHOLD = 6;
-	private double real;
-	private double imag;
-	private double powerDensity;
-	
-	// Constructor
-	public FingerPrint(double real, double imag) {
-		this.real = real;
-		this.imag = imag;	
-		this.powerDensity = this.setPowerDensity(real, imag);
-	}
-	
-	/* double double -> double
-	 * Given: real and imaginary part of a frame of signal
-	 * Returns: the power density of that frame
-	 */
-	public double setPowerDensity(double real, double imag) {
-		double a = real * real;
-		double b = imag * imag;
-		double mag = Math.sqrt(a + b);
-		
-		// Magnitude value in dB - is this way of computing it correct?
-		double magdB = 10 * Math.log10(mag);
-		return magdB;
-	}
-	
-	/* FingerPrint -> boolean
-	 * Given: compares this FingerPrint to the given FingerPrint
-	 * Returns: true if the FingerPrints are "similar"
-	 */
-	public boolean similarTo(FingerPrint f) {
-		// Check thresholds
-		if (Math.abs(powerDensity - f.getPowerDensity()) < this.THRESHOLD)
-			return true;
-		return false;
-	}
-	
-	// Getters --------------------------------------------
-	public double getImag() {
-		return this.imag;
-	}
-	
-	public double getReal() {
-		return this.real;
-	}
-	
-	public double getPowerDensity() {
-		return this.powerDensity;
-	}
-	
+    
+    private ArrayList<ComplexNumber> window;
+    private double value;
+    
+    public FingerPrint(ArrayList<ComplexNumber> window, int size){
+        this.window = formatWindow(window, size);
+        
+        this.value = findMaxMagnitude(this.window);
+    }
+    
+    private ArrayList<ComplexNumber> formatWindow(ArrayList<ComplexNumber> window, int size){
+        ArrayList<ComplexNumber> list = new ArrayList<ComplexNumber>();
+        
+        for (int i = 1; i < size/2; i++){
+            list.add(window.get(i));
+        }
+    }
+    
+    private double findMaxMagnitude(ArrayList<ComplexNumber> window){
+        double maxValue = 0;
+        for(ComplexNumber comp : window){
+            maxValue = Math.max(comp.getMagnitude(), maxValue);
+        }
+        return maxValue;
+    }
+    
+    
+    
+    
+    public double getValue(){
+        return value;
+    }
+    
 }

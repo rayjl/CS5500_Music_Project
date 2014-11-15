@@ -77,4 +77,12 @@ public class ComplexNumber {
 		return this.i;
 	}
 
+	public void setReal(double r) {
+		this.r = r;
+	}
+	
+	public void setImag(double i) {
+		this.i = i;
+	}
+	
 }

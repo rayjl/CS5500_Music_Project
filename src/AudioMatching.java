@@ -133,8 +133,8 @@ public class AudioMatching {
             // and load into an ArrayList
             // Hanning Window will have been applied to data
             // 31/32 overlap @ 44.1khz - 16384 samples overlap
-            ArrayList<double[]> AL1 = frameData(audio_data1);
-            ArrayList<double[]> AL2 = frameData(audio_data2);
+            ArrayList<ComplexNumber[]> AL1 = frameData(audio_data1);
+            ArrayList<ComplexNumber[]> AL2 = frameData(audio_data2);
         
             // Apply FFT to data arrays in ArrayList
             applyFFT(AL1);
@@ -288,55 +288,47 @@ public class AudioMatching {
         
     }
     
-    /* int[] -> ArrayList<int[]>
+    /* int[] -> ArrayList<ComplexNumber[]>
      * Given: the audio data in an int[]
      * Returns: the same audio data intervaled and loaded into an
-     * ArrayList<double[]>
+     * ArrayList<ComplexNumber[]>
      * 
-     * Notes: 
-     * Interval size = window
-     * If last interval is less than the window, 
+     * Notes:
+     * If the shifts cause the window to be longer than the data array 
      * 0s will be used as fillers
      * 
-     * Every odd index in ArrayList corresponds to a zero array
-     * to be used for imaginary section of FFT
-     * 
-     * TODO - implement overlap in data
+     * Overlap = 16384 samples: ~0.37 sec
      */
-    private static ArrayList<double[]> frameData(int[] audio_data) {
+    private static ArrayList<ComplexNumber[]> frameData(int[] audio_data) {
         // Initializations
         ArrayList<ComplexNumber[]> AL = new ArrayList<ComplexNumber[]>();
         
         // Calculate number of full intervals
-        int intervals = (int) Math.ceil(audio_data.length / WINDOW);
+        int intervals = (int) Math.ceil(audio_data.length / OFFSET);
         
         // Calculate remaining samples
-//        int rem = audio_data.length % window;
+//      int rem = audio_data.length % window;
         
-//        System.out.println(audio_data.length);
-//        System.out.println(intervals);
-//        System.out.println(rem);
-    
-        // Iterate through to audio data samples and create
-        // overlapping frames
-        for (int i = 0; i < audio_data.length; i += OFFSET) {
-        	
-        }
-        
+//      System.out.println(audio_data.length);
+//     	System.out.println(intervals);
+//      System.out.println(rem);
         
         // Iterate through audio data samples
         for (int i = 0; i <= intervals; i++) {
             // Iterate through and create temp arrays of intervals
-            double[] temp = new double[WINDOW];
+            ComplexNumber[] temp = new ComplexNumber[WINDOW];
             for (int j = 0; j < WINDOW; j++) {
                 if (i == intervals) {
-                    if (((i - 1) * WINDOW + j) >= audio_data.length)
-                        temp[j] = 0;
+                	// Final window exceeds sample array length
+                    if (((i - 1) * OFFSET + j) >= audio_data.length)
+                        temp[j] = new ComplexNumber(0, 0);
                     else
-                        temp[j] = audio_data[(i - 1) * WINDOW + j];
+                        temp[j] = 
+                        new ComplexNumber(audio_data[(i - 1) * OFFSET + j], 0);
                 }
                 else
-                    temp[j] = audio_data[i * WINDOW + j];
+                    temp[j] = 
+                    new ComplexNumber(audio_data[i * OFFSET + j], 0);
                 
             }
             // Apply hanning function to each interval
@@ -344,9 +336,8 @@ public class AudioMatching {
             
             // Append temp array to end of ArrayList
             AL.add(temp);
-            AL.add(new double[WINDOW]);
         }    
-//        System.out.println(AL.size());
+//      System.out.println(AL.size());
         return AL;
     }
     
@@ -589,19 +580,21 @@ public class AudioMatching {
         return val;
     }
     
-    /* double[] -> Void
-     * Given: sample array
+    /* ComplexNumber[] -> Void
+     * Given: a ComplexNumber array containing the sample data 
+     * as its real part
      * Returns: Void
      * Note: in-place mutator
      * This is a frame of data.
      */
-    private static void hanningWindow(double[] sample) {
+    private static void hanningWindow(ComplexNumber[] sample) {
         // Iterate through the sample with the hanning window function
         double multiplier;
         for (int i = 0; i < sample.length; i++) {
             multiplier = 0.5 
             * (1.0 + Math.cos(2.0 * Math.PI * i / sample.length));
-            sample[i] = (double) (sample[i] * multiplier);
+            double val = (double) (sample[i].getReal() * multiplier);
+            sample[i].setReal(val);
         }
     }
     
