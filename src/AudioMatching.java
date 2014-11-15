@@ -380,10 +380,7 @@ public class AudioMatching {
 			catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
-		
-		// Remove file created in /tmp
-		if (rm) {	
+			
 			ProcessBuilder pb = new ProcessBuilder("rm", destPath);
 			try {
 				Process p = pb.start();
@@ -395,8 +392,13 @@ public class AudioMatching {
 			catch (InterruptedException ie) {
 				ie.printStackTrace();
 			}
-
 		}
+		
+		// Remove file created in /tmp
+	
+
+
+		
 	}
 	
 	/* AudioFile -> String
@@ -650,7 +652,6 @@ public class AudioMatching {
 		int sampleRate = convertLittleEndian(data,
 				24, 4, true);
 		af.setSampleRate(sampleRate);
-		System.out.println(af.getSampleRate());
 	}
 
 	/* AudioFile -> Void
