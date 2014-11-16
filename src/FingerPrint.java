@@ -40,8 +40,7 @@ public class FingerPrint {
     
     // Accessor
     public boolean similarTo(FingerPrint other){
-    	System.out.println(this.value);
-    	System.out.println(other.getValue());
+    	System.out.println(this.value - other.getValue());
         return  Math.abs(this.value - other.getValue()) < this.THRESHOLD;
     }
     
