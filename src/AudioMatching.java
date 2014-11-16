@@ -211,6 +211,8 @@ public class AudioMatching {
      */
     private static FingerPrint 
             makeFingerPrint(ComplexNumber[] c) {
+    	System.out.println(c.length);
+    	System.out.println(WINDOW);
     	FingerPrint fp = new FingerPrint(c, WINDOW);
         
         return fp;
