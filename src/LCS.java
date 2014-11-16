@@ -47,7 +47,7 @@ public class LCS{
 		int[] answer = new int[2];
 		answer[0] = index1;
 		answer[1] = index2;
-		answer[3] = matchLength;
+		answer[2] = matchLength;
 		return answer;
 	}
 
