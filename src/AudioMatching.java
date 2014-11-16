@@ -170,6 +170,10 @@ public class AudioMatching {
     	int binThreshold = (int) (5 * SAMPLERATE) / OFFSET;
     	
     	int[] result = LCS.lcs(fingerPrint1, fingerPrint2);
+    	System.out.println(binThreshold);
+    	System.out.println(result[0]);
+    	System.out.println(result[1]);
+    	System.out.println(result[2]);
     	if (result[2] >= binThreshold) {
     		match = true;
     		offset1 = result[0];
