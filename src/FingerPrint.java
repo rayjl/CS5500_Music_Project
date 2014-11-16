@@ -26,6 +26,7 @@ public class FingerPrint {
         System.out.println(window.length);
         System.out.println("entering for loop");
         for(int i = 0; i < window.length; i++){
+        	System.out.println(i);
             maxValue = Math.max(findPowerDensity(window[i].getMagnitude()), maxValue);
         }
         System.out.println("returning max value");
