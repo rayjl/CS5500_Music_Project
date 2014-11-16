@@ -1,6 +1,6 @@
 -----------------------------------------------------------
 
-Last Revised: 15 Novemeber 2014
+Last Revised: 17 Novemeber 2014
 
 -----------------------------------------------------------
 
@@ -16,7 +16,7 @@ Raymond Li - rayjl@uw.edu
 
 CS5500 Assignment #7
 Assigned: Wednesday, 29 October 2014
-Due: Friday, 14 November 2014
+Due: Friday, 19 November 2014
 
 -----------------------------------------------------------
 
@@ -31,6 +31,8 @@ Assignment 6 with some of its details listed below.
 Dependencies:       AudioMatching.java
                     AudioFile.java
                     FingerPrint.java
+                    ComplexNumber.java
+                    LCS.java
                     Format.java
                     FFT.java
                     dam
