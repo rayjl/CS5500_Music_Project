@@ -24,8 +24,8 @@ public class FingerPrint {
     private double findMaxMagnitude(ComplexNumber[] window){
         double maxValue = 0;
         System.out.println("entering for loop");
-        for(ComplexNumber comp : window){
-            maxValue = Math.max(findPowerDensity(comp.getMagnitude()), maxValue);
+        for(int i = 0; i < window.length; i++){
+            maxValue = Math.max(findPowerDensity(window[i].getMagnitude()), maxValue);
         }
         System.out.println("returning max value");
         return maxValue;
