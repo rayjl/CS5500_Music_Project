@@ -14,8 +14,8 @@ public class FingerPrint {
     private ComplexNumber[] formatWindow(ComplexNumber[] window, int size){
         ComplexNumber[] list = new ComplexNumber[size];
         
-        for (int i = 1; i < size/2; i++){
-            list[i] = window[i];
+        for (int i = 1; i <= size/2; i++){
+            list[i-1] = window[i];
         }
         
         return list;
