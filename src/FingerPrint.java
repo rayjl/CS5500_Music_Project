@@ -17,15 +17,17 @@ public class FingerPrint {
         for (int i = 1; i < size/2; i++){
             list[i-1] = window[i];
         }
-        System.out.println("test");
+
         return list;
     }
     
     private double findMaxMagnitude(ComplexNumber[] window){
         double maxValue = 0;
+        System.out.println("entering for loop");
         for(ComplexNumber comp : window){
             maxValue = Math.max(findPowerDensity(comp.getMagnitude()), maxValue);
         }
+        System.out.println("returning max value");
         return maxValue;
     }
     
