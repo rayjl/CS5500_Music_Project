@@ -1,7 +1,7 @@
 
 public class FingerPrint {
     
-    private double THRESHOLD = 6;
+    private double THRESHOLD = 4;
     
     private ComplexNumber[] window;
     private double value;
@@ -40,7 +40,9 @@ public class FingerPrint {
     
     // Accessor
     public boolean similarTo(FingerPrint other){
-        return  this.value - other.getValue() < this.THRESHOLD;
+    	System.out.println(this.value);
+    	System.out.println(other.getValue());
+        return  (this.value - other.getValue()) < this.THRESHOLD;
     }
     
 }
