@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * Canonical Form:
  * Mono 16bit 44.1 khz WAVE format
  * 
- * Last Edited: 15 November 2014
+ * Last Edited: 17 November 2014
  */
 
 public class AudioMatching {
@@ -166,19 +166,19 @@ public class AudioMatching {
             ArrayList<FingerPrint> fingerPrint1,
             ArrayList<FingerPrint> fingerPrint2) {
      
-    	// Beginning of a bin is used
-    	int binThreshold = (int) (5 * SAMPLERATE) / (2 * OFFSET);
-    	
-    	int[] result = LCS.lcs(fingerPrint1, fingerPrint2);
-//    	System.out.println(binThreshold);
-//    	System.out.println(result[0]);
-//    	System.out.println(result[1]);
-//    	System.out.println(result[2]);
-    	if (result[2] >= binThreshold) {
-    		match = true;
-    		offset1 = result[0];
-    		offset2 = result[1];
-    	}
+        // Beginning of a bin is used
+        int binThreshold = (int) (5 * SAMPLERATE) / (2 * OFFSET);
+        
+        int[] result = LCS.lcs(fingerPrint1, fingerPrint2);
+//        System.out.println(binThreshold);
+//        System.out.println(result[0]);
+//        System.out.println(result[1]);
+//        System.out.println(result[2]);
+        if (result[2] >= binThreshold) {
+            match = true;
+            offset1 = result[0];
+            offset2 = result[1];
+        }
     }
     
     /* ArrayList<ComplexNumber[]> -> ArrayList<FingerPrint>
@@ -196,7 +196,7 @@ public class AudioMatching {
         for (int i = 0; i < AL.size(); i ++) {
   
             // Create finger prints from data
-        	// Pass in ComplexNumber array at each index of ArrayList
+            // Pass in ComplexNumber array at each index of ArrayList
             FingerPrint fp = makeFingerPrint(AL.get(i));
             
             // Set finger prints into ArrayList
@@ -215,9 +215,9 @@ public class AudioMatching {
      */
     private static FingerPrint 
             makeFingerPrint(ComplexNumber[] c) {
-//    	System.out.println(c.length);
-//    	System.out.println(WINDOW);
-    	FingerPrint fp = new FingerPrint(c, WINDOW);
+//        System.out.println(c.length);
+//        System.out.println(WINDOW);
+        FingerPrint fp = new FingerPrint(c, WINDOW);
         
         return fp;
     }
@@ -234,9 +234,9 @@ public class AudioMatching {
         // Iterate over the ArrayList and apply FFT
         // to every ComplexNumber[]
         for (int i = 0; i < AL.size(); i++) {
-        	
-        	// Extract data from ComplexNumbers
-        	ComplexNumber[] temp = AL.get(i);
+            
+            // Extract data from ComplexNumbers
+            ComplexNumber[] temp = AL.get(i);
 
             // Apply in-place mutator FFT
             func.fft(temp);
@@ -269,7 +269,7 @@ public class AudioMatching {
 //      int rem = audio_data.length % window;
         
 //      System.out.println(audio_data.length);
-//     	System.out.println(intervals);
+//         System.out.println(intervals);
 //      System.out.println(rem);
         
         // Iterate through audio data samples
@@ -277,9 +277,9 @@ public class AudioMatching {
             // Iterate through and create temp arrays of intervals
             ComplexNumber[] temp = new ComplexNumber[WINDOW];
             for (int j = 0; j < WINDOW; j++) {
-            	// Window exceeds sample array length
+                // Window exceeds sample array length
                 if ((i * OFFSET + WINDOW) >= audio_data.length) {
-                	// Data point exceeds array length
+                    // Data point exceeds array length
                     if ((i * OFFSET + j) >= audio_data.length)
                         temp[j] = new ComplexNumber(0, 0);
                     else
