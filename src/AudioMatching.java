@@ -257,7 +257,7 @@ public class AudioMatching {
         ArrayList<ComplexNumber[]> AL = new ArrayList<ComplexNumber[]>();
         
         // Calculate number of full intervals
-        int intervals = (int) Math.ceil(audio_data.length / OFFSET);
+        int intervals = (int) Math.floor(audio_data.length / OFFSET);
         
         // Calculate remaining samples
 //      int rem = audio_data.length % window;
@@ -267,17 +267,18 @@ public class AudioMatching {
 //      System.out.println(rem);
         
         // Iterate through audio data samples
-        for (int i = 0; i <= intervals; i++) {
+        for (int i = 0; i < intervals; i++) {
             // Iterate through and create temp arrays of intervals
             ComplexNumber[] temp = new ComplexNumber[WINDOW];
             for (int j = 0; j < WINDOW; j++) {
-                if (i == intervals) {
-                	// Final window exceeds sample array length
-                    if (((i - 1) * OFFSET + j) >= audio_data.length)
+            	// Window exceeds sample array length
+                if ((i * OFFSET + WINDOW) >= audio_data.length) {
+                	// Data point exceeds array length
+                    if ((i * OFFSET + j) >= audio_data.length)
                         temp[j] = new ComplexNumber(0, 0);
                     else
                         temp[j] = 
-                        new ComplexNumber(audio_data[(i - 1) * OFFSET + j], 0);
+                        new ComplexNumber(audio_data[i * OFFSET + j], 0);
                 }
                 else
                     temp[j] = 
@@ -515,6 +516,7 @@ public class AudioMatching {
             ie.printStackTrace();
         }
     }
+
     
     /* ComplexNumber[] -> Void
      * Given: a ComplexNumber array containing the sample data 
