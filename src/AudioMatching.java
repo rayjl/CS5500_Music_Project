@@ -182,8 +182,7 @@ public class AudioMatching {
         int bin_offset2 = result[1];
         int time_offset1 = 2 * (bin_offset1 * 512) / 44100;
         int time_offset2 = 2 * (bin_offset2 * 512) / 44100;
-        
-        System.out.println(result[2]);
+
         if (result[2] >= binThreshold) {
             match = true;
             offset1 = time_offset1;
