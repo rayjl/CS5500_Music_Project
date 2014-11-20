@@ -562,7 +562,7 @@ public class AudioMatching {
         // First data sample begins at offset 44
         // Sample size is 4 bytes (16 bits)
         int dataLength = (b.length - 44) / 4;
-        
+        System.out.println(dataLength);
         int[] sample = new int[dataLength];
         
         // Counter to iterate across byte[]
