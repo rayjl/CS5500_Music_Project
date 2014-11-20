@@ -180,8 +180,8 @@ public class AudioMatching {
         // Sample rate of audio file is 44.1 khz
         int bin_offset1 = result[0];
         int bin_offset2 = result[1];
-        int time_offset1 = (bin_offset1 * 512) / 44100;
-        int time_offset2 = (bin_offset2 * 512) / 44100;
+        int time_offset1 = 2 * (bin_offset1 * 512) / 44100;
+        int time_offset2 = 2 * (bin_offset2 * 512) / 44100;
         
         System.out.println(result[2]);
         if (result[2] >= binThreshold) {
