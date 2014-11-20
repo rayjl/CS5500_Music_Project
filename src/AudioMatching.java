@@ -168,7 +168,7 @@ public class AudioMatching {
      
         // Beginning of a bin is used
         int binThreshold = (int) (5 * SAMPLERATE) / (2 * OFFSET);
-        System.out.println(binThreshold);
+
         int[] result = LCS.lcs(fingerPrint1, fingerPrint2);
 //        System.out.println(binThreshold);
 //        System.out.println(result[0]);
@@ -562,7 +562,7 @@ public class AudioMatching {
         // First data sample begins at offset 44
         // Sample size is 4 bytes (16 bits)
         int dataLength = (b.length - 44) / 4;
-        System.out.println(dataLength);
+
         int[] sample = new int[dataLength];
         
         // Counter to iterate across byte[]

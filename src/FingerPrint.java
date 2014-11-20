@@ -6,7 +6,7 @@
  */
 public class FingerPrint {
 
-    private double THRESHOLD = 3;
+    private double THRESHOLD = 2;
     private ComplexNumber[] window;
     private double value;
     
