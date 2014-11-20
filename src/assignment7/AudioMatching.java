@@ -166,7 +166,7 @@ public class AudioMatching {
             ArrayList<FingerPrint> fingerPrint1,
             ArrayList<FingerPrint> fingerPrint2) {
      
-        // Beginning of a bin is used
+        // Beginning of a bin is used (2.5 secs)
         int binThreshold = (int) (5 * SAMPLERATE) / (4 * OFFSET);
 
         int[] result = LCS.lcs(fingerPrint1, fingerPrint2);
