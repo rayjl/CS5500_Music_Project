@@ -15,8 +15,6 @@ Raymond Li - rayjl@uw.edu
 -----------------------------------------------------------
 
 CS5500 Assignment #7
-Assigned: Wednesday, 29 October 2014
-Due: Friday, 19 November 2014
 
 -----------------------------------------------------------
 
@@ -26,7 +24,7 @@ files and returns a match if the files are the same song.
 This current version will be able to compare files in the
 format / file extension of ".mp3" and ".wav". This prototype
 follows he specification provided by the instructor for
-Assignment 6 with some of its details listed below.
+Assignment 7 with some of its details listed below.
 
 Dependencies:       AudioMatching.java
                     AudioFile.java
@@ -145,8 +143,6 @@ http://www.codeproject.com/Articles/8295/MPEG-Audio-Frame-Header
 
 [19] "FFT Averages". Website:
 http://code.compartmental.net/2007/03/21/fft-averages/comment-page-1/
-
-[20] 
 
 -----------------------------------------------------------
 

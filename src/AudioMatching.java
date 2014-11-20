@@ -168,7 +168,7 @@ public class AudioMatching {
      
         // Beginning of a bin is used
         int binThreshold = (int) (5 * SAMPLERATE) / (2 * OFFSET);
-        
+        System.out.println(binThreshold);
         int[] result = LCS.lcs(fingerPrint1, fingerPrint2);
 //        System.out.println(binThreshold);
 //        System.out.println(result[0]);
@@ -183,6 +183,7 @@ public class AudioMatching {
         int time_offset1 = (bin_offset1 * 512) / 44100;
         int time_offset2 = (bin_offset2 * 512) / 44100;
         
+        System.out.println(result[2]);
         if (result[2] >= binThreshold) {
             match = true;
             offset1 = time_offset1;

@@ -297,3 +297,7 @@ Ligatures
 
 -----------------------------------------------------------
 
+36744 - machine learning 6140
+36745 - information retrieval 6200
+36749 - mapreduce 6240
+37293 - advanced software dev 6510
