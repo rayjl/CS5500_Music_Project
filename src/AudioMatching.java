@@ -38,7 +38,7 @@ public class AudioMatching {
     private static final int WINDOW = 16384; //~0.37s frames
     private static final int BITWIDTH = 16;
     private static final int CHANNELS = 1;
-    private static final int SAMPLERATE = 11025;
+    private static final int SAMPLERATE = 44100;
     private static final int OFFSET = 512;
 
     public static void main(String[] args) {    
@@ -501,7 +501,7 @@ public class AudioMatching {
         String command = "/course/cs5500f14/bin/lame";
         String op1 = "-a";
         String op2 = "--resample";
-        String arg1 = "11.025";
+        String arg1 = "44.1";
         String destPath = "/tmp/temp/" + af.getFileName() + "rs" + ".mp3";
         
         // Execute file conversion with ProcessBuilder
