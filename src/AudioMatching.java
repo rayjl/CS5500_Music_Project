@@ -397,19 +397,24 @@ public class AudioMatching {
             // Convert .ogg file to .wav for canonical form transform
             String oggToWav = oggToWavConverter(af, af.getPath());
 
+            System.out.println("ogg resampling");
             // Resample - wave to mp3
             String resampled = lameResample(af, oggToWav);
 
+            System.out.println("ogg decoding");
             // lame decode - convert mp3 to wave
             String decodedRS = lameDecode(af, resampled);
 
+            System.out.println("updating ogg");
             // Update the AudioFile object with temp file data
             updateAudioFileData(af, decodedRS);
 
+            System.out.println("removing");
             // Remove temp files created in /tmp
             removeFile(oggToWav);
             removeFile(resampled);
             removeFile(decodedRS);
+            System.out.println("removed");
         }
             
         // File formats are not of .wav, .mp3, or .ogg
