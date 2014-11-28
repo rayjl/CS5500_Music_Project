@@ -396,10 +396,10 @@ public class AudioMatching {
         else if (af.getFormat() == Format.OGG) {
             // Convert .ogg file to .wav for canonical form transform
             String oggToWav = oggToWavConverter(af, af.getPath());
-            System.out.println(oggToWav);
+
             // Resample - wave to mp3
             String resampled = lameResample(af, oggToWav);
-            System.out.println(resampled);
+
             // lame decode - convert mp3 to wave
             String decodedRS = lameDecode(af, resampled);
             
