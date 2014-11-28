@@ -402,7 +402,7 @@ public class AudioMatching {
 
             // lame decode - convert mp3 to wave
             String decodedRS = lameDecode(af, resampled);
-            
+            System.out.println(decodedRS);
             System.out.println("start update");
             // Update the AudioFile object with temp file data
             updateAudioFileData(af, decodedRS);
