@@ -1,6 +1,6 @@
 -----------------------------------------------------------
 
-Last Revised: 17 Novemeber 2014
+Last Revised: 28 Novemeber 2014
 
 -----------------------------------------------------------
 
@@ -14,7 +14,7 @@ Raymond Li - rayjl@uw.edu
 
 -----------------------------------------------------------
 
-CS5500 Assignment #7
+CS5500 Assignment #9
 
 -----------------------------------------------------------
 
@@ -28,7 +28,7 @@ Assignment 7 with some of its details listed below.
 
 Dependencies:       AudioMatching.java
                     AudioFile.java
-                    FingerPrint.java
+                    FingerPrint.java 
                     ComplexNumber.java
                     LCS.java
                     Format.java
@@ -51,7 +51,7 @@ Execution:          Prototype's build process will result in
 
                     where <pathname> is a Linux path name. If
                     a <pathname> is preceded by "-f", then the
-                    <pathname> must end in ".wav" or ".mp3".
+                    <pathname> must end in ".wav" or ".mp3" or ".ogg".
                     If a <pathname> is preceded by "-d" the <pathname>
                     represents a directory which then the software 
                     should compare every recording in the directory
@@ -143,6 +143,9 @@ http://www.codeproject.com/Articles/8295/MPEG-Audio-Frame-Header
 
 [19] "FFT Averages". Website:
 http://code.compartmental.net/2007/03/21/fft-averages/comment-page-1/
+
+[20] "The Ogg Skeleton Metadata Bitstream". Website:
+http://xiph.org/ogg/doc/skeleton.html
 
 -----------------------------------------------------------
 

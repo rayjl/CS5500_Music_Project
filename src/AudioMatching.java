@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * Canonical Form:
  * Mono 16bit 44.1 khz WAVE format
  * 
- * Last Edited: 17 November 2014
+ * Last Edited: 28 November 2014
  */
 
 public class AudioMatching {
@@ -34,11 +34,11 @@ public class AudioMatching {
     private static int offset1;
     private static int offset2;
     
-    // Global fixed variables to be used - DO NOT CHANGE
+    // Global fixed variables to be used
     private static final int WINDOW = 16384; //~0.37s frames
     private static final int BITWIDTH = 16;
     private static final int CHANNELS = 1;
-    private static final int SAMPLERATE = 44100;
+    private static final int SAMPLERATE = 11025;
     private static final int OFFSET = 512;
 
     public static void main(String[] args) {    
@@ -342,6 +342,8 @@ public class AudioMatching {
                 // Remove temp files created in /tmp
                 removeFile(resampled);
                 removeFile(decodedRS);
+                
+                return;
             }
             
             // Only Bit width is wrong
@@ -356,6 +358,8 @@ public class AudioMatching {
                 
                 // Remove temp file create in /tmp
                 removeFile(wav16);
+                
+                return;
             }
             
             // Both Bit Width and channels or sample rate is wrong
@@ -376,10 +380,13 @@ public class AudioMatching {
                 removeFile(wav16);
                 removeFile(resampled);
                 removeFile(decodedRS);
+                
+                return;
             }
 
         }
-        else {
+        
+        else if (af.getFormat() == Format.MP3) {
             // Call helper to convert mp3 file to wave format
             String destPath = lameDecode(af, af.getPath());
             
@@ -390,8 +397,35 @@ public class AudioMatching {
             removeFile(destPath);
         }
         
+        else if (af.getFormat() == Format.OGG) {
+            // Convert .ogg file to .wav for canonical form transform
+            String oggToWav = oggToWavConverter(af, af.getPath());
+            
+            // Resample - wave to mp3
+            String resampled = lameResample(af, af.getPath());
+            
+            // lame decode - convert mp3 to wave
+            String decodedRS = lameDecode(af, resampled);
+            
+            // Update the AudioFile object with temp file data
+            updateAudioFileData(af, decodedRS);
+            
+            // Remove temp files created in /tmp
+            removeFile(oggToWav);
+            removeFile(resampled);
+            removeFile(decodedRS);
+            
+            return;
+        }
+            
+        // File formats are not of .wav, .mp3, or .ogg
+        else {
+            error(2, af.getFileName());
+            return;            
+        }
+        
     }
-    
+
     /* AudioFile String -> Void
      * Given: the AudioFile to update and the String of the file path
      * Returns: Void
@@ -415,6 +449,29 @@ public class AudioMatching {
             e.printStackTrace();
         }
     }
+    
+    /* AudioFile String -> String
+     * Given: the object and source path of a ogg file to be converted
+     * to wave format with 16bit encoding
+     * Returns: the destination path of the temp file created
+     * Notes: ogg convert - wave output 
+     */
+    private static String oggToWavConverter(AudioFile af, String sourcePath) {
+    	String command = "/usr/bin/oggdec";
+    	String op1 = "-b";
+    	String arg1 = "16";
+    	String op2 = "-o";
+    	String destPath = "/tmp/temp" + af.getFileName() + "ogg" + ".ogg";
+    	
+    	// Execute file conversion with ProcessBuilder
+    	ProcessBuilder pb = new ProcessBuilder(command, op1, arg1,
+    			op2, sourcePath, destPath);
+    	executeProcess(pb);
+    	
+    	// Return the file path of the temp wave file created
+    	return destPath;
+    }
+    
     
     /* AudioFile String -> String
      * Given: the object and the source path of a wave file 
@@ -448,7 +505,7 @@ public class AudioMatching {
         String command = "/course/cs5500f14/bin/lame";
         String op1 = "-a";
         String op2 = "--resample";
-        String arg1 = "44.1";
+        String arg1 = "11.025";
         String destPath = "/tmp/temp" + af.getFileName() + "rs" + ".mp3";
         
         // Execute file conversion with ProcessBuilder
@@ -736,15 +793,16 @@ public class AudioMatching {
     }
     
     /* AudioFile -> Void
-     * Given: the AudioFile object with a file extension of ".gg"
+     * Given: the AudioFile object with a file extension of ".ogg"
      * Returns: Void
      * Notes: Helper function for setAudioFileParams
-     * 
-     * TODO - 
-     * 
+     * .ogg file version requited to be 1.4.0
      */
     private static void setOGGFileParams(AudioFile af) {
+        // Grab the byte array from the object
+        byte[] data = af.getData();
         
+        //
     }
 
     /* String -> String
