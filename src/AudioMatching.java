@@ -402,13 +402,11 @@ public class AudioMatching {
         else if (af.getFormat() == Format.OGG) {
             // Convert .ogg file to .wav for canonical form transform
             String oggToWav = oggToWavConverter(af, af.getPath());
-            System.out.println(oggToWav);
+
             // Resample - wave to mp3
-            System.out.println("resampling");
             String resampled = lameResample(af, oggToWav);
             
             // lame decode - convert mp3 to wave
-            System.out.println("decoding");
             String decodedRS = lameDecode(af, resampled);
             
             // Update the AudioFile object with temp file data
@@ -465,7 +463,7 @@ public class AudioMatching {
         String op1 = "-b";
         String arg1 = "16";
         String op2 = "-o";
-        String destPath = "/tmp/temp/" + af.getFileName() + "ogg" + ".ogg";
+        String destPath = "/tmp/temp/" + af.getFileName() + ".wav";
         
         // Execute file conversion with ProcessBuilder
         ProcessBuilder pb = new ProcessBuilder(command, op1, arg1,
