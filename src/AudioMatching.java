@@ -719,8 +719,10 @@ public class AudioMatching {
             setMP3FileParams(af);
         else if (fileExtension.equals(".ogg"))
             setOGGFileParams(af);
-        else
+        else {
+        	System.out.println("test");
             error(1, fileExtension);
+        }
     }
     
     /* AudioFile -> Void
@@ -802,7 +804,8 @@ public class AudioMatching {
         // Grab the byte array from the object
         byte[] data = af.getData();
         
-        //
+        // file version - byte 4 size 1
+        System.out.println(data[4]);
     }
 
     /* String -> String
