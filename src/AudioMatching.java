@@ -395,12 +395,14 @@ public class AudioMatching {
             
             // Remove temp file created in /tmp    
             removeFile(destPath);
+            
+            return;
         }
         
         else if (af.getFormat() == Format.OGG) {
             // Convert .ogg file to .wav for canonical form transform
             String oggToWav = oggToWavConverter(af, af.getPath());
-            
+            System.out.println(oggToWav);
             // Resample - wave to mp3
             System.out.println("resampling");
             String resampled = lameResample(af, oggToWav);
