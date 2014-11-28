@@ -406,6 +406,7 @@ public class AudioMatching {
             String decodedRS = lameDecode(af, resampled);
 
             System.out.println("updating ogg");
+            System.out.println(decodedRS);
             // Update the AudioFile object with temp file data
             updateAudioFileData(af, decodedRS);
 
