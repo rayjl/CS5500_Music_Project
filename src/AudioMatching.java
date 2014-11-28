@@ -410,6 +410,7 @@ public class AudioMatching {
             removeFile(oggToWav);
             removeFile(resampled);
             removeFile(decodedRS);
+            System.out.println("removed");
         }
             
         // File formats are not of .wav, .mp3, or .ogg
