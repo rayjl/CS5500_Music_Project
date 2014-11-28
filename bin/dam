@@ -3,10 +3,6 @@
 # Script used to execute AudioMatching.java application
 # Arguments passed in command line will be passed into application
 
-# Assignment 6 Revision
-# Written By: Raymond Li
-# Last Revised: 29 October 2014
-
 # ---------------------------------------------------------
 
 # Compile the java Application
