@@ -457,19 +457,19 @@ public class AudioMatching {
      * Notes: ogg convert - wave output 
      */
     private static String oggToWavConverter(AudioFile af, String sourcePath) {
-    	String command = "/usr/bin/oggdec";
-    	String op1 = "-b";
-    	String arg1 = "16";
-    	String op2 = "-o";
-    	String destPath = "/tmp/temp" + af.getFileName() + "ogg" + ".ogg";
-    	
-    	// Execute file conversion with ProcessBuilder
-    	ProcessBuilder pb = new ProcessBuilder(command, op1, arg1,
-    			op2, sourcePath, destPath);
-    	executeProcess(pb);
-    	
-    	// Return the file path of the temp wave file created
-    	return destPath;
+        String command = "/usr/bin/oggdec";
+        String op1 = "-b";
+        String arg1 = "16";
+        String op2 = "-o";
+        String destPath = "/tmp/temp" + af.getFileName() + "ogg" + ".ogg";
+        
+        // Execute file conversion with ProcessBuilder
+        ProcessBuilder pb = new ProcessBuilder(command, op1, arg1,
+                op2, sourcePath, destPath);
+        executeProcess(pb);
+        
+        // Return the file path of the temp wave file created
+        return destPath;
     }
     
     
@@ -719,10 +719,9 @@ public class AudioMatching {
             setMP3FileParams(af);
         else if (fileExtension.equals(".ogg"))
             setOGGFileParams(af);
-        else {
-        	System.out.println("test");
+        else
             error(1, fileExtension);
-        }
+
     }
     
     /* AudioFile -> Void
@@ -799,13 +798,21 @@ public class AudioMatching {
      * Returns: Void
      * Notes: Helper function for setAudioFileParams
      * .ogg file version requited to be 1.4.0
+     * 
+     * TODO - need to validate .ogg file extension
      */
     private static void setOGGFileParams(AudioFile af) {
         // Grab the byte array from the object
         byte[] data = af.getData();
+
+        // Identifier validation
+        // TODO -
         
-        // file version - byte 4 size 1
-        System.out.println(data[4]);
+        // Version validation
+        // TODO -
+        
+        
+        af.setFormat("OGG");
     }
 
     /* String -> String
@@ -870,13 +877,9 @@ public class AudioMatching {
     /* AudioFile -> boolean
      * Given: an AudioFile to check if its in OGG format
      * Returns: true if it is, false otherwise 
-     * 
-     * TODO - 
-     * This is for later use for OGG file formats.
      */
     private static boolean oggFormatCheck(AudioFile af) {
-        
-        return false;
+        return (af.getFormat() == Format.OGG);
     }
     
     /* File -> byte[]
