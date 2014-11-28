@@ -358,8 +358,6 @@ public class AudioMatching {
                 
                 // Remove temp file create in /tmp
                 removeFile(wav16);
-                
-                return;
             }
             
             // Both Bit Width and channels or sample rate is wrong
@@ -380,8 +378,6 @@ public class AudioMatching {
                 removeFile(wav16);
                 removeFile(resampled);
                 removeFile(decodedRS);
-                
-                return;
             }
 
         }
@@ -395,8 +391,6 @@ public class AudioMatching {
             
             // Remove temp file created in /tmp    
             removeFile(destPath);
-            
-            return;
         }
         
         else if (af.getFormat() == Format.OGG) {
@@ -404,26 +398,23 @@ public class AudioMatching {
             String oggToWav = oggToWavConverter(af, af.getPath());
             System.out.println(oggToWav);
             // Resample - wave to mp3
-            String resampledOgg = lameResample(af, oggToWav);
-            System.out.println(resampledOgg);
+            String resampled = lameResample(af, oggToWav);
+            System.out.println(resampled);
             // lame decode - convert mp3 to wave
-            String decodedRSOgg = lameDecode(af, resampledOgg);
+            String decodedRS = lameDecode(af, resampled);
             
             // Update the AudioFile object with temp file data
-            updateAudioFileData(af, decodedRSOgg);
+            updateAudioFileData(af, decodedRS);
             
             // Remove temp files created in /tmp
             removeFile(oggToWav);
-            removeFile(resampledOgg);
-            removeFile(decodedRSOgg);
-            
-            return;
+            removeFile(resampled);
+            removeFile(decodedRS);
         }
             
         // File formats are not of .wav, .mp3, or .ogg
         else {
-            error(2, af.getFileName());
-            return;            
+            error(2, af.getFileName());           
         }
         
     }
