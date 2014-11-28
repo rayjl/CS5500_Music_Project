@@ -403,9 +403,11 @@ public class AudioMatching {
             // lame decode - convert mp3 to wave
             String decodedRS = lameDecode(af, resampled);
             
+            System.out.println("start update");
             // Update the AudioFile object with temp file data
             updateAudioFileData(af, decodedRS);
             
+            System.out.println("start remove");
             // Remove temp files created in /tmp
             removeFile(oggToWav);
             removeFile(resampled);
