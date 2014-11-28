@@ -402,9 +402,11 @@ public class AudioMatching {
             String oggToWav = oggToWavConverter(af, af.getPath());
             
             // Resample - wave to mp3
+            System.out.println("resampling");
             String resampled = lameResample(af, oggToWav);
             
             // lame decode - convert mp3 to wave
+            System.out.println("decoding");
             String decodedRS = lameDecode(af, resampled);
             
             // Update the AudioFile object with temp file data
