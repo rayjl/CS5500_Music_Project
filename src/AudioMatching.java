@@ -811,8 +811,10 @@ public class AudioMatching {
         // Version validation
         // TODO -
         
-        
-        af.setFormat("OGG");
+        // If .ogg extension valid, set format type
+        // TODO - fix this if statement to validate
+        if (true)
+        	af.setFormat("OGG");
     }
 
     /* String -> String
