@@ -404,18 +404,18 @@ public class AudioMatching {
             String oggToWav = oggToWavConverter(af, af.getPath());
             System.out.println(oggToWav);
             // Resample - wave to mp3
-            String resampled = lameResample(af, oggToWav);
-            System.out.println(resampled);
+            String resampledOgg = lameResample(af, oggToWav);
+            System.out.println(resampledOgg);
             // lame decode - convert mp3 to wave
-            String decodedRS = lameDecode(af, resampled);
+            String decodedRSOgg = lameDecode(af, resampledOgg);
             
             // Update the AudioFile object with temp file data
-            updateAudioFileData(af, decodedRS);
+            updateAudioFileData(af, decodedRSOgg);
             
             // Remove temp files created in /tmp
             removeFile(oggToWav);
-            removeFile(resampled);
-            removeFile(decodedRS);
+            removeFile(resampledOgg);
+            removeFile(decodedRSOgg);
             
             return;
         }
