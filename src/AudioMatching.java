@@ -402,17 +402,14 @@ public class AudioMatching {
 
             // lame decode - convert mp3 to wave
             String decodedRS = lameDecode(af, resampled);
-            System.out.println(decodedRS);
-            System.out.println("start update");
+
             // Update the AudioFile object with temp file data
             updateAudioFileData(af, decodedRS);
-            
-            System.out.println("start remove");
+
             // Remove temp files created in /tmp
             removeFile(oggToWav);
             removeFile(resampled);
             removeFile(decodedRS);
-            System.out.println("removed");
         }
             
         // File formats are not of .wav, .mp3, or .ogg
@@ -457,7 +454,7 @@ public class AudioMatching {
         String op1 = "-b";
         String arg1 = "16";
         String op2 = "-o";
-        String destPath = "/tmp/temp/" + af.getFileName() + ".wav";
+        String destPath = "/tmp/temp" + af.getFileName() + ".wav";
         
         // Execute file conversion with ProcessBuilder
         ProcessBuilder pb = new ProcessBuilder(command, op1, arg1,
@@ -479,7 +476,7 @@ public class AudioMatching {
         String command = "/course/cs5500f14/bin/wav";
         String op1 = "-bitwidth";
         String arg1 = "16";
-        String destPath = "/tmp/temp/" + af.getFileName() + "16" + ".wav";
+        String destPath = "/tmp/temp" + af.getFileName() + "16" + ".wav";
         
         // Execute file conversion with ProcessBuilder
         ProcessBuilder pb = new ProcessBuilder(command, op1, arg1, 
@@ -502,7 +499,7 @@ public class AudioMatching {
         String op1 = "-a";
         String op2 = "--resample";
         String arg1 = "44.1";
-        String destPath = "/tmp/temp/" + af.getFileName() + "rs" + ".mp3";
+        String destPath = "/tmp/temp" + af.getFileName() + "rs" + ".mp3";
         
         // Execute file conversion with ProcessBuilder
         ProcessBuilder pb = new ProcessBuilder(command, op1, op2, arg1, 
@@ -523,7 +520,7 @@ public class AudioMatching {
         // Command to execute LAME application in CCIS box
         String command = "/course/cs5500f14/bin/lame";
         String op = "--decode";
-        String destPath = "/tmp/temp/" + af.getFileName() + "d" + ".wav";
+        String destPath = "/tmp/temp" + af.getFileName() + "d" + ".wav";
         
         // Execute file conversion with ProcessBuilder
         ProcessBuilder pb = new ProcessBuilder(command, op, 
