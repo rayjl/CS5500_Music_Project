@@ -397,25 +397,19 @@ public class AudioMatching {
             // Convert .ogg file to .wav for canonical form transform
             String oggToWav = oggToWavConverter(af, af.getPath());
 
-            System.out.println("ogg resampling");
             // Resample - wave to mp3
             String resampled = lameResample(af, oggToWav);
 
-            System.out.println("ogg decoding");
             // lame decode - convert mp3 to wave
             String decodedRS = lameDecode(af, resampled);
 
-            System.out.println("updating ogg");
-            System.out.println(decodedRS);
             // Update the AudioFile object with temp file data
             updateAudioFileData(af, decodedRS);
 
-            System.out.println("removing");
             // Remove temp files created in /tmp
             removeFile(oggToWav);
             removeFile(resampled);
             removeFile(decodedRS);
-            System.out.println("removed");
         }
             
         // File formats are not of .wav, .mp3, or .ogg
@@ -457,14 +451,13 @@ public class AudioMatching {
      */
     private static String oggToWavConverter(AudioFile af, String sourcePath) {
         String command = "/usr/bin/oggdec";
-        String op1 = "-b";
-        String arg1 = "16";
+        String op1 = "-b 16";
         String op2 = "-o";
         String destPath = "/tmp/temp" + af.getFileName() + ".wav";
         
         // Execute file conversion with ProcessBuilder
-        ProcessBuilder pb = new ProcessBuilder(command, op1, arg1,
-                op2, sourcePath, destPath);
+        ProcessBuilder pb = new ProcessBuilder(command, sourcePath, op1,
+                op2, destPath);
         executeProcess(pb);
         
         // Return the file path of the temp wave file created
