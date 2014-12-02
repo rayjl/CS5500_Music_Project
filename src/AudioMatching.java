@@ -813,8 +813,12 @@ public class AudioMatching {
                 && (char)data[34] == 's')
         	
         	af.setFormat("OGG");
-            
-
+                
+        System.out.println((char)data[0]);
+        System.out.println((char)data[1]);
+        System.out.println((char)data[2]);
+        System.out.println((char)data[3]);
+        
         System.out.println((char)data[29]);
         System.out.println((char)data[30]);
         System.out.println((char)data[31]);
@@ -822,6 +826,8 @@ public class AudioMatching {
         System.out.println((char)data[33]);
         System.out.println((char)data[34]);
         
+        
+
     }
 
     /* String -> String
