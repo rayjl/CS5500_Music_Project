@@ -798,29 +798,30 @@ public class AudioMatching {
         byte[] data = af.getData();
 
         // Identifier validation
-        // RIFF scan - offset 0 size 4
-        System.out.println((char)data[0]);
-        System.out.println((char)data[1]);
-        System.out.println((char)data[2]);
-        System.out.println((char)data[3]);
-        
-        System.out.println((char)data[27]);
-        System.out.println((char)data[28]);
+        // Oggs Check - offset 0 - size 4
+        if ((char)data[0] == 'O' 
+                && (char)data[1] == 'g'
+                && (char)data[2] == 'g' 
+                && (char)data[3] == 's'
+
+                // vorbis check - offset 29 - size 6
+                && (char)data[29] == 'v'
+                && (char)data[30] == 'o' 
+                && (char)data[31] == 'r'
+                && (char)data[32] == 'b'
+                && (char)data[33] == 'i' 
+                && (char)data[34] == 's')
+        	
+        	af.setFormat("OGG");
+            
+
         System.out.println((char)data[29]);
         System.out.println((char)data[30]);
         System.out.println((char)data[31]);
         System.out.println((char)data[32]);
         System.out.println((char)data[33]);
+        System.out.println((char)data[34]);
         
-        
-
-        // Version validation
-        // TODO -
-        
-        // If .ogg extension valid, set format type
-        // TODO - fix this if statement to validate
-        if (true)
-        	af.setFormat("OGG");
     }
 
     /* String -> String
