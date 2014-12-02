@@ -799,18 +799,18 @@ public class AudioMatching {
 
         // Identifier validation
         // RIFF scan - offset 0 size 4
-        System.out.println(data[0]);
-        System.out.println(data[1]);
-        System.out.println(data[2]);
-        System.out.println(data[3]);
+        System.out.println((char)data[0]);
+        System.out.println((char)data[1]);
+        System.out.println((char)data[2]);
+        System.out.println((char)data[3]);
         
-        System.out.println(data[27]);
-        System.out.println(data[28]);
-        System.out.println(data[29]);
-        System.out.println(data[30]);
-        System.out.println(data[31]);
-        System.out.println(data[32]);
-        System.out.println(data[33]);
+        System.out.println((char)data[27]);
+        System.out.println((char)data[28]);
+        System.out.println((char)data[29]);
+        System.out.println((char)data[30]);
+        System.out.println((char)data[31]);
+        System.out.println((char)data[32]);
+        System.out.println((char)data[33]);
         
         
 
