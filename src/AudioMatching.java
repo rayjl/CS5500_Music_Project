@@ -802,7 +802,7 @@ public class AudioMatching {
         if ((char)data[0] == 'O' 
                 && (char)data[1] == 'g'
                 && (char)data[2] == 'g' 
-                && (char)data[3] == 's'
+                && (char)data[3] == 'S'
 
                 // vorbis check - offset 29 - size 6
                 && (char)data[29] == 'v'
