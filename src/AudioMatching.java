@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * Canonical Form:
  * Mono 16bit 44.1 khz WAVE format
  * 
- * Last Edited: 28 November 2014
+ * Last Edited: 1 December 2014
  */
 
 public class AudioMatching {
@@ -789,9 +789,6 @@ public class AudioMatching {
      * Given: the AudioFile object with a file extension of ".ogg"
      * Returns: Void
      * Notes: Helper function for setAudioFileParams
-     * .ogg file version requited to be 1.4.0
-     * 
-     * TODO - need to validate .ogg file extension
      */
     private static void setOGGFileParams(AudioFile af) {
         // Grab the byte array from the object
@@ -813,20 +810,6 @@ public class AudioMatching {
                 && (char)data[34] == 's')
         	
         	af.setFormat("OGG");
-                
-        System.out.println((char)data[0]);
-        System.out.println((char)data[1]);
-        System.out.println((char)data[2]);
-        System.out.println((char)data[3]);
-        
-        System.out.println((char)data[29]);
-        System.out.println((char)data[30]);
-        System.out.println((char)data[31]);
-        System.out.println((char)data[32]);
-        System.out.println((char)data[33]);
-        System.out.println((char)data[34]);
-        
-        
 
     }
 
@@ -880,10 +863,6 @@ public class AudioMatching {
     /* AudioFile -> boolean
      * Given: an AudioFile to check if its in MP3 format
      * Returns: true if it is, false otherwise 
-     * 
-     * TODO - 
-     * This and setMP3FileParams is redundant in a way.
-     * Refactor this section in the future
      */
     private static boolean mp3FormatCheck(AudioFile af) {
         return (af.getFormat() == Format.MP3);
