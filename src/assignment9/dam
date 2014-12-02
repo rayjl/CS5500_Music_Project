@@ -1,0 +1,151 @@
+#!/bin/sh
+
+# Script used to execute AudioMatching.java application
+# Arguments passed in command line will be passed into application
+
+# ---------------------------------------------------------
+
+# Compile the java Application
+javac AudioMatching.java
+
+# ---------------------------------------------------------
+
+# Declare function to execute
+# Arguments must be passed in when called
+run() {
+    # Check if 4 arguments
+    if [ "$#" = 4 ]
+        then 
+        # Both paths are files
+        if [ "$1" = "-f" -a "$3" = "-f" ]
+            then
+            # Pass paths to validateFilePaths
+            validateFilePaths "$2" "$4"
+
+        # The first path is a directory
+        # The second path is a file
+        elif [ "$1" = "-d" -a "$3" = "-f" ]
+            then
+            # Pass to validateDirectoryPath
+            validateDirectoryPath "$2" "4"
+
+        # The first path is a file
+        # The second path is a directory
+        elif [ "$1" = "-f" -a "$3" = "-d" ]
+            then
+            # Pass to validateDirectoryPath
+            validateDirectoryPath "$4" "$2"
+
+        # The first path is a directory
+        # The second path is a directory
+        elif [ "$1" = "-d" -a "$3" = "-d" ]
+            then
+            validateDirectoryPathsLoop "$2" "$4"
+
+        # Incorrect path designation
+        # Return command line error
+        else
+            # Write to stderr if incorrect command line
+            error "2"
+            exit 1
+
+        fi
+    else
+    	# Write to stderr if incorrect command line
+        error "2"
+        exit 1
+    fi
+}
+
+# Both paths are directories
+# Function checks validity of contents in both directories
+# Calls validateDirectoryPath
+# Paths passed into this function:
+#   Arg $1 == directory, Arg $2 == directory
+validateDirectoryPathsLoop() {
+    DIRECTORY1=$1
+    DIRECTORY2=$2
+
+    # Validate paths as directories
+    if [ -d $DIRECTORY1 -a -d $DIRECTORY2 ];
+        then
+        # Loop through second directory and call 
+        # validateDirectoryPath as a helper function
+        for FILEPATH in $DIRECTORY2/*;
+        do
+            validateDirectoryPath $DIRECTORY1 $FILEPATH
+        done
+    # Arguments are invalid ; not a directory path
+    else
+        error "1" "validateDirectoryPathsLoop"
+        exit 1
+    fi
+}
+
+# One path is a directory
+# Function checks validity of contents in directory
+# Calls validateFilePaths to validate and execute content
+# Paths passed into this function:
+#   Arg $1 == directory, Arg $2 == file
+validateDirectoryPath() {
+    DIRECTORY=$1
+    FILE=$2
+    # Validate Directory and File path
+    if [ -d $DIRECTORY -a -f $FILE ];
+        then
+        # Loop through Directory and call validateFilePaths
+        # Each 'path' should be a file
+        for FILEPATH in $DIRECTORY/*;
+        do
+            validateFilePaths $FILEPATH $FILE
+        done
+    # Arguments are invalid ; not a directory and file
+    else
+        error "1" "validateDirectoryPath"
+        exit 1
+    fi
+}
+
+# Both paths are marked as files
+# Function checks validity of file paths
+validateFilePaths() {
+    FILE1=$1
+    FILE2=$2
+    # Validate the paths
+    if [ -f $FILE1 -a -f $FILE2 ];
+        then
+
+        # Pass file paths as arguments to Java Application
+        java AudioMatching $FILE1 $FILE2
+
+        # Check the exit status of the last process
+        # Terminate dam script if non-zero
+        OUT=$?
+        if [ $OUT -ne 0 ];
+            then
+            exit 1
+        fi
+
+    else
+        # Write to stderr if non files
+        error "1" "validateFilePaths"
+        exit 1
+    fi    
+}
+
+# Error function
+# Argument passed in is "1" or "2" to indicate error thrown
+error() {
+    case "$1" in
+        '1') echo 'ERROR : Path not valid. '$2 >&2
+        ;;
+        '2') echo 'ERROR : Incorrect command line.' >&2
+        ;;
+    esac
+}
+
+# ---------------------------------------------------------
+
+# Call main function and pass in command line args to execute
+run $1 $2 $3 $4
+exit 0
