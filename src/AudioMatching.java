@@ -808,8 +808,8 @@ public class AudioMatching {
                 && (char)data[32] == 'b'
                 && (char)data[33] == 'i' 
                 && (char)data[34] == 's')
-        	
-        	af.setFormat("OGG");
+            
+            af.setFormat("OGG");
 
     }
 
